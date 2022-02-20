@@ -8,16 +8,16 @@ export default class Create extends Component {
     super(props);
  
     this.onChangePersonName = this.onChangePersonName.bind(this);
-    this.onChangePersonPosition = this.onChangePersonPosition.bind(this);
+    this.onChangePersonUsername = this.onChangePersonUsername.bind(this);
     this.onChangePersonLevel = this.onChangePersonLevel.bind(this);
-    this.onChangePersonAge = this.onChangePersonAge.bind(this);
+    this.onChangePersonPhone = this.onChangePersonPhone.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
  
     this.state = {
       person_name: "",
-      person_position: "",
+      person_username: "",
       person_level: "",
-      person_age: null,
+      person_phone: null,
     };
   }
  
@@ -28,9 +28,9 @@ export default class Create extends Component {
     });
   }
  
-  onChangePersonPosition(e) {
+  onChangePersonUsername(e) {
     this.setState({
-      person_position: e.target.value,
+      person_username: e.target.value,
     });
   }
  
@@ -40,9 +40,9 @@ export default class Create extends Component {
     });
   }
 
-  onChangePersonAge(e){
+  onChangePersonPhone(e){
     this.setState({
-      person_age: e.target.value,
+      person_phone: e.target.value,
     });
   }
  
@@ -53,9 +53,9 @@ export default class Create extends Component {
     // When post request is sent to the create url, axios will add a new record(newperson) to the database.
     const newperson = {
       person_name: this.state.person_name,
-      person_position: this.state.person_position,
+      person_username: this.state.person_username,
       person_level: this.state.person_level,
-      person_age: this.state.person_age,
+      person_phone: this.state.person_phone,
     };
  
     axios
@@ -65,9 +65,9 @@ export default class Create extends Component {
     // We will empty the state after posting the data to the database
     this.setState({
       person_name: "",
-      person_position: "",
+      person_username: "",
       person_level: "",
-      person_age: "",
+      person_phone: "",
     });
   }
  
@@ -87,21 +87,21 @@ export default class Create extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Person's position: </label>
+            <label>Person's username: </label>
             <input
               type="text"
               className="form-control"
-              value={this.state.person_position}
-              onChange={this.onChangePersonPosition}
+              value={this.state.person_username}
+              onChange={this.onChangePersonUsername}
             />
           </div>
           <div className="form-group">
-            <label>Person's age: </label>
+            <label>Person's phone number: </label>
             <input
-              type="text"
+              type="number"
               className="form-control"
-              value={this.state.person_age}
-              onChange={this.onChangePersonAge}
+              value={this.state.person_phone}
+              onChange={this.onChangePersonPhone}
             />
           </div>
           <div className="form-group">
