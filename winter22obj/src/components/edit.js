@@ -9,16 +9,16 @@ class Edit extends Component {
     super(props);
  
     this.onChangePersonName = this.onChangePersonName.bind(this);
-    this.onChangePersonPosition = this.onChangePersonPosition.bind(this);
+    this.onChangePersonUsername = this.onChangePersonUsername.bind(this);
     this.onChangePersonLevel = this.onChangePersonLevel.bind(this);
-    this.onChangePersonAge = this.onChangePersonAge.bind(this);
+    this.onChangePersonPhone = this.onChangePersonPhone.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
  
     this.state = {
       person_name: "",
-      person_position: "",
+      person_username: "",
       person_level: "",
-      person_age: "",
+      person_phone: "",
       records: [],
     };
   }
@@ -29,9 +29,9 @@ class Edit extends Component {
       .then((response) => {
         this.setState({
           person_name: response.data.person_name,
-          person_position: response.data.person_position,
+          person_username: response.data.person_username,
           person_level: response.data.person_level,
-          person_age: response.data.person_age,
+          person_phone: response.data.person_phone,
         });
       })
       .catch(function (error) {
@@ -46,9 +46,9 @@ class Edit extends Component {
     });
   }
  
-  onChangePersonPosition(e) {
+  onChangePersonUsername(e) {
     this.setState({
-      person_position: e.target.value,
+      person_username: e.target.value,
     });
   }
  
@@ -58,9 +58,9 @@ class Edit extends Component {
     });
   }
 
-  onChangePersonAge(e) {
+  onChangePersonPhone(e) {
     this.setState({
-      person_age: e.target.value,
+      person_phone: e.target.value,
     });
   }
  
@@ -69,9 +69,9 @@ class Edit extends Component {
     e.preventDefault();
     const newEditedperson = {
       person_name: this.state.person_name,
-      person_position: this.state.person_position,
+      person_username: this.state.person_username,
       person_level: this.state.person_level,
-      person_age: this.state.person_age,
+      person_phone: this.state.person_phone,
     };
     console.log(newEditedperson);
  
@@ -102,21 +102,21 @@ class Edit extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Position: </label>
+            <label>Username: </label>
             <input
               type="text"
               className="form-control"
-              value={this.state.person_position}
-              onChange={this.onChangePersonPosition}
+              value={this.state.person_username}
+              onChange={this.onChangePersonUsername}
             />
           </div>
           <div className="form-group">
-            <label>Age: </label>
+            <label>Phone number: </label>
             <input
-              type="text"
+              type="number"
               className="form-control"
-              value={this.state.person_age}
-              onChange={this.onChangePersonAge}
+              value={this.state.person_phone}
+              onChange={this.onChangePersonPhone}
             />
           </div>
           <div className="form-group">
