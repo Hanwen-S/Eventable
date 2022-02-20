@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 const Record = (props) => (
   <tr>
     <td>{props.record.person_name}</td>
-    <td>{props.record.person_position}</td>
+    <td>{props.record.person_username}</td>
     <td>{props.record.person_level}</td>
-    <td>{props.record.person_age}</td>
+    <td>{props.record.person_phone}</td>
     <td>
       <Link to={"/edit/" + props.record._id}>Edit</Link> |
       <a
@@ -76,9 +76,9 @@ export default class RecordList extends Component {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Position</th>
+              <th>Username</th>
               <th>Level</th>
-              <th>age</th>
+              <th>Phone number</th>
               <th>Action</th>
             </tr>
           </thead>
