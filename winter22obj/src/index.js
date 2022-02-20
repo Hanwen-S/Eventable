@@ -11,6 +11,10 @@ import SignUp from "./components/signUp";
 import { Route } from "react-router-dom";
 import ResponsiveDrawer from "./components/home";
 import Checkout from './components/Checkout';
+import BigCard from './components/eventCard';
+import { account } from './components/account';
+import SlotCard from './components/card2';
+import SlotsHome from './components/slotshome';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -18,6 +22,10 @@ ReactDOM.render(
     <Route exact path='/' component={SignIn}></Route>
     <Route exact path='/home' component={ResponsiveDrawer}></Route>
     <Route exact path='/EventCard' component={Checkout}></Route>
+    <Route exact path='/bigCard' component={BigCard}></Route>
+    <Route exact path='/account' component={account}></Route>
+    <Route exact path='/slots' component={SlotCard}></Route>
+    <Route exact path='/slothome' component={SlotsHome}></Route>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
