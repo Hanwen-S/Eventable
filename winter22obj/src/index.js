@@ -15,6 +15,8 @@ import BigCard from './components/eventCard';
 import { account } from './components/account';
 import SlotCard from './components/card2';
 import SlotsHome from './components/slotshome';
+import FullEvent from './components/FullEventForm';
+import EvenCard from './components/FullEventCard';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -26,6 +28,7 @@ ReactDOM.render(
     <Route exact path='/account' component={account}></Route>
     <Route exact path='/slots' component={SlotCard}></Route>
     <Route exact path='/slothome' component={SlotsHome}></Route>
+    <Route exact path='/test1' component={EvenCard}></Route>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

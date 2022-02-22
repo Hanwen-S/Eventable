@@ -16,7 +16,6 @@ const drawerWidth = 240;
 function SlotsHome(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };

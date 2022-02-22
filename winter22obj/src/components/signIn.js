@@ -12,7 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -30,13 +31,40 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  let history = useHistory();
+
+  const redirect = () => {
+    history.push('/home');
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const myobj = {
+      person_email: data.get('person_email'),
+      person_password: data.get('person_password'),
+    }
+    axios
+      .get("http://localhost:5000/record/get", {
+        headers:{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        params: myobj
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.length == 0){
+          alert('Not right !');
+        }
+        else{
+          redirect();
+        }
+            
+      });
     // eslint-disable-next-line no-console
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: data.get('person_email'),
+      password: data.get('person_password'),
     });
   };
 
@@ -65,7 +93,7 @@ export default function SignIn() {
               fullWidth
               id="email"
               label="Email Address"
-              name="email"
+              name="person_email"
               autoComplete="email"
               autoFocus
             />
@@ -73,7 +101,7 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              name="password"
+              name="person_password"
               label="Password"
               type="password"
               id="password"
