@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useHistory } from 'react-router-dom';
 import Link from '@mui/material/Link';
-const pages = [['Home', '/'], ['Search', '/'], ['Timeslots', '/signup']];
+const pages = [['Home', '/'], ['Search', '/'], ['Timeslots', '/slothome']];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 

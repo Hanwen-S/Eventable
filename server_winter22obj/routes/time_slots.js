@@ -40,10 +40,11 @@ timeSlotsRoutes.route("/time_slots/:id").get(function (req, res) {
 timeSlotsRoutes.route("/time_slots/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
-    day_time: req.body.day_time,
-    start_time: req.body.start_time,
-    end_time: req.body.end_time,
-    coefficient: req.body.coefficient,
+    day_time: req.query.day_time,
+    start_time: req.query.start_time,
+    end_time: req.query.end_time,
+    coefficient: req.query.coefficient,
+    user_id: req.query.user_id
   };
   db_connect.collection("time_slots").insertOne(myobj, function (err, res) {
     if (err) throw err;

@@ -33,8 +33,13 @@ const theme = createTheme();
 export default function SignIn() {
   let history = useHistory();
 
-  const redirect = () => {
-    history.push('/home');
+  const redirect = (user_id) => {
+    history.push({
+      pathname : '/home',
+          state :{
+          user_id : user_id,
+          }
+    });
   }
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,11 +58,11 @@ export default function SignIn() {
       })
       .then((res) => {
         console.log(res.data);
-        if (res.data.length == 0){
+        if (res.data.length === 0){
           alert('Not right !');
         }
         else{
-          redirect();
+          redirect(res.data[0]._id);
         }
             
       });
