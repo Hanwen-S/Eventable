@@ -10,6 +10,8 @@ import SelectVariants from './selector';
 export default function AddressForm() {
     const name = "Status";
     const data = ["Comming", "Doing", "Fulfilled"];
+    const name2 = "Hour_Min_Fre";
+    const data2 = ["2022-1-2", "Doing", "Fulfilled"];
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -25,7 +27,7 @@ export default function AddressForm() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <SelectVariants name = {name} data = {data}/>
+          <SelectVariants name = {name} data = {data} ml = {8} minWidth = {120}/>
         </Grid>
         <Grid item xs={12} sm = {4} >
           <TextField
@@ -103,15 +105,7 @@ export default function AddressForm() {
           </Typography>
         </Grid>
         <Grid item xs={12} sm = {8}>
-        <TextField
-            required
-            id="Hour_Min_Freq"
-            name="Hour_Min_Freq"
-            label="Hour_Min_Freq"
-            fullWidth
-            autoComplete="shipping address-line1"
-            variant="standard"
-          />
+        <SelectVariants name = {name2} data = {data2} ml = {0} minWidth = {240}/>
         </Grid>
         <Grid item xs={12}>
           <TextField
