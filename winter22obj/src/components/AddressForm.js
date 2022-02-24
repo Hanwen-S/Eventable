@@ -8,6 +8,8 @@ import SelectVariants from './selector';
 
 
 export default function AddressForm() {
+    const name = "Status";
+    const data = ["Comming", "Doing", "Fulfilled"];
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -23,7 +25,7 @@ export default function AddressForm() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <SelectVariants />
+          <SelectVariants name = {name} data = {data}/>
         </Grid>
         <Grid item xs={12} sm = {4} >
           <TextField
