@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 // import {useHistory } from 'react-router-dom';
-import { useNavigate as useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -32,15 +32,17 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  let history = useHistory();
+  const navigate = useNavigate();
 
   const redirect = (user_id) => {
-    history.push({
-      pathname : '/home',
+    navigate(
+       '/home',
+        {
           state :{
           user_id : user_id,
           }
-    });
+        }
+    );
   }
   const handleSubmit = (event) => {
     event.preventDefault();

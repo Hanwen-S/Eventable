@@ -8,7 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import SignIn from './components/signIn';
 import SignUp from "./components/signUp";
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ResponsiveDrawer from "./components/home";
 import Checkout from './components/Checkout';
 import BigCard from './components/eventCard';
@@ -20,15 +20,19 @@ import EvenCard from './components/FullEventCard';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <Route exact path='/signup' component={SignUp}></Route>
-    <Route exact path='/' component={SignIn}></Route>
-    <Route exact path='/home' component={ResponsiveDrawer}></Route>
-    <Route exact path='/EventCard' component={Checkout}></Route>
-    <Route exact path='/bigCard' component={BigCard}></Route>
-    <Route exact path='/account' component={account}></Route>
-    <Route exact path='/slots' component={SlotCard}></Route>
-    <Route exact path='/slothome' component={SlotsHome}></Route>
-    <Route exact path='/test1' component={EvenCard}></Route>
+    <Routes>
+      
+    <Route exact path='/signup' element={<SignUp/>}></Route>
+    <Route exact path='/' element={<SignIn/>}></Route>
+    <Route exact path='/home' element={<ResponsiveDrawer/>}></Route>
+    <Route exact path='/EventCard' element={<Checkout/>}></Route>
+    <Route exact path='/bigCard' element={<BigCard/>}></Route>
+    <Route exact path='/account' element={<account/>}></Route>
+    <Route exact path='/slots' element={<SlotCard/>}></Route>
+    <Route exact path='/slothome' element={<SlotsHome/>}></Route>
+    <Route exact path='/test1' element={<EvenCard/>}></Route>
+    </Routes>
+    
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

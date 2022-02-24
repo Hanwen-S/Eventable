@@ -16,7 +16,7 @@ const drawerWidth = 240;
 function ResponsiveDrawer(props) {
   console.log(props);
   const { window } = props;
-  const user_id = props.location.state.user_id;
+  const user_id = 2//props.location.state.user_id;
   console.log(user_id);
   const [mobileOpen, setMobileOpen] = React.useState(false);
 

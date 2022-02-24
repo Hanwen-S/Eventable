@@ -12,17 +12,17 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 // import {useHistory } from 'react-router-dom';
-import { useNavigate as useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Link from '@mui/material/Link';
 const pages = [['Home', '/'], ['Search', '/'], ['Timeslots', '/slothome']];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
 const ResponsiveAppBar = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const routeChange = (path) => {
-    history.push(path);
-  }
+    navigate(path);
+  };
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
