@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+// import {useHistory } from 'react-router-dom';
+import { useNavigate as useHistory } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -26,17 +29,34 @@ function Copyright(props) {
   );
 }
 
+
+
 const theme = createTheme();
 
 export default function SignUp() {
+  let history = useHistory();
+
+  const redirect = () => {
+    history.push('/');
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    //console.log(event.currentTarget)
+    const newperson = new FormData(event.currentTarget);
+    const myobj = {
+      person_first_name: newperson.get('person_first_name'),
+      person_last_name: newperson.get('person_last_name'),
+      person_username: newperson.get('person_username'),
+      person_email: newperson.get('person_email'),
+      person_phone: "",
+      person_password: newperson.get('person_password'),
+    };
+    //console.log(newperson);
+    axios
+      .post("http://localhost:5000/record/add", myobj)
+      .then((res) => console.log(res.data));
+    redirect();
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
   };
 
   return (
@@ -62,7 +82,7 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="person_first_name"
                   required
                   fullWidth
                   id="firstName"
@@ -76,8 +96,18 @@ export default function SignUp() {
                   fullWidth
                   id="lastName"
                   label="Last Name"
-                  name="lastName"
+                  name="person_last_name"
                   autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="User Name"
+                  label="User Name"
+                  name="person_username"
+                  autoComplete="use-name"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -86,7 +116,7 @@ export default function SignUp() {
                   fullWidth
                   id="email"
                   label="Email Address"
-                  name="email"
+                  name="person_email"
                   autoComplete="email"
                 />
               </Grid>
@@ -94,7 +124,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  name="password"
+                  name="person_password"
                   label="Password"
                   type="password"
                   id="password"

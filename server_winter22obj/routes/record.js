@@ -4,7 +4,6 @@ const express = require("express");
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const recordRoutes = express.Router();
-
 // This will help us connect to the database
 const dbo = require("../db/conn");
 
@@ -23,6 +22,22 @@ recordRoutes.route("/record").get(function (req, res) {
       res.json(result);
     });
 });
+recordRoutes.route("/record/get").get(function (req, res) {
+  let db_connect = dbo.getDb("employees");
+  console.log('this is line-----------');
+  console.log(req.query);
+  console.log(req.query.person_email);
+  console.log(req.query.person_password);
+  var query = { person_email: req.query.person_email , person_password: req.query.person_password};
+  db_connect
+    .collection("records")
+    .find(query)
+    .toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.json(result);
+  });
+});
 
 // This section will help you get a single record by id
 recordRoutes.route("/record/:id").get(function (req, res) {
@@ -39,11 +54,14 @@ recordRoutes.route("/record/:id").get(function (req, res) {
 // This section will help you create a new record.
 recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = dbo.getDb();
+  console.log(req.body);
   let myobj = {
-    person_name: req.body.person_name,
+    person_first_name: req.body.person_first_name,
+    person_last_name: req.body.person_last_name,
     person_username: req.body.person_username,
-    person_phone: req.body.person_phone,
-    person_level: req.body.person_level,
+    person_email: req.body.person_email,
+    person_phone: "",
+    person_password: req.body.person_password,
   };
   db_connect.collection("records").insertOne(myobj, function (err, res) {
     if (err) throw err;

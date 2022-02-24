@@ -52,7 +52,8 @@ export default class Create extends Component {
  
     // When post request is sent to the create url, axios will add a new record(newperson) to the database.
     const newperson = {
-      person_name: this.state.person_name,
+      person_first_name: this.state.person_first_name,
+      person_last_name: this.state.person_last_name,
       person_username: this.state.person_username,
       person_level: this.state.person_level,
       person_phone: this.state.person_phone,
@@ -64,7 +65,8 @@ export default class Create extends Component {
  
     // We will empty the state after posting the data to the database
     this.setState({
-      person_name: "",
+      person_first_name: "",
+      person_last_name: "",
       person_username: "",
       person_level: "",
       person_phone: "",
