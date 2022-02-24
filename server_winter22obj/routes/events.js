@@ -44,9 +44,11 @@ EventsRoutes.route("/events/add").post(function (req, response) {
         Creator_Name: req.query.creator_name,
         Participator_db_ids: JSON.parse(req.query.participators),
         Event_name: req.query.event_name,
+        Year:  0  ,
+        Month: 0 ,
         Date: req.query.event_date,
         Address: req.query.address,
-        Has_Passed: false, 
+        Status: false, 
         Planned_time: req.query.time, 
         Potential_time_slots: [[1, 2], [2, 3]], 
         Comment: req.query.comment
