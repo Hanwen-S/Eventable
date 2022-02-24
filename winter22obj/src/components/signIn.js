@@ -13,7 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+// import {useHistory } from 'react-router-dom';
+import { useNavigate as useHistory } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -64,7 +65,7 @@ export default function SignIn() {
         else{
           redirect(res.data[0]._id);
         }
-            
+
       });
     // eslint-disable-next-line no-console
     console.log({
