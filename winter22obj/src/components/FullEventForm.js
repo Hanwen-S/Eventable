@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import SelectVariants from './selector';
+import { TextField } from '@mui/material';
 export default function FullEventForm(){
     const [id, setId] = React.useState(0);
 
@@ -27,25 +28,72 @@ export default function FullEventForm(){
                     <SelectVariants/>
                     )}
                 </Grid>
-                <Grid item xs={12} sm={12} sx={{mb: 3, mt:3}}>
+                <Grid item xs={12} sm={4} sx={{mb: 3, mt:3}}>
                     <Typography>
-                        Planned Time
+                        Year 
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4} sx={{mb: 3, mt:3}}>
+                    <Typography>
+                        Month 
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4} sx={{mb: 3, mt:3}}>
+                    <Typography>
+                        Date 
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4} sx={{mb: 3, mt:3}}>
+                    <Typography>
+                        Planned Time:
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4} sx={{mb: 3, mt:3}}>
+                    <Typography>
+                        Hour
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4} sx={{mb: 3, mt:3}}>
+                    <Typography>
+                        Minutes
                     </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} sx={{mb: 3, mt:3}}>
                     <Typography>
-                        Place
+                        Address
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={12} sx={{mb: 3, mt:3}}>
-                    <Typography>
-                        Alternative Times
+                <Grid item xs={12} sm = {4} sx={{mt:2.5}}>
+                    <Typography style={{mb: 0}}>
+                        Alternative Time:
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={12} sx={{mb: 4, mt:4}}>
-                    <Typography>
-                        Participators:
+                <Grid item xs={12} sm = {8}>
+                    <TextField
+                        required
+                        id="Hour_Min_Freq"
+                        name="Hour_Min_Freq"
+                        label="Hour_Min_Freq"
+                        fullWidth
+                        autoComplete="shipping address-line1"
+                        variant="standard"
+                    />
+                </Grid>
+                <Grid item xs={12} sm = {4} sx={{mt:2.5}}>
+                    <Typography style={{mb: 0}}>
+                        Participators: 
                     </Typography>
+                </Grid>
+                <Grid item xs={12} sm = {8}>
+                    <TextField
+                        required
+                        id="Participator"
+                        name="Participator"
+                        label="Participator"
+                        fullWidth
+                        autoComplete="shipping address-line1"
+                        variant="standard"
+                    />
                 </Grid>
                 <Grid item xs={12} sm={12} sx={{mb: 4, mt:4}}>
                     <Typography>

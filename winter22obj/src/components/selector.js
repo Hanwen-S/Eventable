@@ -13,7 +13,7 @@ export default function SelectVariants() {
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ mt: -2.5, mb: 0, minWidth: 120, ml: 8 }}>
+      <FormControl variant="standard" sx={{ mt: 0, mb: 0, minWidth: 120, ml: 8 }}>
         <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
