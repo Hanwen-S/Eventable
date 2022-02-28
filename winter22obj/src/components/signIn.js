@@ -51,7 +51,7 @@ export default function SignIn() {
       person_password: data.get('person_password'),
     }
     axios
-      .get("http://localhost:5000/record/get", {
+      .get("http://localhost:5000/records/get", {
         headers:{
           'Accept': 'application/json',
           'Content-Type': 'application/json'
