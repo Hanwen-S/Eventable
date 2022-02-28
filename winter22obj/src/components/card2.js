@@ -8,11 +8,12 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
 
-export default function SlotCard() {
-    
+
+export default function SlotCard(props) {
+
   return (
             <Card style={{display: 'inline-block', width: '10.5vw'}}>
-            <CardContent>
+            <CardContent >
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                 Year
                 </Typography>
@@ -27,8 +28,8 @@ export default function SlotCard() {
                 </Typography>
             </CardContent>
             <CardActions>
+                <Button >Edit</Button>
                 
-                <Button>Edit</Button>
             </CardActions>
             </Card>
   );

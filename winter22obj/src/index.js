@@ -12,7 +12,7 @@ import { Route, Routes } from "react-router-dom";
 import ResponsiveDrawer from "./components/home";
 import Checkout from './components/Checkout';
 import BigCard from './components/eventCard';
-import { account } from './components/account';
+import { Account } from './components/account';
 import SlotCard from './components/card2';
 import SlotsHome from './components/slotshome';
 import FullEvent from './components/FullEventForm';
@@ -27,7 +27,7 @@ ReactDOM.render(
     <Route exact path='/home' element={<ResponsiveDrawer/>}></Route>
     <Route exact path='/EventCard' element={<Checkout/>}></Route>
     <Route exact path='/bigCard' element={<BigCard/>}></Route>
-    <Route exact path='/account' element={<account/>}></Route>
+    <Route exact path='/account' element={<Account/>}></Route>
     <Route exact path='/slots' element={<SlotCard/>}></Route>
     <Route exact path='/slothome' element={<SlotsHome/>}></Route>
     <Route exact path='/test1' element={<EvenCard/>}></Route>

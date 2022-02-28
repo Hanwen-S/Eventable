@@ -12,7 +12,6 @@ import Pagination from '@mui/material/Pagination';
 import SlotCard from './card2';
 const drawerWidth = 240;
 
-
 function SlotsHome(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -23,13 +22,14 @@ function SlotsHome(props) {
   const drawer = (
     <div>
       <Toolbar />
+      
       <Divider />
       
     </div>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-  
+  const signal = 1;
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -63,7 +63,7 @@ function SlotsHome(props) {
           }}
           open
         >
-          {drawer}
+          
         </Drawer>
       </Box>
       <Box>

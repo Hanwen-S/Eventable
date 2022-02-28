@@ -105,6 +105,7 @@ export const AccountProfileDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
+            console.log();
             <Grid
               item
               md={6}

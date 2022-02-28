@@ -33,7 +33,6 @@ const theme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
-
   const redirect = (user_id) => {
     navigate(
        '/home',
