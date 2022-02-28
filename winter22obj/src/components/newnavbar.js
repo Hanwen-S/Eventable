@@ -14,8 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 // import {useHistory } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Link from '@mui/material/Link';
-const pages = [['Home', '/'], ['Search', '/'], ['Timeslots', '/slothome']];
-const settings = [['Profile', ''], 'Account', 'Dashboard', 'Logout'];
+const pages = [['Home', '/'], ['Search', '/'], ['Timeslots', '/slothome'], ['Create', '/FullEventForm']];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
 const ResponsiveAppBar = () => {
