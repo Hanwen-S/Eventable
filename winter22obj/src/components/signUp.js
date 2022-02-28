@@ -55,7 +55,9 @@ export default function SignUp() {
     axios
       .post("http://localhost:5000/record/add", myobj)
       .then((res) => console.log(res.data));
-    redirect();
+      history(
+        '../',
+     );
     // eslint-disable-next-line no-console
   };
 
