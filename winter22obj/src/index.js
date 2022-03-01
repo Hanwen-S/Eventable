@@ -12,15 +12,11 @@ import { Route, Routes } from "react-router-dom";
 import ResponsiveDrawer from "./components/home";
 import Checkout from './components/Checkout';
 import BigCard from './components/eventCard';
-<<<<<<< HEAD
 import { Account } from './components/account';
-import SlotCard from './components/card2';
-import SlotsHome from './components/slotshome';
-=======
+
 import { account } from './components/account';
 import SlotCard from './components/time-slots/slotCard';
 import SlotsHome from './components/time-slots/slotshome';
->>>>>>> 61a75f4 (Make separate cards when editing and displaying cards, and implement the switch betw)
 import FullEvent from './components/FullEventForm';
 import EvenCard from './components/FullEventCard';
 ReactDOM.render(
