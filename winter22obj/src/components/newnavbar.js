@@ -25,6 +25,7 @@ const ResponsiveAppBar = () => {
   };
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const open = Boolean(anchorElUser);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -40,6 +41,12 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleOpenProfile = () =>{ 
+    let path = `/account`; 
+    navigate(path);
+  }
+  
 
   return (
     <AppBar position="static">
@@ -112,29 +119,24 @@ const ResponsiveAppBar = () => {
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+
             <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
+              id="basic-menu"
               anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
+              open={open}
               onClose={handleCloseUserMenu}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleOpenProfile}>Profile</MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>My account</MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>Dashboard</MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
             </Menu>
+
           </Box>
+          
         </Toolbar>
       </Container>
     </AppBar>
