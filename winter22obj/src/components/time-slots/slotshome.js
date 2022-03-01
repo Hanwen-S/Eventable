@@ -5,11 +5,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
-import ResponsiveAppBar from './newnavbar';
-import BasicCard from './card';
+import ResponsiveAppBar from '../newnavbar';
+import BasicCard from '../card';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
-import SlotCard from './card2';
+import SlotCard from './slotCard';
 const drawerWidth = 240;
 
 function SlotsHome(props) {
