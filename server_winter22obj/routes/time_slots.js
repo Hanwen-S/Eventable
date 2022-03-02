@@ -24,7 +24,7 @@ timeSlotsRoutes.route("/time_slots").get(function (req, res) {
     });
 });
 
-// This section will help you get a single record by id
+// This section will help you get a single time slot by id
 timeSlotsRoutes.route("/time_slots/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
@@ -36,13 +36,15 @@ timeSlotsRoutes.route("/time_slots/:id").get(function (req, res) {
       });
 });
 
-// This section will help you create a new record.
+// This section will help you create a new time slot.
+// TODO: Date object in mongodb OR divide Date object into year/month/day
+                                              // start time: hour/minutes
 timeSlotsRoutes.route("/time_slots/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     day_time: req.query.day_time,
-    start_time: req.query.start_time,
-    end_time: req.query.end_time,
+    start_index: req.query.start_index, // 0-47
+    end_index: req.query.end_index, // 0-47
     coefficient: req.query.coefficient,
     user_id: req.query.user_id
   };
@@ -59,8 +61,8 @@ timeSlotsRoutes.route("/time_slots/update/:id").post(function (req, response) {
   let newvalues = {
     $set: {
         day_time: req.body.day_time,
-        start_time: req.body.start_time,
-        end_time: req.body.end_time,
+        start_index: req.query.start_index, // 0-47
+        end_index: req.query.end_index, // 0-47
         coefficient: req.body.coefficient,
     },
   };
@@ -73,7 +75,7 @@ timeSlotsRoutes.route("/time_slots/update/:id").post(function (req, response) {
     });
 });
 
-// This section will help you delete a record
+// This section will help you delete a time slot
 timeSlotsRoutes.route("/time_slots/delete/:id").delete((req, response) => {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
