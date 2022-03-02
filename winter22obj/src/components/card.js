@@ -3,13 +3,21 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import Popup from './eventCard';
+import { useState } from 'react';
+import BackdropUnstyled from '@mui/base/BackdropUnstyled';
+import "./card.css"
 
 export default function BasicCard() {
-  return (
-    <Card style={{display: 'inline-block'}}>
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  }
+
+  return <div>
+    <button className='eventCardButton' onClick={togglePopup}><Card style={{display: 'inline-block'}}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               Time
@@ -26,10 +34,21 @@ export default function BasicCard() {
               {'"a benevolent smile"'}
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button size="small">More</Button>
-            <Button>Rating</Button>
-          </CardActions>
-    </Card>
-  );
+    </Card></button>
+    {isOpen && 
+      <Popup
+        content={<>
+          <b>Event_Name:</b>
+          <p>Planned Time:</p>
+          <p>Address:</p>
+          <p>Creator:</p>
+          <p>Participants:</p>
+          <p>Potential Time:</p>
+          <p>Has Passed:</p>
+          <p>Comments:</p>
+        </>}
+        handleClose={togglePopup}
+      />
+    }
+  </div>
 }
