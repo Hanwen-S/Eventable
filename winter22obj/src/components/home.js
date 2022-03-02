@@ -9,15 +9,21 @@ import ResponsiveAppBar from './newnavbar';
 import BasicCard from './card';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
+import { useLocation } from 'react-router';
 const drawerWidth = 240;
 
 
 
 function ResponsiveDrawer(props) {
-  console.log(props);
   const { window } = props;
-  const user_id = 2//props.location.state.user_id;
-  console.log(user_id);
+  //const user_id = 2
+  //props.location.state.user_id;
+  //console.log(user_id);
+  const {state} = useLocation();
+  console.log(state);
+  const user_id = state.user_id;
+
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -35,6 +41,7 @@ function ResponsiveDrawer(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
   
   return (
+    console.log(state),
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       
@@ -72,7 +79,7 @@ function ResponsiveDrawer(props) {
       </Box>
       <Box>
         <Grid container spacing={{ xs: 1.5, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              <ResponsiveAppBar />
+              <ResponsiveAppBar props={state} />
           {Array.from(Array(12)).map((_, index) => (
             <Grid item xs={2} sm={0} md={0} key={index}>
               <BasicCard/>

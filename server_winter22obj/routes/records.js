@@ -60,7 +60,7 @@ recordsRoutes.route("/records/add").post(function (req, response) {
     person_last_name: req.body.person_last_name,
     person_username: req.body.person_username,
     person_email: req.body.person_email,
-    person_phone: "",
+    person_phone: req.body.person_phone,
     person_password: req.body.person_password,
   };
   db_connect.collection("records").insertOne(myobj, function (err, res) {
