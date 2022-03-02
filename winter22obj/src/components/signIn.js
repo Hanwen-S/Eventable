@@ -33,15 +33,21 @@ const theme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const redirect = (user_id) => {
+  const redirect = (info) => {
     navigate(
-       '/home',
-        {
-          state :{
-          user_id : user_id,
-          }
-        }
-    );
+      '/home',
+       {
+         state :{
+          user_id : info._id,
+          user_first_name: info.person_first_name,
+          user_last_name: info.person_last_name,
+          user_username: info.person_username,
+          user_email: info.person_email,
+          user_phone: info.person_phone,
+          user_password: info.person_password,
+         }
+       }
+   );
   }
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,6 +55,10 @@ export default function SignIn() {
     const myobj = {
       person_email: data.get('person_email'),
       person_password: data.get('person_password'),
+      person_first_name: data.get('person_first_name'),
+      person_last_name: data.get('person_last_name'),
+      person_username: data.get('person_username'),
+      person_phone: data.get('person_phone'),
     }
     axios
       .get("http://localhost:5000/records/get", {
@@ -59,12 +69,21 @@ export default function SignIn() {
         params: myobj
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.length === 0){
           alert('Not right !');
         }
         else{
-          redirect(res.data[0]._id);
+          var info = res.data[0];
+          console.log(info);
+          localStorage.setItem('user_id',info._id);
+          localStorage.setItem('user_first_name', info.person_first_name);
+          localStorage.setItem('user_last_name', info.person_last_name);
+          localStorage.setItem('user_username', info.person_username);
+          localStorage.setItem('user_email', info.person_email);
+          localStorage.setItem('user_phone', info.person_phone);
+          localStorage.setItem('user_password', info.person_password);
+          console.log(localStorage.getItem('user'));
+          redirect(res.data[0]);
         }
 
       });
