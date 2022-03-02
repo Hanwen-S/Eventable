@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 // import {useHistory } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Link from '@mui/material/Link';
-const pages = [['Home', '/'], ['Search', '/'], ['Timeslots', '/slothome']];
+const pages = [['Home', '/home'], ['Search', '/'], ['Timeslots', '/slothome'], ['Create', '/CreateEventForm']];
 const settings = [['Profile', ''], 'Account', 'Dashboard', 'Logout'];
 
 
