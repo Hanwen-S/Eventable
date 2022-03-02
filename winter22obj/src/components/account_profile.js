@@ -1,4 +1,3 @@
-import { useLocation } from 'react-router';
 import {
     Avatar,
     Box,
@@ -10,8 +9,6 @@ import {
     Typography
   } from '@mui/material';
   
-
-
   const user = {
     avatar: '/static/images/avatars/avatar_6.png',
     city: 'Los Angeles',
@@ -22,8 +19,6 @@ import {
   };
   
   export const AccountProfile = (props) => (
-    console.log(props),
-
     <Card {...props}>
       <CardContent>
         <Box

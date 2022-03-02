@@ -18,7 +18,7 @@ const pages = [['Home', '/home'], ['Search', '/'], ['Timeslots', '/slothome'], [
 const settings = [['Profile', ''], 'Account', 'Dashboard', 'Logout'];
 
 
-const ResponsiveAppBar = (props) => {
+const ResponsiveAppBar = () => {
   const navigate = useNavigate();
   const routeChange = (path) => {
     navigate(path);
@@ -133,7 +133,6 @@ const ResponsiveAppBar = (props) => {
               <MenuItem onClick={handleCloseUserMenu}>My account</MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>Dashboard</MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
-              
             </Menu>
 
           </Box>
