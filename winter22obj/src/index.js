@@ -3,14 +3,38 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import './index.css';
-import App from './App';
+//import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-
+import SignIn from './components/signIn';
+import SignUp from "./components/signUp";
+import { Route, Routes } from "react-router-dom";
+import ResponsiveDrawer from "./components/home";
+import Checkout from './components/Checkout';
+import BigCard from './components/eventCard';
+import { Account } from './components/account';
+import SlotCard from './components/card2';
+import SlotsHome from './components/slotshome';
+import CreateEventForm from './components/CreateEventForm';
+import FullEvent from './components/FullEventForm';
+import EvenCard from './components/FullEventCard';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <App />
+    <Routes>
+      
+    <Route exact path='/signup' element={<SignUp/>}></Route>
+    <Route exact path='/' element={<SignIn/>}></Route>
+    <Route exact path='/home' element={<ResponsiveDrawer/>}></Route>
+    <Route exact path='/EventCard' element={<Checkout/>}></Route>
+    <Route exact path='/bigCard' element={<BigCard/>}></Route>
+    <Route exact path='/account' element={<Account/>}></Route>
+    <Route exact path='/slots' element={<SlotCard/>}></Route>
+    <Route exact path='/slothome' element={<SlotsHome/>}></Route>
+    <Route exact path='/CreateEventForm' element={<CreateEventForm/>}></Route>
+    <Route exact path='/test1' element={<EvenCard/>}></Route>
+    </Routes>
+    
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
