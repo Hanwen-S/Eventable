@@ -75,10 +75,10 @@ recordsRoutes.route("/update/:id").post(function (req, response) {
   let myquery = { _id: ObjectId( req.params.id )};
   let newvalues = {
     $set: {
-      person_name: req.body.person_name,
+      person_first_name: req.body.person_first_name,
+      person_last_name: req.body.person_last_name,
       person_username: req.body.person_username,
       person_phone: req.body.person_phone,
-      person_level: req.body.person_level,
     },
   };
   db_connect
