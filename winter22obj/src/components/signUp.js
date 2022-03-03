@@ -40,6 +40,7 @@ export default function SignUp() {
     history.push('/');
   }
   const handleSubmit = (event) => {
+    console.log(event);
     event.preventDefault();
     //console.log(event.currentTarget)
     const newperson = new FormData(event.currentTarget);
