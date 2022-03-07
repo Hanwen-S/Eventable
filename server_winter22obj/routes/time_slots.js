@@ -27,7 +27,9 @@ timeSlotsRoutes.route("/time_slots").get(function (req, res) {
 // This section will help you get a single time slot by id
 timeSlotsRoutes.route("/time_slots/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
+  var myId = JSON.parse(req.params.id);
+  let myquery = { _id: ObjectId( myId )};
+  //let myquery = { _id: ObjectId( req.params.id )};
   db_connect
       .collection("time_slots")
       .findOne(myquery, function (err, result) {
@@ -42,7 +44,9 @@ timeSlotsRoutes.route("/time_slots/:id").get(function (req, res) {
 timeSlotsRoutes.route("/time_slots/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
-    day_time: req.query.day_time,
+    year: req.query.year,
+    month: req.query.month,
+    day: req.query.day,
     start_index: req.query.start_index, // 0-47
     end_index: req.query.end_index, // 0-47
     coefficient: req.query.coefficient,
@@ -60,7 +64,9 @@ timeSlotsRoutes.route("/time_slots/update/:id").post(function (req, response) {
   let myquery = { _id: ObjectId( req.params.id )};
   let newvalues = {
     $set: {
-        day_time: req.body.day_time,
+        year: req.query.year,
+        month: req.query.month,
+        day: req.query.day,
         start_index: req.query.start_index, // 0-47
         end_index: req.query.end_index, // 0-47
         coefficient: req.body.coefficient,

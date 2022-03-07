@@ -1,8 +1,5 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
+import { Navigate } from 'react-router';
 import DisplayCard from "./displayCard"
 import EditCard from "./editCard"
 
@@ -11,6 +8,7 @@ export default function SlotCard() {
     // edit card
     const handleEdit = () => {
         setIsDisplay(false);
+        Navigate("/slothome/${time_slot.id}");
     }
     return (
         <div>
