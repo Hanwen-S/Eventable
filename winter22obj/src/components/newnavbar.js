@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,11 +19,55 @@ import TextField from '@mui/material/TextField';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import axios from 'axios';
 const pages = [['Home', '/home'], ['Timeslots', '/slothome'], ['Create', '/CreateEventForm']];
 const settings = [['Profile', ''], 'Account', 'Dashboard', 'Logout'];
 
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '15ch',
+      '&:focus': {
+        width: '22ch',
+      },
+    },
+  },
+}));
+
 
 const ResponsiveAppBar = () => {
+  const [search, setSearch] = useState('');
   const navigate = useNavigate();
   const routeChange = (path) => {
     navigate(path);
@@ -50,49 +95,50 @@ const ResponsiveAppBar = () => {
     let path = `/account`; 
     navigate(path);
   }
+/*
+  const handleSearch=async()=>{
+    const id=search.toString();
+    console.log(id);
+    const response = await fetch(`http://localhost:5000/record/${search.toString()}`);
+    console.log(response);
+    if (!response.ok) {
+      const message = `An error has occured: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
 
+    const record = await response.json();
+    if (!record) {
+      window.alert(`Record with id ${search} not found`);
+      navigate("/");
+      return;
+    }
+  };
+*/
+  const handleOnKeyPress=async(e)=>{
+    if (e.key === 'Enter') {
+      const response = await fetch(`http://localhost:5000/records/${search.toString()}`);
 
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  }));
+    if (!response.ok) {
+      const message = `An error has occured: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+    const record = await response.json();
+    console.log(record);
+    if (!record) {
+      window.alert(`Record with id ${search} not found`);
+      return;
+    }
+    else{
+      window.alert("User found:\n  User name: "+record.person_username+"\n  User email: "+record.person_email);
+    }
+
+  }}; 
+
   
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
   
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '15ch',
-        '&:focus': {
-          width: '22ch',
-        },
-      },
-    },
-  }));
+  
   
 
 
@@ -162,18 +208,22 @@ const ResponsiveAppBar = () => {
             ))}
           </Box>
 
-          
           <Tooltip title= "Enter user or event ID" placement="bottom-start">
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase
+            <StyledInputBase 
+              onKeyDown={(e)=>handleOnKeyPress(e)}
               placeholder="Search..."
               inputProps={{ 'aria-label': 'search' }}
+              //value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              
             />
           </Search>
           </Tooltip>
+
           <Box sx={{ flexGrow: 0.5 }} />
 
           <Box sx={{ flexGrow: 0 }}>
