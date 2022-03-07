@@ -66,11 +66,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
+  const user_id = props.user_id;
+  console.log(user_id)
   const routeChange = (path) => {
-    navigate(path);
+    navigate(
+      path,
+      {
+           user_id: user_id
+      });
   };
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);

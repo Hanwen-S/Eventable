@@ -34,7 +34,7 @@ export default function EditCard() {
           //const response = await fetch(`http://localhost:5000/time_slots/${id}`);
           console.log(params.id);
           const id = params.id.toString();
-          const response = await fetch(`http://localhost:5000/time_slots/${params.id.toString()}`);
+          const response = await fetch(`http://localhost:5000/time_slots/${id}`);
           if (!response.ok) {
             const message = `An error has occurred: ${response.statusText}`;
             window.alert(message);

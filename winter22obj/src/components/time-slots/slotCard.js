@@ -3,7 +3,8 @@ import { Navigate } from 'react-router';
 import DisplayCard from "./displayCard"
 import EditCard from "./editCard"
 
-export default function SlotCard() {
+export default function SlotCard(props) {
+    const user_id = props.user_id
     const [isDisplay, setIsDisplay] = React.useState(true);
     // edit card
     const handleEdit = () => {
@@ -12,7 +13,7 @@ export default function SlotCard() {
     }
     return (
         <div>
-            {isDisplay ? <DisplayCard handleEdit={handleEdit} /> : <EditCard />}
+            {isDisplay ? <DisplayCard handleEdit={handleEdit} user_id={user_id}/> : <EditCard />}
 
         </div>
   );

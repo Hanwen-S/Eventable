@@ -13,7 +13,10 @@ import { Grid } from '@mui/material';
 import axios from 'axios';
 import EditCard from './editCard';
 
-export default function DisplayCard({handleEdit, form}) {
+export default function DisplayCard(props) {
+  const handleEdit = props.handleEdit
+  const user_id = props.user_id
+  console.log(user_id)
   const [slot, setSlot] = useState({
     year: "",
     month: "",
@@ -32,12 +35,10 @@ export default function DisplayCard({handleEdit, form}) {
     async function getSlot() {
       /*const id = "62159522d10ff4f104ed78e1";
       const response = await fetch(`http://localhost:5000/time_slots/${id}`); */
-      if (params.id.length === 24)
-        console.log("success!")
 
-      const id = params.id.toString();
+      const id = user_id;
 
-      const response = await fetch(`http://localhost:5000/time_slots/${params.id.toString()}`);
+      const response = await fetch(`http://localhost:5000/time_slots/${id}`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
@@ -45,9 +46,10 @@ export default function DisplayCard({handleEdit, form}) {
       }
 
       const time_slot = await response.json();
+      console.log(time_slot)
       if (!time_slot) {
         window.alert(`Time slot with id ${id} not found`);
-        navigate("/");
+        navigate("/home", {user_id: user_id});
         return;
       }
       

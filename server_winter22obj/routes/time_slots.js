@@ -15,9 +15,10 @@ const ObjectId = require("mongodb").ObjectId;
 // This section will help you get a list of all the time slots.
 timeSlotsRoutes.route("/time_slots").get(function (req, res) {
   let db_connect = dbo.getDb("employees");
+  let myquery = { user_id: "621458e5cd7dacf19808c8a6"};
   db_connect
     .collection("time_slots")
-    .find({})
+    .find(myquery)
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);
@@ -27,14 +28,14 @@ timeSlotsRoutes.route("/time_slots").get(function (req, res) {
 // This section will help you get a single time slot by id
 timeSlotsRoutes.route("/time_slots/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
-  var myId = JSON.parse(req.params.id);
-  let myquery = { _id: ObjectId( myId )};
+  let myquery = { user_id: req.params.id};
   //let myquery = { _id: ObjectId( req.params.id )};
   db_connect
       .collection("time_slots")
-      .findOne(myquery, function (err, result) {
+      .find(myquery).toArray(function (err, result) {
         if (err) throw err;
         res.json(result);
+        console.log(res)
       });
 });
 

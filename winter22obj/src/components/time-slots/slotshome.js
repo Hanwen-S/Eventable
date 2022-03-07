@@ -23,7 +23,7 @@ import MailIcon from '@mui/icons-material/Mail';
 const drawerWidth = 240;
 
 function SlotsHome(props) {
-  
+  const user_id = localStorage.getItem('user_id');
   const drawer = (
     <div>
       <Toolbar />
@@ -58,10 +58,10 @@ function SlotsHome(props) {
       {/* the slot home at the right side */}
       <Box>
         <Grid container spacing={{ xs: 1.5, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              <ResponsiveAppBar />
+              <ResponsiveAppBar user_id={user_id}/>
           {Array.from(Array(12)).map((_, index) => (
             <Grid item xs={2} sm={0} md={0} key={index}>
-              <SlotCard/>
+              <SlotCard user_id={user_id}/>
             </Grid>
           ))}
         </Grid>

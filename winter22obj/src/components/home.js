@@ -22,7 +22,7 @@ function ResponsiveDrawer(props) {
   //const {state} = useLocation();
   //console.log(state);
   const user_id = localStorage.getItem('user_id');
-
+  //console.log(user_id)
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -78,7 +78,7 @@ function ResponsiveDrawer(props) {
       </Box>
       <Box>
         <Grid container spacing={{ xs: 1.5, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              <ResponsiveAppBar />
+              <ResponsiveAppBar user_id={user_id}/>
           {Array.from(Array(12)).map((_, index) => (
             <Grid item xs={2} sm={0} md={0} key={index}>
               <BasicCard/>
