@@ -13,11 +13,15 @@ import SlotCard from './time-slots/slotCard';
 import './CreateEventForm.css'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import axios from 'axios';
+import { useNavigate as useHistory } from 'react-router-dom';
 const drawerWidth = 240;
 
 
 
 function CreateEventForm(props) {
+  let history = useHistory();
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -35,6 +39,35 @@ function CreateEventForm(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
   const signal = 1;
+
+  const handleSubmit = (event) => {
+    console.log(event);
+    event.preventDefault();
+    //console.log(event.currentTarget)
+    const newevent = new FormData(event.currentTarget);
+    const myobj = {
+      event_name: newevent.get('event_name'),
+      date: newevent.get('date'),
+      address: newevent.get('address'),
+      status: false,
+      planned_start_time: newevent.get('planned_start_time'),
+      planned_end_time: newevent.get('planned_end_time'),
+      description: newevent.get('description'),
+    };
+    // const mymessage = {
+    //     message_sender_id:"1",
+     //    message_receiver_id: "2",
+     //    message_content: "3"
+    // };
+    //console.log(newperson);
+    axios
+      .post("http://localhost:5000/events/add", myobj)
+      .then((res) => console.log(res.data));
+      history(
+        '../home',
+     );
+    // eslint-disable-next-line no-console
+  };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -80,23 +113,35 @@ function CreateEventForm(props) {
         sx={{
         '& .MuiTextField-root': { m: 4, width: '45ch' },
         }}
+        onSubmit={handleSubmit} 
         noValidate
         autoComplete="off"
         >
           <div>
-            <TextField id="filled-basic" label="Event_Name" variant="filled" />
+            <TextField id='name' name="event_name" label="Event_Name*" variant="filled" />
           </div>
           <div>
-            <TextField id="filled-basic" label="Address" variant="filled" />
+            <TextField id="address" name="address" label="Address*" variant="filled" />
           </div>
           <div>
-            <TextField id="filled-basic" label="Planned_Time" variant="filled" />
+            <TextField id="date" name="date" label="Planned_Date*" placeholder="Enter in the form of yyyy-mm-dd" variant="filled" />
           </div>
           <div>
-            <TextField id="filled-basic" label="Description" variant="filled" />
+            <TextField id="starttime" name="planned_start_time" label="Planned_Start_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
+            <TextField id="endtime" name="planned_end_time" label="Planned_End_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
           </div>
           <div>
-            <Button className='formbutton' variant="contained">submit</Button>
+            <TextField
+            id="description"
+            name="description" 
+            label="Description"
+            rows={5}
+            multiline
+            variant="filled"
+            />
+          </div>
+          <div>
+            <Button className='formbutton' type="submit" variant="contained">create</Button>
           </div>
         </Box>
       </Grid>
