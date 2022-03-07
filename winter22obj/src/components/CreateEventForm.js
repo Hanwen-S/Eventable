@@ -31,9 +31,9 @@ function CreateEventForm(props) {
   const drawer = (
     <div>
       <Toolbar />
-      
+
       <Divider />
-      
+
     </div>
   );
 
@@ -72,14 +72,14 @@ function CreateEventForm(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      
+
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        
+
         <Drawer
           container={container}
           variant="temporary"
@@ -95,7 +95,7 @@ function CreateEventForm(props) {
         >
           {drawer}
         </Drawer>
-        
+
         <Drawer
           variant="permanent"
           sx={{
@@ -103,7 +103,7 @@ function CreateEventForm(props) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
           open
-        > 
+        >
         </Drawer>
       </Box>
       <Grid container spacing={{ xs: 1.5, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -113,7 +113,7 @@ function CreateEventForm(props) {
         sx={{
         '& .MuiTextField-root': { m: 4, width: '45ch' },
         }}
-        onSubmit={handleSubmit} 
+        onSubmit={handleSubmit}
         noValidate
         autoComplete="off"
         >
@@ -133,7 +133,7 @@ function CreateEventForm(props) {
           <div>
             <TextField
             id="description"
-            name="description" 
+            name="description"
             label="Description"
             rows={5}
             multiline
