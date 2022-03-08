@@ -7,13 +7,20 @@ import Typography from '@mui/material/Typography';
 import Popup from './eventCard';
 import { useState } from 'react';
 import BackdropUnstyled from '@mui/base/BackdropUnstyled';
+import Histogram from 'react-chart-histogram';
+import { GrFormView } from 'react-icons/gr';
 import "./card.css"
 
 export default function BasicCard() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
+  }
+
+  const handleClick = () => {
+    setIsOpen2(!isOpen2);
   }
 
   return <div>
@@ -43,11 +50,28 @@ export default function BasicCard() {
           <p>Address:</p>
           <p>Creator:</p>
           <p>Participants:</p>
-          <p>Potential Time:</p>
           <p>Has Passed:</p>
           <p>Comments:</p>
+          <button className="timeSlotButton" onClick={handleClick}>Potential Time Slots</button>
+          <GrFormView />
         </>}
         handleClose={togglePopup}
+      />
+    }
+    {isOpen2 && 
+      <Popup
+        content={<>
+          <div>
+            <Histogram
+              xLabels={['2016', '2017', '2018']}
+              yValues={[324, 45, 672]}
+              width='410'
+              height='450'
+              options={{ fillColor: '#FFFFFF', strokeColor: '#0000FF' }}
+            />
+          </div>
+        </>}
+        handleClose={handleClick}
       />
     }
   </div>

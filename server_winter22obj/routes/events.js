@@ -40,17 +40,17 @@ EventsRoutes.route("/events/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   console.log(req.body);
   let myobj = {
-        //creator_db_id: req.query.creator_id,
-        //creator_name: req.query.creator_name,
+        creator_db_id: req.body.creator_id,
+        creator_name: req.body.creator_name,
         //participator_db_ids: JSON.parse(req.query.participators),
         event_name: req.body.event_name,
         date: req.body.date,
         address: req.body.address,
-        status: false, 
+        status: false,
         planned_start_time: req.body.planned_start_time,
         planned_end_time: req.body.planned_end_time,
         description: req.body.description,
-        //potential_time_slots: [[1, 2], [2, 3]], 
+        //potential_time_slots: [[1, 2], [2, 3]],
         //comment: req.query.comment,
   };
   db_connect.collection("events").insertOne(myobj, function (err, res) {
