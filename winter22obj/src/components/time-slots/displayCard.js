@@ -13,64 +13,9 @@ import { Grid } from '@mui/material';
 import axios from 'axios';
 import EditCard from './editCard';
 
-<<<<<<< HEAD
-export default function DisplayCard(props) {
-  const handleEdit = props.handleEdit
-  const user_id = props.user_id
-  console.log(user_id)
-  const [slot, setSlot] = useState({
-    year: "",
-    month: "",
-    day: "",
-    start_hr: 0, // 0-23
-    start_min: "00", // 00 or 30
-    end_hr: 0, // 0-23
-    end_min: "00", // 00 or 30
-    coefficient: 0.0, // 0-1
-  });
-  const params = useParams();
-  const navigate = useNavigate();
-
-  // fetch a slot from the database
-  useEffect(() => {
-    async function getSlot() {
-      /*const id = "62159522d10ff4f104ed78e1";
-      const response = await fetch(`http://localhost:5000/time_slots/${id}`); */
-
-      const id = user_id;
-
-      const response = await fetch(`http://localhost:5000/time_slots/${id}`);
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-
-      const time_slot = await response.json();
-      console.log(time_slot)
-      if (!time_slot) {
-        window.alert(`Time slot with id ${id} not found`);
-        navigate("/home", {user_id: user_id});
-        return;
-      }
-      
-      setSlot({ year: time_slot.year, month: time_slot.month, 
-        day: time_slot.day, 
-        start_hr: parseInt(time_slot.start_index/2), 
-        start_min: (time_slot.start_index%2)*30 === 0 ? "00" : "30",  
-        end_hr: parseInt(time_slot.end_index/2), 
-        end_min: (time_slot.end_index%2)*30 === 0 ? "00" : "30", 
-        coefficient: time_slot.coefficient});
-    }
-    getSlot();
-    return;
-  }, [params.id, setSlot, navigate]);
- 
-=======
 export default function DisplayCard({form, handleEdit, deleteSlot}) {
   //const form = props.form;
   
->>>>>>> 1be5379 (fetch data from backend and display in slothome. Merge slotCard.js into slothome.js.)
     return (
               <Card style={{display: 'inline-block', width: '10.5vw'}}>
               <CardContent>

@@ -30,36 +30,7 @@ export default function EditCard(props) {
     })
     const params = useParams(); */
     const navigate = useNavigate();
-<<<<<<< HEAD
-
-    useEffect(() => {
-        async function fetchData() {
-          //const id = "62159522d10ff4f104ed78e1";
-          //const response = await fetch(`http://localhost:5000/time_slots/${id}`);
-          console.log(params.id);
-          const id = params.id.toString();
-          const response = await fetch(`http://localhost:5000/time_slots/${id}`);
-          if (!response.ok) {
-            const message = `An error has occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
-          }
-          
-          const time_slot = await response.json();
-          if (!time_slot) {
-            window.alert(`Time slot with id ${id} not found`);
-            navigate("/");
-            return;
-          }
-          setForm(time_slot);
-        }
-        fetchData();
-        return;
-      }, [params.id, navigate]);
-
-=======
    
->>>>>>> 1be5379 (fetch data from backend and display in slothome. Merge slotCard.js into slothome.js.)
       // These methods will update the state properties.
     function updateSlot(value) {
         return setSlot((prev) => {
@@ -195,3 +166,4 @@ export default function EditCard(props) {
      );
  
 }
+

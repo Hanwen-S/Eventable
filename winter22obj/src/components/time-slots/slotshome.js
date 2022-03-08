@@ -18,59 +18,6 @@ import CreateCard from './createCard';
 import DisplayCard from './displayCard';
 import EditCard from './editCard';
 
-<<<<<<< HEAD
-function SlotsHome(props) {
-  const user_id = localStorage.getItem('user_id');
-  const drawer = (
-    <div>
-      <Toolbar />
-      <Divider />
-      <div>
-        <CreateCard />
-      </div>
-    </div>
-  );
-
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="create a time slot"
-      >
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-
-      {/* the slot home at the right side */}
-      <Box>
-        <Grid container spacing={{ xs: 1.5, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              <ResponsiveAppBar user_id={user_id}/>
-          {Array.from(Array(12)).map((_, index) => (
-            <Grid item xs={2} sm={0} md={0} key={index}>
-              <SlotCard user_id={user_id}/>
-            </Grid>
-          ))}
-        </Grid>
-        <Pagination count={10} variant="outlined" style={{
-          position: 'absolute', left: '50%', bottom: '10%',
-          transform: 'translate(-50%, -50%)'
-          }}
-        />
-      </Box>
-      
-    </Box>
-=======
  
 // the time slot card to be mapped
 function SlotCard({slot, deleteSlot}) {
@@ -100,7 +47,6 @@ function SlotCard({slot, deleteSlot}) {
             deleteSlot={deleteSlot}/> : <EditCard form={form}/>}
             
         </div>
->>>>>>> 1be5379 (fetch data from backend and display in slothome. Merge slotCard.js into slothome.js.)
   );
 }
 
