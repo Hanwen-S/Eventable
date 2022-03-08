@@ -47,6 +47,7 @@ const handleSubmit = () => {
       myobj
     )
     .then((res) => {console.log(res.data)});
+  window.alert("Profile updated successfully!")
 }; 
 
 
@@ -71,6 +72,11 @@ export const AccountProfileDetails = (props) => {
     });
     var changedField="user_"+event.target.name;
     localStorage[changedField]=event.target.value;
+  };
+
+  const handleClick = () => {
+    let path = `/home`;
+    navigate(path);
   };
 
   return (
@@ -161,9 +167,18 @@ export const AccountProfileDetails = (props) => {
           sx={{
             display: 'flex',
             justifyContent: 'flex-end',
-            p: 2
+            p: 2,
+            '& button': { m: 1 }
           }}
         >
+          <Button
+            color="primary"
+            variant="contained"
+            onClick = {handleClick}
+          >
+            Go back
+          </Button> 
+
           <Button
             color="primary"
             variant="contained"
