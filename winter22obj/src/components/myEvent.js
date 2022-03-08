@@ -11,6 +11,7 @@ import SelfCard from './selfCard';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { useLocation } from 'react-router';
+import axios from 'axios';
 
 const user_id = localStorage.getItem('user_id');
 
@@ -21,10 +22,25 @@ const drawer = (
   </div>
 );
 
+const updateEvent = () => {
+  const myobj = {
+    creator_id: user_id,
+  };
+  axios
+  .get("http://localhost:5000/events/get", {
+    params: myobj
+  })
+  .then((res) => {
+    console.log(res.data);
+    var events = res.data;
+    localStorage.setItem('user_events', events);
+  })
+};
 
 export const MyEvent = (props) => {
     return (
     <Box sx={{ display: 'flex' }}>
+      <button onClick = {updateEvent}> Refresh </button>
       <CssBaseline />
       <Box>
         <Box
