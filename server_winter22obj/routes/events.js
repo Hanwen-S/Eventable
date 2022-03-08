@@ -45,7 +45,7 @@ EventsRoutes.route("/events/:id").get(function (req, res) {
   let myquery = { _id: ObjectId( req.params.id )};
   db_connect
       .collection("events")
-      .find(myquery, function (err, result) {
+      .findOne(myquery, function (err, result) {
         if (err) throw err;
         res.json(result);
       });
