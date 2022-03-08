@@ -23,13 +23,29 @@ EventsRoutes.route("/events").get(function (req, res) {
     });
 });
 
+EventsRoutes.route("/events/get").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  console.log('this is line-----------');
+  console.log(req);
+  var query = {creator_id: req.query.creator_id};
+  console.log(query);
+  db_connect
+    .collection("events")
+    .find(query)
+    .toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.json(result);
+  });
+});
+
 // This section will help you get a single record by id
 EventsRoutes.route("/events/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
   db_connect
       .collection("events")
-      .findOne(myquery, function (err, result) {
+      .find(myquery, function (err, result) {
         if (err) throw err;
         res.json(result);
       });

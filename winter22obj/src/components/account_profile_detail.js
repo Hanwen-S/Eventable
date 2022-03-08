@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -43,11 +42,12 @@ const handleSubmit = () => {
   console.log(myobj);
   axios
     .post(
-      "http://localhost:5000/update/" + localStorage.getItem('user_id'), 
+      "http://localhost:5000/update/" + localStorage.getItem('user_id'),
       myobj
     )
     .then((res) => {console.log(res.data)});
-}; 
+  window.alert("Profile updated successfully!")
+};
 
 
 
@@ -73,8 +73,13 @@ export const AccountProfileDetails = (props) => {
     localStorage[changedField]=event.target.value;
   };
 
+  const handleClick = () => {
+    let path = `/home`;
+    navigate(path);
+  };
+
   return (
-    <form 
+    <form
       autoComplete="off"
       noValidate
       {...props}
@@ -156,27 +161,35 @@ export const AccountProfileDetails = (props) => {
           </Grid>
         </CardContent>
         <Divider />
-        
+
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'flex-end',
-            p: 2
+            p: 2,
+            '& button': { m: 1 }
           }}
         >
+          <Button
+            color="primary"
+            variant="contained"
+            onClick = {handleClick}
+          >
+            Go back
+          </Button>
+
           <Button
             color="primary"
             variant="contained"
             onClick = {handleSubmit}
           >
             Save details
-          </Button> 
+          </Button>
           </Box>
-          
-        
+
+
       </Card>
 
     </form>
   );
 };
-

@@ -13,7 +13,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 // This section will help you get a list of all the records.
 recordsRoutes.route("/records").get(function (req, res) {
-  let db_connect = dbo.getDb("employees");
+  let db_connect = dbo.getDb();
   db_connect
     .collection("records")
     .find({})
@@ -22,8 +22,9 @@ recordsRoutes.route("/records").get(function (req, res) {
       res.json(result);
     });
 });
+
 recordsRoutes.route("/records/get").get(function (req, res) {
-  let db_connect = dbo.getDb("employees");
+  let db_connect = dbo.getDb();
   console.log('this is line-----------');
   console.log(req.query);
   console.log(req.query.person_email);

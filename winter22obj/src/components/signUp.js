@@ -52,15 +52,8 @@ export default function SignUp() {
       person_phone: "",
       person_password: newperson.get('person_password'),
     };
-    // const mymessage = {
-    //     message_sender_id:"1",
-    //     message_receiver_id: "2",
-    //     message_content: "3"
-    // };
-    //console.log(newperson);
     axios
       .post("http://localhost:5000/records/add", myobj)
-      // .post("http://localhost:5000/messages/add", mymessage)
       .then((res) => console.log(res.data));
       history(
         '../',
