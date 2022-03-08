@@ -14,8 +14,7 @@ import Checkout from './components/Checkout';
 import BigCard from './components/eventCard';
 import { Account } from './components/account';
 import { MyEvent } from './components/myEvent';
-//import SlotCard from './components/time-slots/slotCard';
-
+import SlotCard from './components/time-slots/slotCard';
 import SlotsHome from './components/time-slots/slotshome';
 import CreateEventForm from './components/CreateEventForm';
 import EditEvent from './components/editEvent';
@@ -34,7 +33,7 @@ ReactDOM.render(
     <Route exact path='/account' element={<Account/>}></Route>
     <Route exact path='/myEvent' element={<MyEvent/>}></Route>
     <Route exact path='/edit' element={<EditEvent/>}></Route>
-    {/*<Route exact path='/slots' element={<SlotCard/>}></Route>*/}
+    <Route exact path='/slots' element={<SlotCard/>}></Route>
     <Route exact path='/slothome' element={<SlotsHome/>}></Route>
     <Route exact path='/CreateEventForm' element={<CreateEventForm/>}></Route>
     <Route exact path='/test1' element={<EvenCard/>}></Route>

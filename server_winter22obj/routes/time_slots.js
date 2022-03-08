@@ -45,13 +45,13 @@ timeSlotsRoutes.route("/time_slots/:id").get(function (req, res) {
 timeSlotsRoutes.route("/time_slots/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
-    year: req.body.year,
-    month: req.body.month,
-    day: req.body.day,
-    start_index: req.body.start_index, // 0-47
-    end_index: req.body.end_index, // 0-47
-    coefficient: req.body.coefficient,
-    //user_id: req.query.user_id
+    year: req.query.year,
+    month: req.query.month,
+    day: req.query.day,
+    start_index: req.query.start_index, // 0-47
+    end_index: req.query.end_index, // 0-47
+    coefficient: req.query.coefficient,
+    user_id: req.query.user_id
   };
   db_connect.collection("time_slots").insertOne(myobj, function (err, res) {
     if (err) throw err;
