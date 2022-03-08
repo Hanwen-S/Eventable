@@ -19,6 +19,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { Router } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 //import List from '@mui/material/List';
 const drawerWidth = 240;
 
@@ -30,6 +32,8 @@ function SlotsHome(props) {
       <Divider />
       <div>
         <CreateCard />
+        
+       
       </div>
     </div>
   );
@@ -62,6 +66,7 @@ function SlotsHome(props) {
           {Array.from(Array(12)).map((_, index) => (
             <Grid item xs={2} sm={0} md={0} key={index}>
               <SlotCard user_id={user_id}/>
+              
             </Grid>
           ))}
         </Grid>

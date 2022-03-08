@@ -19,11 +19,14 @@ import CreateEventForm from './components/CreateEventForm';
 import FullEvent from './components/FullEventForm';
 import EvenCard from './components/FullEventCard';
 import EditCard from './components/time-slots/editCard';
+import DisplayCard from './components/time-slots/displayCard'
+import CreateCard from './components/time-slots/createCard'
+import SplitForm from './components/bill-split/splitForm'
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
     <Routes>
-      
     <Route exact path='/signup' element={<SignUp/>}></Route>
     <Route exact path='/' element={<SignIn/>}></Route>
     <Route exact path='/home' element={<ResponsiveDrawer/>}></Route>
@@ -35,8 +38,8 @@ ReactDOM.render(
     {/*<Route exact path='/slothome/:id' element={<EditCard/>}></Route>*/}
     <Route exact path='/CreateEventForm' element={<CreateEventForm/>}></Route>
     <Route exact path='/test1' element={<EvenCard/>}></Route>
+    <Route exact path='/test2' element={<SplitForm/>}></Route>
     </Routes>
-    
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
