@@ -43,6 +43,13 @@ export default function SelfCard() {
               <br />
               {'"a benevolent smile"'}
             </Typography>
+            <Button
+              variant="contained"
+              className='eventCardButton'
+              onClick={Edit}
+            >
+               Edit
+            </Button>
           </CardContent>
     </Card></button>
     {isOpen &&
@@ -56,14 +63,6 @@ export default function SelfCard() {
           <p>Potential Time:</p>
           <p>Has Passed:</p>
           <p>Comments:</p>
-
-          <Button
-              variant="contained"
-              className='eventCardButton'
-              onClick={Edit}
-            >
-               Edit
-            </Button>
         </>}
         handleClose={togglePopup}
       />
