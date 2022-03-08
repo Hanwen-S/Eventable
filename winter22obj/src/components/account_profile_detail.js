@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -10,6 +12,9 @@ import {
   TextField
 } from '@mui/material';
 
+
+
+{/*
 const states = [
   {
     value: 'alabama',
@@ -24,15 +29,39 @@ const states = [
     label: 'San Francisco'
   }
 ];
+*/}
+const handleSubmit = () => {
+  const myobj = {
+      person_first_name: localStorage.getItem('user_first_name'),
+      person_last_name: localStorage.getItem('user_last_name'),
+      person_username: localStorage.getItem('user_username'),
+      person_email: localStorage.getItem('user_email'),
+      person_phone: localStorage.getItem('user_phone'),
+      person_password:localStorage.getItem('user_password'),
+  };
+  console.log(myobj);
+  axios
+    .post(
+      "http://localhost:5000/update/" + localStorage.getItem('user_id'),
+      myobj
+    )
+    .then((res) => {console.log(res.data)});
+  window.alert("Profile updated successfully!")
+};
+
+
 
 export const AccountProfileDetails = (props) => {
+  const navigate = useNavigate();
+  console.log(localStorage.getItem('user_first_name'));
+
+
+
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    first_name: localStorage.getItem('user_first_name'),
+    last_name: localStorage.getItem('user_last_name'),
+    email: localStorage.getItem('user_email'),
+    phone: localStorage.getItem('user_phone'),
   });
 
   const handleChange = (event) => {
@@ -40,6 +69,13 @@ export const AccountProfileDetails = (props) => {
       ...values,
       [event.target.name]: event.target.value
     });
+    var changedField="user_"+event.target.name;
+    localStorage[changedField]=event.target.value;
+  };
+
+  const handleClick = () => {
+    let path = `/home`;
+    navigate(path);
   };
 
   return (
@@ -68,10 +104,10 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 helperText="Please specify the first name"
                 label="First name"
-                name="firstName"
+                name="first_name"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={values.first_name}
                 variant="outlined"
               />
             </Grid>
@@ -83,10 +119,10 @@ export const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label="Last name"
-                name="lastName"
+                name="last_name"
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={values.last_name}
                 variant="outlined"
               />
             </Grid>
@@ -115,70 +151,45 @@ export const AccountProfileDetails = (props) => {
                 label="Phone Number"
                 name="phone"
                 onChange={handleChange}
-                type="number"
+                type="text" pattern="[0-9]*"
                 value={values.phone}
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
+
+
           </Grid>
         </CardContent>
         <Divider />
+
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'flex-end',
-            p: 2
+            p: 2,
+            '& button': { m: 1 }
           }}
         >
           <Button
             color="primary"
             variant="contained"
+            onClick = {handleClick}
+          >
+            Go back
+          </Button>
+
+          <Button
+            color="primary"
+            variant="contained"
+            onClick = {handleSubmit}
           >
             Save details
           </Button>
-        </Box>
+          </Box>
+
+
       </Card>
+
     </form>
   );
 };

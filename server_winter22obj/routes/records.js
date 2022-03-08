@@ -13,7 +13,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 // This section will help you get a list of all the records.
 recordsRoutes.route("/records").get(function (req, res) {
-  let db_connect = dbo.getDb("employees");
+  let db_connect = dbo.getDb();
   db_connect
     .collection("records")
     .find({})
@@ -22,8 +22,9 @@ recordsRoutes.route("/records").get(function (req, res) {
       res.json(result);
     });
 });
+
 recordsRoutes.route("/records/get").get(function (req, res) {
-  let db_connect = dbo.getDb("employees");
+  let db_connect = dbo.getDb();
   console.log('this is line-----------');
   console.log(req.query);
   console.log(req.query.person_email);
@@ -42,7 +43,7 @@ recordsRoutes.route("/records/get").get(function (req, res) {
 // This section will help you get a single records by id
 recordsRoutes.route("/records/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
+  let myquery = { _id: ObjectId( req.query.id )};
   db_connect
       .collection("records")
       .findOne(myquery, function (err, result) {
@@ -75,10 +76,10 @@ recordsRoutes.route("/update/:id").post(function (req, response) {
   let myquery = { _id: ObjectId( req.params.id )};
   let newvalues = {
     $set: {
-      person_name: req.body.person_name,
+      person_first_name: req.body.person_first_name,
+      person_last_name: req.body.person_last_name,
       person_username: req.body.person_username,
       person_phone: req.body.person_phone,
-      person_level: req.body.person_level,
     },
   };
   db_connect

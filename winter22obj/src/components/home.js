@@ -19,10 +19,10 @@ function ResponsiveDrawer(props) {
   //const user_id = 2
   //props.location.state.user_id;
   //console.log(user_id);
-  const {state} = useLocation();
-  console.log(state);
-  const user_id = state.user_id;
-
+  //const {state} = useLocation();
+  //console.log(state);
+  const user_id = localStorage.getItem('user_id');
+  //console.log(user_id)
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -34,52 +34,30 @@ function ResponsiveDrawer(props) {
     <div>
       <Toolbar />
       <Divider />
-      
+
     </div>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-  
+
   return (
-    console.log(state),
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      
+
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
+        <Drawer>
           {drawer}
         </Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-          open
-        >
+        <Drawer>
           {drawer}
         </Drawer>
       </Box>
       <Box>
-        <Grid container spacing={{ xs: 1.5, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              <ResponsiveAppBar props={state} />
+        <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+              <ResponsiveAppBar user_id={user_id}/>
           {Array.from(Array(12)).map((_, index) => (
             <Grid item xs={2} sm={0} md={0} key={index}>
               <BasicCard/>
@@ -89,9 +67,9 @@ function ResponsiveDrawer(props) {
         <Pagination count={10} variant="outlined" style={{
         position: 'absolute', left: '50%', bottom: '10%',
         transform: 'translate(-50%, -50%)'
-    }}/>
+      }}/>
       </Box>
-      
+
     </Box>
   );
 }

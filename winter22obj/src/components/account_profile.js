@@ -14,8 +14,8 @@ import {
     city: 'Los Angeles',
     country: 'USA',
     jobTitle: 'Senior Developer',
-    name: 'Katarina Smith',
-    timezone: 'GTM-7'
+    name: localStorage.getItem('user_username'),
+    email: localStorage.getItem('user_email'),
   };
   
   export const AccountProfile = (props) => (
@@ -43,22 +43,18 @@ import {
           >
             {user.name}
           </Typography>
+          
           <Typography
             color="textSecondary"
             variant="body2"
           >
-            {`${user.city} ${user.country}`}
-          </Typography>
-          <Typography
-            color="textSecondary"
-            variant="body2"
-          >
-            {user.timezone}
+            {user.email}
           </Typography>
         </Box>
       </CardContent>
       <Divider />
-      <CardActions>
+
+      {/*<CardActions>
         <Button
           color="primary"
           fullWidth
@@ -66,6 +62,6 @@ import {
         >
           Upload picture
         </Button>
-      </CardActions>
+      </CardActions>*/}
     </Card>
   );

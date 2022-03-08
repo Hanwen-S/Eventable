@@ -9,7 +9,7 @@ import ResponsiveAppBar from './newnavbar';
 import BasicCard from './card';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
-//import SlotCard from './time-slots/slotCard';
+import SlotCard from './time-slots/slotCard';
 import './CreateEventForm.css'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -45,32 +45,34 @@ function CreateEventForm(props) {
     event.preventDefault();
     //console.log(event.currentTarget)
     const newevent = new FormData(event.currentTarget);
-    const creator_id = localStorage.getItem('user_id');
-    const creator_name = localStorage.getItem('user_first_name') + " " + localStorage.getItem('user_last_name');
     const myobj = {
-      creator_id: creator_id,
-      creator_name: creator_name,
-      event_name: newevent.get('event_name'),
-      date: newevent.get('date'),
-      address: newevent.get('address'),
+      event_name: localStorage.getItem('event_name'),
+      date: localStorage.getItem('date'),
+      address: localStorage.getItem('address'),
       status: false,
-      planned_start_time: newevent.get('planned_start_time'),
-      planned_end_time: newevent.get('planned_end_time'),
-      description: newevent.get('description'),
+      planned_start_time: localStorage.getItem('planned_start_time'),
+      planned_end_time: localStorage.getItem('planned_end_time'),
+      description:localStorage.getItem('description'),
     };
-    // const mymessage = {
-    //     message_sender_id:"1",
-     //    message_receiver_id: "2",
-     //    message_content: "3"
-    // };
-    //console.log(newperson);
+
     axios
-      .post("http://localhost:5000/events/add", myobj)
+      .post(
+          "http://localhost:5000/events/add" + localStorage.getItem(event_id),
+          myobj
+      )
       .then((res) => console.log(res.data));
       history(
         '../home',
      );
-    // eslint-disable-next-line no-console
+  };
+
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    });
+    var changedField = event.target.name;
+    localStorage[changedField] = event.target.value;
   };
 
   return (

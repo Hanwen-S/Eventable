@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,14 +15,68 @@ import MenuItem from '@mui/material/MenuItem';
 // import {useHistory } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Link from '@mui/material/Link';
-const pages = [['Home', '/home'], ['Search', '/'], ['Timeslots', '/slothome'], ['Create', '/CreateEventForm']];
+import TextField from '@mui/material/TextField';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import axios from 'axios';
+const pages = [['Home', '/home'], ['Timeslots', '/slothome'], ['Create', '/CreateEventForm']];
 const settings = [['Profile', ''], 'Account', 'Dashboard', 'Logout'];
 
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
 
-const ResponsiveAppBar = () => {
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '15ch',
+      '&:focus': {
+        width: '22ch',
+      },
+    },
+  },
+}));
+
+
+const ResponsiveAppBar = (props) => {
+  const [search, setSearch] = useState('');
   const navigate = useNavigate();
+  const user_id = props.user_id;
+  console.log(user_id)
   const routeChange = (path) => {
-    navigate(path);
+    navigate(
+      path,
+      {
+           user_id: user_id
+      });
   };
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -42,11 +97,67 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
-  const handleOpenProfile = () =>{ 
-    let path = `/account`; 
+  const handleOpenProfile = () =>{
+    let path = `/account`;
     navigate(path);
   }
-  
+
+  const handleOpenMyEvent = () =>{
+    let path = `/myEvent`;
+    navigate(path);
+  }
+
+  const handleLogOut = () =>{
+    let path = `/`;
+    navigate(path);
+  }
+/*
+  const handleSearch=async()=>{
+    const id=search.toString();
+    console.log(id);
+    const response = await fetch(`http://localhost:5000/record/${search.toString()}`);
+    console.log(response);
+    if (!response.ok) {
+      const message = `An error has occured: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    const record = await response.json();
+    if (!record) {
+      window.alert(`Record with id ${search} not found`);
+      navigate("/");
+      return;
+    }
+  };
+*/
+  const handleOnKeyPress=async(e)=>{
+    if (e.key === 'Enter') {
+      const response = await fetch(`http://localhost:5000/records/${search.toString()}`);
+
+    if (!response.ok) {
+      const message = `An error has occured: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+    const record = await response.json();
+    console.log(record);
+    if (!record) {
+      window.alert(`Record with id ${search} not found`);
+      return;
+    }
+    else{
+      window.alert("User found:\n  User name: "+record.person_username+"\n  User email: "+record.person_email);
+    }
+
+  }};
+
+
+
+
+
+
+
 
   return (
     <AppBar position="static">
@@ -101,7 +212,7 @@ const ResponsiveAppBar = () => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 5, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page[0]}
@@ -112,6 +223,24 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
+
+          <Tooltip title= "Enter user or event ID" placement="bottom-start">
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              onKeyDown={(e)=>handleOnKeyPress(e)}
+              placeholder="Search..."
+              inputProps={{ 'aria-label': 'search' }}
+              //value={search}
+              onChange={(e) => setSearch(e.target.value)}
+
+            />
+          </Search>
+          </Tooltip>
+
+          <Box sx={{ flexGrow: 0.5 }} />
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -130,13 +259,12 @@ const ResponsiveAppBar = () => {
               }}
             >
               <MenuItem onClick={handleOpenProfile}>Profile</MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>My account</MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>Dashboard</MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
+              <MenuItem onClick={handleOpenMyEvent}>My Events</MenuItem>
+              <MenuItem onClick={handleLogOut}>Logout</MenuItem>
             </Menu>
 
           </Box>
-          
+
         </Toolbar>
       </Container>
     </AppBar>

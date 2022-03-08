@@ -16,7 +16,7 @@ import FullEventForm from './FullEventForm';
 import ResponsiveAppBar from './newnavbar';
 const theme = createTheme();
 
-export default function EvenCard(){
+export default function EventCard(){
     return(
         <React.Fragment>
             

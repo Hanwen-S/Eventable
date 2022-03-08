@@ -12,7 +12,6 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 const ObjectArray = require("mongodb").ObjectArray;
 
-// This section will help you get a list of all the time slots.
 EventsRoutes.route("/events").get(function (req, res) {
   let db_connect = dbo.getDb();
   db_connect
@@ -24,13 +23,29 @@ EventsRoutes.route("/events").get(function (req, res) {
     });
 });
 
+EventsRoutes.route("/events/get").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  console.log('this is line-----------');
+  console.log(req);
+  var query = {creator_id: req.query.creator_id};
+  console.log(query);
+  db_connect
+    .collection("events")
+    .find(query)
+    .toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.json(result);
+  });
+});
+
 // This section will help you get a single record by id
 EventsRoutes.route("/events/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
   db_connect
       .collection("events")
-      .findOne(myquery, function (err, result) {
+      .find(myquery, function (err, result) {
         if (err) throw err;
         res.json(result);
       });
@@ -39,19 +54,20 @@ EventsRoutes.route("/events/:id").get(function (req, res) {
 // This section will help you create a new record.
 EventsRoutes.route("/events/add").post(function (req, response) {
   let db_connect = dbo.getDb();
+  console.log(req.body);
   let myobj = {
-        Creator_db_id: req.query.creator_id,
-        Creator_Name: req.query.creator_name,
-        Participator_db_ids: JSON.parse(req.query.participators),
-        Event_name: req.query.event_name,
-        Year:  0  ,
-        Month: 0 ,
-        Date: req.query.event_date,
-        Address: req.query.address,
-        Status: false, 
-        Planned_time: req.query.time, 
-        Potential_time_slots: [[1, 2], [2, 3]], 
-        Comment: req.query.comment
+        creator_id: req.body.creator_id,
+        creator_name: req.body.creator_name,
+        //participator_db_ids: JSON.parse(req.query.participators),
+        event_name: req.body.event_name,
+        date: req.body.date,
+        address: req.body.address,
+        status: false,
+        planned_start_time: req.body.planned_start_time,
+        planned_end_time: req.body.planned_end_time,
+        description: req.body.description,
+        //potential_time_slots: [[1, 2], [2, 3]],
+        //comment: req.query.comment,
   };
   db_connect.collection("events").insertOne(myobj, function (err, res) {
     if (err) throw err;
