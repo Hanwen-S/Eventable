@@ -1,5 +1,5 @@
 .formbutton {
   position: absolute;
-  bottom: relative;
+  bottom: 10px;
   left: 40px;
 }

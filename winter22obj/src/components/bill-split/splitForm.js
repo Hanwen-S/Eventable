@@ -50,7 +50,7 @@ const columns = [
         
       };
 
-      return <PaypButton/>;
+      //return <PaypButton/>;
     },
   },
 ];

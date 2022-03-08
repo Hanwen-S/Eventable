@@ -76,11 +76,9 @@ const ResponsiveAppBar = (props) => {
   console.log(user_id)
   const routeChange = (path) => {
     navigate(
-      path,
-      {
-           user_id: user_id
-      });
-  };
+      path
+      
+    )};
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const open = Boolean(anchorElUser);
@@ -100,8 +98,18 @@ const ResponsiveAppBar = (props) => {
     setAnchorElUser(null);
   };
 
-  const handleOpenProfile = () =>{ 
-    let path = `/account`; 
+  const handleOpenProfile = () =>{
+    let path = `/account`;
+    navigate(path);
+  }
+
+  const handleOpenMyEvent = () =>{
+    let path = `/myEvent`;
+    navigate(path);
+  }
+
+  const handleLogOut = () =>{
+    let path = `/`;
     navigate(path);
   }
 /*
@@ -126,7 +134,8 @@ const ResponsiveAppBar = (props) => {
 */
   const handleOnKeyPress=async(e)=>{
     if (e.key === 'Enter') {
-      const response = await fetch(`http://localhost:5000/records/${search.toString()}`);
+      console.log(search)
+      const response = await fetch(`http://localhost:5000/records/${search}`);
 
     if (!response.ok) {
       const message = `An error has occured: ${response.statusText}`;
@@ -143,12 +152,12 @@ const ResponsiveAppBar = (props) => {
       window.alert("User found:\n  User name: "+record.person_username+"\n  User email: "+record.person_email);
     }
 
-  }}; 
+  }};
 
-  
-  
-  
-  
+
+
+
+
 
 
 
@@ -222,13 +231,13 @@ const ResponsiveAppBar = (props) => {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase 
+            <StyledInputBase
               onKeyDown={(e)=>handleOnKeyPress(e)}
               placeholder="Search..."
               inputProps={{ 'aria-label': 'search' }}
               //value={search}
               onChange={(e) => setSearch(e.target.value)}
-              
+
             />
           </Search>
           </Tooltip>
@@ -252,13 +261,12 @@ const ResponsiveAppBar = (props) => {
               }}
             >
               <MenuItem onClick={handleOpenProfile}>Profile</MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>My account</MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>Dashboard</MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
+              <MenuItem onClick={handleOpenMyEvent}>My account</MenuItem>
+              <MenuItem onClick={handleLogOut}>Logout</MenuItem>
             </Menu>
 
           </Box>
-          
+
         </Toolbar>
       </Container>
     </AppBar>

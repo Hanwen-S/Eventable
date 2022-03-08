@@ -22,18 +22,18 @@
 }
 
 .close-icon {
-  content: 'x';
+  content: '-';
   cursor: pointer;
   position: fixed;
-  right: calc(33% - 0px);
-  top: calc(100vh - 85vh - 33px);
+  right: calc(33.6% - 0px);
+  top: calc(100vh - 84.5vh - 35px);
   background: #ededed;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   line-height: 20px;
   text-align: center;
   border: 1px solid #999;
-  font-size: 20px;
+  font-size: 25px;
 }
 
