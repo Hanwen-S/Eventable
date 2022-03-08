@@ -13,6 +13,7 @@ import { Grid } from '@mui/material';
 import axios from 'axios';
 import EditCard from './editCard';
 
+<<<<<<< HEAD
 export default function DisplayCard(props) {
   const handleEdit = props.handleEdit
   const user_id = props.user_id
@@ -65,21 +66,26 @@ export default function DisplayCard(props) {
     return;
   }, [params.id, setSlot, navigate]);
  
+=======
+export default function DisplayCard({form, handleEdit, deleteSlot}) {
+  //const form = props.form;
+  
+>>>>>>> 1be5379 (fetch data from backend and display in slothome. Merge slotCard.js into slothome.js.)
     return (
               <Card style={{display: 'inline-block', width: '10.5vw'}}>
               <CardContent>
                   <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                  {slot.year}-{slot.month}-{slot.day}
+                  {form.year}-{form.month}-{form.day}
                   </Typography>
                   <Typography variant="h6" component="div">
-                  {slot.start_hr}:{slot.start_min} - {slot.end_hr}:{slot.end_min}
+                  {form.start_hr}:{form.start_min} - {form.end_hr}:{form.end_min}
                   </Typography>
                   <Typography variant="body2">
-                  {slot.coefficient}
+                  {form.coefficient}
                   </Typography>
               </CardContent>
               <CardActions>
-                  <Button size="small" onClick={handleEdit}>
+                  <Button size="small" onClick={()=> handleEdit()}>
                     Edit
                   </Button>
                   {/*<Link to={`/slothome/${slot.id}`}>
@@ -88,7 +94,7 @@ export default function DisplayCard(props) {
                     </Button>
                   </Link>*/}
                   <Button size="small"
-                  >
+                  onClick={() => deleteSlot(form.id)}>
                     Delete
                   </Button>
               </CardActions>
