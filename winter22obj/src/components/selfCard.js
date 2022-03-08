@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,16 +8,25 @@ import Popup from './eventCard';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BackdropUnstyled from '@mui/base/BackdropUnstyled';
+import { GrFormEdit } from 'react-icons/gr';
+import Histogram from 'react-chart-histogram';
+import { GrFormView } from 'react-icons/gr';
 import "./card.css"
+import "./selfCard.css"
 
 export default function SelfCard() {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleClick = () => {
+    setIsOpen2(!isOpen2);
+  }
 
   const Edit = () => {
     navigate(
@@ -43,16 +51,16 @@ export default function SelfCard() {
               <br />
               {'"a benevolent smile"'}
             </Typography>
-            <Button
-              variant="contained"
-              className='eventCardButton'
+            <button
+              className='eventCardEditButton'
               onClick={Edit}
             >
-               Edit
-            </Button>
+              Edit
+            </button>
+            <GrFormEdit/>
           </CardContent>
     </Card></button>
-    {isOpen &&
+    {isOpen && 
       <Popup
         content={<>
           <b>Event_Name:</b>
@@ -60,11 +68,28 @@ export default function SelfCard() {
           <p>Address:</p>
           <p>Creator:</p>
           <p>Participants:</p>
-          <p>Potential Time:</p>
           <p>Has Passed:</p>
           <p>Comments:</p>
+          <button className="timeSlotButton" onClick={handleClick}>Potential Time Slots</button>
+          <GrFormView />
         </>}
         handleClose={togglePopup}
+      />
+    }
+    {isOpen2 && 
+      <Popup
+        content={<>
+          <div>
+            <Histogram
+              xLabels={['2016', '2017', '2018']}
+              yValues={[324, 45, 672]}
+              width='410'
+              height='450'
+              options={{ fillColor: '#FFFFFF', strokeColor: '#0000FF' }}
+            />
+          </div>
+        </>}
+        handleClose={handleClick}
       />
     }
   </div>

@@ -58,59 +58,18 @@ function CreateEventForm(props) {
       planned_end_time: newevent.get('planned_end_time'),
       description: newevent.get('description'),
     };
-    // const mymessage = {
-    //     message_sender_id:"1",
-     //    message_receiver_id: "2",
-     //    message_content: "3"
-    // };
-    //console.log(newperson);
     axios
       .post("http://localhost:5000/events/add", myobj)
       .then((res) => console.log(res.data));
       history(
-        '../home',
+        '../myEvent',
      );
-    // eslint-disable-next-line no-console
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
-
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-          open
-        >
-        </Drawer>
-      </Box>
-      <Grid container spacing={{ xs: 1.5, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         <ResponsiveAppBar />
         <Box
         component="form"
