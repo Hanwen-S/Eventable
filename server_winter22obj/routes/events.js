@@ -40,7 +40,7 @@ EventsRoutes.route("/events/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   console.log(req.body);
   let myobj = {
-        creator_id: req.body.creator_id,
+        creator_db_id: req.body.creator_id,
         creator_name: req.body.creator_name,
         //participator_db_ids: JSON.parse(req.query.participators),
         event_name: req.body.event_name,

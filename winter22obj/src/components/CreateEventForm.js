@@ -9,7 +9,7 @@ import ResponsiveAppBar from './newnavbar';
 import BasicCard from './card';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
-import SlotCard from './time-slots/slotCard';
+//import SlotCard from './time-slots/slotCard';
 import './CreateEventForm.css'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';

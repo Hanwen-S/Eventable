@@ -212,7 +212,7 @@ const ResponsiveAppBar = (props) => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 5, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page[0]}
@@ -259,7 +259,7 @@ const ResponsiveAppBar = (props) => {
               }}
             >
               <MenuItem onClick={handleOpenProfile}>Profile</MenuItem>
-              <MenuItem onClick={handleOpenMyEvent}>My account</MenuItem>
+              <MenuItem onClick={handleOpenMyEvent}>My Events</MenuItem>
               <MenuItem onClick={handleLogOut}>Logout</MenuItem>
             </Menu>
 
