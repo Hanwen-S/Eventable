@@ -19,11 +19,8 @@ const drawerWidth = 240;
 
 
 function EditEventForm(props) {
-  let history = useHistory();
   const { state } = useLocation();
-  console.log(state)
   const event_id = state
-  console.log(event_id)
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -41,8 +38,10 @@ function EditEventForm(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
   const signal = 1;
-  
+  let history = useHistory();
+
   const handleSubmit = (event) => {
+    event.preventDefault();
     const newevent = new FormData(event.currentTarget);
         const myobj2 = {
           new_event_name: newevent.get('new_event_name'),
@@ -59,11 +58,20 @@ function EditEventForm(props) {
             "http://localhost:5000/update1/" + event_id, 
             myobj2)
           .then((res) => console.log(res.data))
-          .then(() => (
-            history(
-              '../myEvent',
-           )
-          ))
+          .then(() => history(
+            '../myEvent',
+         ));
+  };
+
+  const handleDelete = (event) => {
+    event.preventDefault();
+        axios
+          .delete(
+            "http://localhost:5000/delete1/" + event_id)
+          .then((res) => console.log(res.data))
+          .then(() => history(
+            '../myEvent',
+         ));
   };
 
   return (
@@ -105,6 +113,7 @@ function EditEventForm(props) {
           </div>
           <div>
             <Button className='formbutton' type="submit" variant="contained">update</Button>
+            <Button className='deletebutton' onClick={handleDelete} variant="contained">DELETE EVENT</Button>
           </div>
         </Box>
       </Grid>

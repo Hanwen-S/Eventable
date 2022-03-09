@@ -64,8 +64,6 @@ export const MyEvent = (props) => {
   }, []);
     return (
     <Box sx={{ display: 'flex' }}>
-      {/* <button> Refresh </button> */}
-      <button onClick = {updateEvent}> Refresh </button>
       <CssBaseline />
       <Box>
         <Box
@@ -82,7 +80,7 @@ export const MyEvent = (props) => {
         <Grid container spacing={{ xs: 0, md: 0}} columns={{ xs: 4, sm: 8, md: 12 }}>
                 <ResponsiveAppBar user_id={user_id}/>
             {eventlist.map((item, index) => (
-              <Grid item xs={2} sm={0} md={0} key={index}>
+              <Grid item xs={3} sm={0} md={0} key={index}>
                 <SelfCard it = {item} key={index} />
                 
               </Grid>

@@ -11,15 +11,15 @@ import BackdropUnstyled from '@mui/base/BackdropUnstyled';
 import { GrFormEdit } from 'react-icons/gr';
 import Histogram from 'react-chart-histogram';
 import { GrFormView } from 'react-icons/gr';
-import { MdOutlineDeleteOutline } from 'react-icons/md';
+import { useNavigate as useHistory } from 'react-router-dom';
 import "./card.css"
 import "./selfCard.css"
+import axios from 'axios';
 
 export default function SelfCard(props) {
   const navigate = useNavigate();
-  
+  let history = useHistory();
   const item = props.it;
-  console.log(item)
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
 
@@ -42,42 +42,37 @@ export default function SelfCard(props) {
     <button className='eventCardButton' onClick={togglePopup}><Card style={{display: 'inline-block'}}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Time: {item.date}
+              {item.date}
             </Typography>
             <Typography variant="h5" component="div">
-            Event_name: {item.event_name}
+            {item.event_name}
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              Address: {item.address}
+              {item.address}
             </Typography>
             <Typography variant="body2">
-              Comment: {item.description}
+               {item.description}
             </Typography>
             <button
               className='eventCardEditButton'
               onClick={Edit}
             >
               Edit
+              <GrFormEdit/>
             </button>
-            <GrFormEdit/>
-            <button
-              className='eventCardDeleteButton'
-            >
-              Delete
-            </button>
-            <MdOutlineDeleteOutline />
           </CardContent>
     </Card></button>
     {isOpen && 
       <Popup
         content={<>
-          <b>Event_Name:</b>
-          <p>Planned Time:</p>
-          <p>Address:</p>
-          <p>Creator:</p>
-          <p>Participants:</p>
-          <p>Has Passed:</p>
-          <p>Comments:</p>
+          <p>Event_Name: {item.event_name}</p>
+          <p>Planned Start Time: {item.planned_start_time}</p>
+          <p>Planned End Time: {item.planned_end_time}</p>
+          <p>Address: {item.address}</p>
+          <p>Creator: {item.creator_name}</p>
+          {/* <p>Participants: {item.event_name}</p>
+          <p>Has Passed: {item.status}</p> */}
+          <p>Description: {item.description}</p>
           <button className="timeSlotButton" onClick={handleClick}>Potential Time Slots</button>
           <GrFormView />
         </>}
