@@ -47,6 +47,9 @@ function CreateEventForm(props) {
     const newevent = new FormData(event.currentTarget);
     const creator_id = localStorage.getItem('user_id');
     const creator_name = localStorage.getItem('user_first_name') + " " + localStorage.getItem('user_last_name');
+    const creator_event_array = JSON.parse(localStorage.getItem('user_created_event_array'));
+    const creator_event_id_array = JSON.parse(localStorage.getItem('user_created_event_id_array'));
+    console.log(creator_event_array);
     const myobj = {
       creator_id: creator_id,
       creator_name: creator_name,
@@ -60,10 +63,26 @@ function CreateEventForm(props) {
     };
     axios
       .post("http://localhost:5000/events/add", myobj)
-      .then((res) => console.log(res.data))
-      .then(() => history(
-        '../myEvent',
-     ));
+      .then((res) => {
+        console.log(res.data);
+        console.log(res.data.insertedId);
+        creator_event_id_array.push(res.data.insertedId);
+        creator_event_array.push(myobj.event_name);
+        console.log(creator_event_array);
+        const myobj2 = {
+          person_created_event_array: creator_event_array,
+          person_created_event_id_array: creator_event_id_array,
+         };
+         localStorage.setItem('user_created_event_array', [...creator_event_array]);
+         localStorage.setItem('user_created_event_id_array', [...creator_event_id_array]);
+         axios
+         .post("http://localhost:5000/update2/" + creator_id, myobj2)
+         .then((res) => console.log(res.data))
+         .then(() => history(
+           '../myEvent',
+        ));
+      })
+
   };
 
   return (
