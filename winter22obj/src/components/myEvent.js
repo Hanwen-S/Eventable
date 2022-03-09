@@ -58,9 +58,6 @@ export const MyEvent = (props) => {
       .catch(function (error) {
         console.log(error);
       })
-    //   navigate(
-    //     '../myEvent',
-    //  );
   }, []);
     return (
     <Box sx={{ display: 'flex' }}>
@@ -82,7 +79,6 @@ export const MyEvent = (props) => {
             {eventlist.map((item, index) => (
               <Grid item xs={3} sm={0} md={0} key={index}>
                 <SelfCard it = {item} key={index} />
-                
               </Grid>
             ))}
           </Grid>

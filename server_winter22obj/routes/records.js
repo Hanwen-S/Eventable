@@ -62,10 +62,10 @@ recordsRoutes.route("/records/add").post(function (req, response) {
     person_email: req.body.person_email,
     person_phone: "",
     person_password: req.body.person_password,
-    person_created_event_array: ["1"],
-    person_created_event_id_array: ["1"],
-    person_joined_event_array: ["1"],
-    person_joined_event_id_array:["1"],
+    person_created_event_array: ["header"],
+    person_created_event_id_array: ["header"],
+    person_joined_event_array: ["header"],
+    person_joined_event_id_array:["header"],
   };
   db_connect.collection("records").insertOne(myobj, function (err, res) {
     if (err) throw err;

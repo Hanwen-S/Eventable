@@ -47,8 +47,10 @@ function CreateEventForm(props) {
     const newevent = new FormData(event.currentTarget);
     const creator_id = localStorage.getItem('user_id');
     const creator_name = localStorage.getItem('user_first_name') + " " + localStorage.getItem('user_last_name');
-    const creator_event_array = JSON.parse(localStorage.getItem('user_created_event_array'));
-    const creator_event_id_array = JSON.parse(localStorage.getItem('user_created_event_id_array'));
+    const creator_event_array = localStorage.getItem('user_created_event_array').split(',');
+    console.log(creator_event_array)
+    console.log(typeof creator_event_array)
+    const creator_event_id_array = localStorage.getItem('user_created_event_id_array').split(',');
     console.log(creator_event_array);
     const myobj = {
       creator_id: creator_id,
