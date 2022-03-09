@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -9,7 +10,6 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import NativeSelect from '@mui/material/NativeSelect';
 import axios from 'axios';
  
 export default function CreateCard() {
@@ -21,11 +21,11 @@ export default function CreateCard() {
     start_min_index: 0, // 0 (00) or 1 (30)
     end_hr: 0,
     end_min_index: 0,
-    coefficient: 0.0,
+    coefficient: 0
  });
 
  const navigate = useNavigate();
- 
+
  // These methods will update the state properties.
  function updateForm(value) {
    return setForm((prev) => {
@@ -34,11 +34,12 @@ export default function CreateCard() {
  }
  
  // This function will handle the submission.
- async function onSubmit(e) {
+ const onSubmit = async (e) => {
    e.preventDefault();
-   console.log("jhgjhg")
+  
    // When a post request is sent to the create url, we'll add a new time slot to the database.
    //const newTimeSlot = { ...form };
+   const user_id = localStorage.getItem("user_id");
    const newTimeSlot = {
      year: form.year,
      month: form.month,
@@ -46,8 +47,9 @@ export default function CreateCard() {
      start_index: form.start_hr*2+form.start_min_index,
      end_index: form.end_hr*2+form.end_min_index,
      coefficient: form.coefficient,
+     user_id: user_id, // add to the slots owned by this user
    };
- //console.log(newTimeSlot);
+ console.log(newTimeSlot);
  // POST request automatically create an id
    await fetch("http://localhost:5000/time_slots/add", {
      method: "POST",
@@ -55,6 +57,7 @@ export default function CreateCard() {
      body: JSON.stringify(newTimeSlot),
    }).then(() => {
      console.log("new slot added");
+     localStorage.setItem("time_slots", JSON.stringify(newTimeSlot));
    })
    .catch(error => {
      window.alert(error);
@@ -64,7 +67,8 @@ export default function CreateCard() {
    setForm({ year: "", month: "", day: "", 
             start_hr: 0, start_min_index: 0, 
             end_hr: 0, end_min_index: 0, coefficient: 0.0 });
-   navigate("-1");
+   navigate("/slothome"); // redirect to the next page
+   window.location.reload(false);
  }
  
  // This following section will display the form that takes the input from the user.
@@ -114,8 +118,6 @@ export default function CreateCard() {
           Start Minutes
         </InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
           value={form.start_min_index}
           label="Start Minutes"
           onChange={(e) => updateForm({ start_min_index: e.target.value })}
@@ -139,8 +141,6 @@ export default function CreateCard() {
           End Minutes
         </InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
           value={form.end_min_index}
           label="End Minutes"
           onChange={(e) => updateForm({ end_min_index: e.target.value })}
@@ -163,7 +163,7 @@ export default function CreateCard() {
     <CardActions>
         <Button size="small"
             className='formbutton' variant="contained"
-            onSubmit={onSubmit}
+            onClick={onSubmit}
         >
           Create
         </Button>
@@ -171,3 +171,4 @@ export default function CreateCard() {
     </Card>
  );
 }
+
