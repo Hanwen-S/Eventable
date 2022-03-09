@@ -25,8 +25,6 @@ EventsRoutes.route("/events").get(function (req, res) {
 
 EventsRoutes.route("/events/get").get(function (req, res) {
   let db_connect = dbo.getDb();
-  // console.log('this is line-----------');
-  // console.log(req);
   var query = {creator_id: req.query.creator_id};
   console.log(query);
   db_connect
@@ -34,7 +32,6 @@ EventsRoutes.route("/events/get").get(function (req, res) {
     .find(query)
     .toArray(function(err, result) {
     if (err) throw err;
-    // console.log(result);
     res.json(result);
   });
 });
@@ -50,23 +47,6 @@ EventsRoutes.route("/events/:id").get(function (req, res) {
         res.json(result);
       });
 });
-
-// This section will get a single event by creator id and event name
-// EventsRoutes.route("/events/edit").get(function (req, res) {
-//   console.log(req.body);
-//   console.log(req.params);
-//   console.log(req.query);
-//   let db_connect = dbo.getDb();
-//   var myquery = { creator_id: req.params.lis[0], event_name: req.params.lis[1]};
-//   db_connect
-//       .collection("events")
-//       .findOne(myquery)
-//       .toArray(function(err, result) {
-//         if (err) throw err;
-//         console.log(result)
-//         res.json(result);
-//       });
-// });
 
 // This section will help you create a new event.
 EventsRoutes.route("/events/add").post(function (req, response) {
@@ -94,12 +74,8 @@ EventsRoutes.route("/events/add").post(function (req, response) {
 
 // This section will help you update an event by id.
 EventsRoutes.route("/update1/:id").post(function (req, response) {
-  // console.log('heeeeeeehhhhhhahhhhhhhhhhhaaaa')
-  // console.log(req.body.params)
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
-  console.log(req.params)
-  console.log(req.body)
   let newvalues = {
     $set: {
         event_name: req.body.new_event_name,
@@ -121,13 +97,13 @@ EventsRoutes.route("/update1/:id").post(function (req, response) {
 });
 
 // This section will help you delete a record
-EventsRoutes.route("/events/delete/:id").delete((req, response) => {
+EventsRoutes.route("/delete1/:id").delete(function (req, response) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
-  db_connect.collection("events").deleteOne(myquery, function (err, obj) {
+  db_connect.collection("events").deleteOne(myquery, function (err, res) {
     if (err) throw err;
     console.log("1 document deleted");
-    response.status(obj);
+    response.json(res);
   });
 });
 
