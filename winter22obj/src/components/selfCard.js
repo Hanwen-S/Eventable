@@ -11,6 +11,7 @@ import BackdropUnstyled from '@mui/base/BackdropUnstyled';
 import { GrFormEdit } from 'react-icons/gr';
 import Histogram from 'react-chart-histogram';
 import { GrFormView } from 'react-icons/gr';
+import { MdOutlineDeleteOutline } from 'react-icons/md';
 import "./card.css"
 import "./selfCard.css"
 
@@ -30,7 +31,7 @@ export default function SelfCard() {
 
   const Edit = () => {
     navigate(
-        '/CreateEventForm',
+        '/EditEventForm',
      );
   };
 
@@ -58,6 +59,12 @@ export default function SelfCard() {
               Edit
             </button>
             <GrFormEdit/>
+            <button
+              className='eventCardDeleteButton'
+            >
+              Delete
+            </button>
+            <MdOutlineDeleteOutline />
           </CardContent>
     </Card></button>
     {isOpen && 
