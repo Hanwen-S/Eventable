@@ -163,26 +163,6 @@ const drawer = (
       </Drawer>
     </Box>
 
-<<<<<<< HEAD
-      {/* the slot home at the right side */}
-      <Box>
-        <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              <ResponsiveAppBar user_id={user_id}/>
-          {Array.from(Array(12)).map((_, index) => (
-            <Grid item xs={2} sm={0} md={0} key={index}>
-              <SlotCard user_id={user_id}/>
-              
-            </Grid>
-          ))}
-        </Grid>
-        <Pagination count={10} variant="outlined" style={{
-          position: 'absolute', left: '50%', bottom: '10%',
-          transform: 'translate(-50%, -50%)'
-          }}
-        />
-      </Box>
-      
-=======
     {/* the slot home at the right side */}
     <Box>
       <Grid container spacing={{ xs: 1.5, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -194,7 +174,6 @@ const drawer = (
         transform: 'translate(-50%, -50%)'
         }}
       />
->>>>>>> b0d5c552e8872f389314410df8be55c5371a38bd
     </Box>
     
   </Box>
