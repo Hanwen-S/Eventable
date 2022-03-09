@@ -132,37 +132,57 @@ const ResponsiveAppBar = (props) => {
     }
   };
 */
+
 const handleOnKeyPress=async(e)=>{
   if (e.key === 'Enter') {
-    const userResponse = await fetch(`http://localhost:5000/records/${search.toString()}`);
-    const eventResponse = await fetch(`http://localhost:5000/events/${search.toString()}`);
-  /*if (!response.ok) {
-    const message = `An error has occured: ${response.statusText}`;
-    window.alert(message);
-    return;
-  }*/
-  const user = await userResponse.json();
-  const event = await eventResponse.json();
-  console.log(user);
-  console.log(event);
-  if (!user && !event) {
-    window.alert(`User or event with id ${search} not found`);
+    let found = false;
+    const userResponse = await fetch(`http://localhost:5000/records/${search.toString()}`)
+    .then(function(userResponse){                      // first then()
+      if(userResponse.ok)
+      {
+        return userResponse.json();         
+      }
+
+      throw new Error('Something went wrong.');
+    })
+    .then(user => {
+      console.log('Success:', user);
+      if (user){
+        found = true;
+        window.alert("User found:\n  User name: "+user.person_username+"\n  User email: "+user.person_email);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+    
+    const eventResponse = await fetch(`http://localhost:5000/events/${search.toString()}`)
+    .then(function(eventResponse){                      // first then()
+      if(eventResponse.ok)
+      {
+        return eventResponse.json();         
+      }
+
+      throw new Error('Something went wrong.');
+    })
+    .then(event => {
+      console.log('Success:', event);
+      if (event && !found){      
+        window.alert("Event found:\n  Event name: "+event.event_name);
+        found = true;
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  
+ 
+  if (!found) {
+    window.alert(`User or event with id "${search}" not found`);
     return;
   }
-  else{
-    if (user){
-      window.alert("User found:\n  User name: "+user.person_username+"\n  User email: "+user.person_email);
-    }
-    if (event){      
-      window.alert("Event found:\n  Event name: "+event.event_name);
-    }
-
-  }
-}};
-
-
-
-
+  
+  }};
 
 
 
