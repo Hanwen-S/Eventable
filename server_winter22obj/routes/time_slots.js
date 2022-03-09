@@ -16,8 +16,7 @@ const ObjectId = require("mongodb").ObjectId;
 timeSlotsRoutes.route("/time_slots/get").get(function (req, res) {
   let db_connect = dbo.getDb();
   var query = {user_id: req.query.user_id};
-  console.log(query);
-  //console.log(req);
+  //console.log(query);
   db_connect
     .collection("time_slots")
     .find(query)
