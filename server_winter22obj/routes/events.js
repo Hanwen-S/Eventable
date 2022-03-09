@@ -55,7 +55,7 @@ EventsRoutes.route("/events/add").post(function (req, response) {
   let myobj = {
         creator_id: req.body.creator_id,
         creator_name: req.body.creator_name,
-        //participator_db_ids: JSON.parse(req.query.participators),
+        participants_name: [req.body.creator_name],
         event_name: req.body.event_name,
         date: req.body.date,
         address: req.body.address,
@@ -70,6 +70,30 @@ EventsRoutes.route("/events/add").post(function (req, response) {
     if (err) throw err;
     response.json(res);
   });
+});
+
+// This section will help you update an event by id.
+EventsRoutes.route("/addperson/:id").post(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { _id: ObjectId( req.params.id )};
+  console.log(req.body);
+  let name = (req.body.names);
+  console.log(name);
+  name.push(", ")
+  name.push(req.body.person_name);
+  console.log(name);
+  let newvalues = {
+    $set: {
+        participants_name: name,
+    },
+  };
+  db_connect
+    .collection("events")
+    .updateOne(myquery, newvalues, function (err, res) {
+      if (err) throw err;
+      console.log("1 person added");
+      response.json(res);
+    });
 });
 
 // This section will help you update an event by id.
