@@ -11,12 +11,15 @@ import BackdropUnstyled from '@mui/base/BackdropUnstyled';
 import { GrFormEdit } from 'react-icons/gr';
 import Histogram from 'react-chart-histogram';
 import { GrFormView } from 'react-icons/gr';
+import { MdOutlineDeleteOutline } from 'react-icons/md';
 import "./card.css"
 import "./selfCard.css"
 
 export default function SelfCard(props) {
   const navigate = useNavigate();
-  //const item = props.it;
+  
+  const item = props.it;
+  console.log(item)
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
 
@@ -30,7 +33,8 @@ export default function SelfCard(props) {
 
   const Edit = () => {
     navigate(
-        '/CreateEventForm',
+        '/EditEventForm',
+          {state: item._id}
      );
   };
 
@@ -38,18 +42,16 @@ export default function SelfCard(props) {
     <button className='eventCardButton' onClick={togglePopup}><Card style={{display: 'inline-block'}}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Time: 
+              Time: {item.date}
             </Typography>
             <Typography variant="h5" component="div">
-            Event_name:
+            Event_name: {item.event_name}
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              Address
+              Address: {item.address}
             </Typography>
             <Typography variant="body2">
-              Comment
-              <br />
-              {'"a benevolent smile"'}
+              Comment: {item.description}
             </Typography>
             <button
               className='eventCardEditButton'
@@ -58,6 +60,12 @@ export default function SelfCard(props) {
               Edit
             </button>
             <GrFormEdit/>
+            <button
+              className='eventCardDeleteButton'
+            >
+              Delete
+            </button>
+            <MdOutlineDeleteOutline />
           </CardContent>
     </Card></button>
     {isOpen && 

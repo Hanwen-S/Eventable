@@ -132,28 +132,33 @@ const ResponsiveAppBar = (props) => {
     }
   };
 */
-  const handleOnKeyPress=async(e)=>{
-    if (e.key === 'Enter') {
-      console.log(search)
-      const response = await fetch(`http://localhost:5000/records/${search}`);
-
-    if (!response.ok) {
-      const message = `An error has occured: ${response.statusText}`;
-      window.alert(message);
-      return;
+const handleOnKeyPress=async(e)=>{
+  if (e.key === 'Enter') {
+    const userResponse = await fetch(`http://localhost:5000/records/${search.toString()}`);
+    const eventResponse = await fetch(`http://localhost:5000/events/${search.toString()}`);
+  /*if (!response.ok) {
+    const message = `An error has occured: ${response.statusText}`;
+    window.alert(message);
+    return;
+  }*/
+  const user = await userResponse.json();
+  const event = await eventResponse.json();
+  console.log(user);
+  console.log(event);
+  if (!user && !event) {
+    window.alert(`User or event with id ${search} not found`);
+    return;
+  }
+  else{
+    if (user){
+      window.alert("User found:\n  User name: "+user.person_username+"\n  User email: "+user.person_email);
     }
-    const record = await response.json();
-    console.log(record);
-    if (!record) {
-      window.alert(`Record with id ${search} not found`);
-      return;
-    }
-    else{
-      window.alert("User found:\n  User name: "+record.person_username+"\n  User email: "+record.person_email);
+    if (event){      
+      window.alert("Event found:\n  Event name: "+event.event_name);
     }
 
-  }};
-
+  }
+}};
 
 
 

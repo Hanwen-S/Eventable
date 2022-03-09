@@ -25,26 +25,21 @@ EventsRoutes.route("/events").get(function (req, res) {
 
 EventsRoutes.route("/events/get").get(function (req, res) {
   let db_connect = dbo.getDb();
-  console.log('this is req-----------');
-  console.log(req);
-  console.log('this is query-----------');
-  console.log(req.query);
-  console.log('this is body-----------');
-  console.log(req.body);
-  console.log('this is params-----------');
-  console.log(req.params);
+  // console.log('this is line-----------');
+  // console.log(req);
   var query = {creator_id: req.query.creator_id};
+  console.log(query);
   db_connect
     .collection("events")
     .find(query)
     .toArray(function(err, result) {
     if (err) throw err;
-    console.log(result);
+    // console.log(result);
     res.json(result);
   });
 });
 
-// This section will help you get a single record by id
+// This section will help you get a single event by id
 EventsRoutes.route("/events/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
@@ -56,7 +51,24 @@ EventsRoutes.route("/events/:id").get(function (req, res) {
       });
 });
 
-// This section will help you create a new record.
+// This section will get a single event by creator id and event name
+// EventsRoutes.route("/events/edit").get(function (req, res) {
+//   console.log(req.body);
+//   console.log(req.params);
+//   console.log(req.query);
+//   let db_connect = dbo.getDb();
+//   var myquery = { creator_id: req.params.lis[0], event_name: req.params.lis[1]};
+//   db_connect
+//       .collection("events")
+//       .findOne(myquery)
+//       .toArray(function(err, result) {
+//         if (err) throw err;
+//         console.log(result)
+//         res.json(result);
+//       });
+// });
+
+// This section will help you create a new event.
 EventsRoutes.route("/events/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   console.log(req.body);
@@ -80,16 +92,23 @@ EventsRoutes.route("/events/add").post(function (req, response) {
   });
 });
 
-// This section will help you update a time slot by id.
-EventsRoutes.route("/events/update/:id").post(function (req, response) {
+// This section will help you update an event by id.
+EventsRoutes.route("/update1/:id").post(function (req, response) {
+  // console.log('heeeeeeehhhhhhahhhhhhhhhhhaaaa')
+  // console.log(req.body.params)
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
+  console.log(req.params)
+  console.log(req.body)
   let newvalues = {
     $set: {
-        day_time: req.body.day_time,
-        start_time: req.body.start_time,
-        end_time: req.body.end_time,
-        coefficient: req.body.coefficient,
+        event_name: req.body.new_event_name,
+        date: req.body.new_date,
+        address: req.body.new_address,
+        status: false,
+        planned_start_time: req.body.new_planned_start_time,
+        planned_end_time: req.body.new_planned_end_time,
+        description: req.body.new_description,
     },
   };
   db_connect

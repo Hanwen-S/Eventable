@@ -12,7 +12,6 @@ import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { useLocation } from 'react-router';
 import {useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 const user_id = localStorage.getItem('user_id');
@@ -32,6 +31,11 @@ const updateEvent = () => {
   .get("http://localhost:5000/events/get", {
     params: myobj
   })
+  .then((res) => {
+    console.log(res.data);
+    var events = res.data;
+    localStorage.setItem('user_events', events);
+  })
 };
 
 export const MyEvent = (props) => {
@@ -40,20 +44,16 @@ export const MyEvent = (props) => {
   //   navigate(
   //     path
   //   )}; 
-  const eventlist = [];
+  const [eventlist, setList] = React.useState([]);
 
   useEffect(() => {
     const myobj = {
       creator_id: localStorage.getItem('user_id'),
     };
-    console.log(myobj);
     axios
       .get("http://localhost:5000/events/get", {params: myobj})
       .then((res) => {
-        console.log(res.data);
-        res.data.map(item => {
-          eventlist.push(item)
-        })
+        setList(eventlist => [...res.data])
       })
       .catch(function (error) {
         console.log(error);
@@ -61,10 +61,11 @@ export const MyEvent = (props) => {
     //   navigate(
     //     '../myEvent',
     //  );
-  });
+  }, []);
     return (
     <Box sx={{ display: 'flex' }}>
       {/* <button> Refresh </button> */}
+      <button onClick = {updateEvent}> Refresh </button>
       <CssBaseline />
       <Box>
         <Box
@@ -80,9 +81,10 @@ export const MyEvent = (props) => {
       </Box>
         <Grid container spacing={{ xs: 0, md: 0}} columns={{ xs: 4, sm: 8, md: 12 }}>
                 <ResponsiveAppBar user_id={user_id}/>
-            {Array.from(Array(12)).map((_, index) => (
+            {eventlist.map((item, index) => (
               <Grid item xs={2} sm={0} md={0} key={index}>
-                <SelfCard/>
+                <SelfCard it = {item} key={index} />
+                
               </Grid>
             ))}
           </Grid>

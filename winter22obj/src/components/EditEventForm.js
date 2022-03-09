@@ -9,19 +9,21 @@ import ResponsiveAppBar from './newnavbar';
 import BasicCard from './card';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
-//import SlotCard from './time-slots/slotCard';
 import './CreateEventForm.css'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import axios from 'axios';
-import { useNavigate as useHistory } from 'react-router-dom';
+import { useNavigate as useHistory, useLocation } from 'react-router-dom';
 const drawerWidth = 240;
 
 
 
-function CreateEventForm(props) {
+function EditEventForm(props) {
   let history = useHistory();
-
+  const { state } = useLocation();
+  console.log(state)
+  const event_id = state
+  console.log(event_id)
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -39,31 +41,29 @@ function CreateEventForm(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
   const signal = 1;
-
+  
   const handleSubmit = (event) => {
-    console.log(event);
-    event.preventDefault();
-    //console.log(event.currentTarget)
     const newevent = new FormData(event.currentTarget);
-    const creator_id = localStorage.getItem('user_id');
-    const creator_name = localStorage.getItem('user_first_name') + " " + localStorage.getItem('user_last_name');
-    const myobj = {
-      creator_id: creator_id,
-      creator_name: creator_name,
-      event_name: newevent.get('event_name'),
-      date: newevent.get('date'),
-      address: newevent.get('address'),
-      status: false,
-      planned_start_time: newevent.get('planned_start_time'),
-      planned_end_time: newevent.get('planned_end_time'),
-      description: newevent.get('description'),
-    };
-    axios
-      .post("http://localhost:5000/events/add", myobj)
-      .then((res) => console.log(res.data))
-      .then(() => history(
-        '../myEvent',
-     ));
+        const myobj2 = {
+          new_event_name: newevent.get('new_event_name'),
+          new_date: newevent.get('new_date'),
+          new_address: newevent.get('new_address'),
+          new_status: false,
+          new_planned_start_time: newevent.get('new_planned_start_time'),
+          new_planned_end_time: newevent.get('new_planned_end_time'),
+          new_description: newevent.get('new_description'),
+        }; 
+        
+        axios
+          .post(
+            "http://localhost:5000/update1/" + event_id, 
+            myobj2)
+          .then((res) => console.log(res.data))
+          .then(() => (
+            history(
+              '../myEvent',
+           )
+          ))
   };
 
   return (
@@ -81,30 +81,30 @@ function CreateEventForm(props) {
         autoComplete="off"
         >
           <div>
-            <TextField id='name' name="event_name" label="Event_Name*" variant="filled" />
+            <TextField id='name' name="new_event_name" label="New_Event_Name*" variant="filled" />
           </div>
           <div>
-            <TextField id="address" name="address" label="Address*" variant="filled" />
+            <TextField id="address" name="new_address" label="New_Address*" variant="filled" />
           </div>
           <div>
-            <TextField id="date" name="date" label="Planned_Date*" placeholder="Enter in the form of yyyy-mm-dd" variant="filled" />
+            <TextField id="date" name="new_date" label="New_Planned_Date*" placeholder="Enter in the form of yyyy-mm-dd" variant="filled" />
           </div>
           <div>
-            <TextField id="starttime" name="planned_start_time" label="Planned_Start_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
-            <TextField id="endtime" name="planned_end_time" label="Planned_End_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
+            <TextField id="starttime" name="new_planned_start_time" label="New_Planned_Start_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
+            <TextField id="endtime" name="new_planned_end_time" label="New_Planned_End_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
           </div>
           <div>
             <TextField
             id="description"
-            name="description"
-            label="Description"
+            name="new_description"
+            label="New_Description"
             rows={5}
             multiline
             variant="filled"
             />
           </div>
           <div>
-            <Button className='formbutton' type="submit" variant="contained">create</Button>
+            <Button className='formbutton' type="submit" variant="contained">update</Button>
           </div>
         </Box>
       </Grid>
@@ -112,7 +112,7 @@ function CreateEventForm(props) {
   );
 }
 
-CreateEventForm.propTypes = {
+EditEventForm.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -120,4 +120,4 @@ CreateEventForm.propTypes = {
   window: PropTypes.func,
 };
 
-export default CreateEventForm;
+export default EditEventForm;
