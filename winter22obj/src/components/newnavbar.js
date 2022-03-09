@@ -191,7 +191,7 @@ const handleOnKeyPress=async(e)=>{
 
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{width: 1450}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography

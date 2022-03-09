@@ -7,44 +7,48 @@ import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import ResponsiveAppBar from './newnavbar';
 import BasicCard from './card';
+import SelfCard from './selfCard';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { useLocation } from 'react-router';
-const drawerWidth = 240;
+import {useEffect} from 'react';
+import axios from 'axios';
 
+const user_id = localStorage.getItem('user_id');
 
+const drawer = (
+  <div>
+    <Toolbar />
+    <Divider />
+  </div>
+);
 
-function ResponsiveDrawer(props) {
-  const { window } = props;
-  //const user_id = 2
-  //props.location.state.user_id;
-  //console.log(user_id);
-  //const {state} = useLocation();
-  //console.log(state);
-  const user_id = localStorage.getItem('user_id');
-  //console.log(user_id)
+export default function ResponsiveDrawer(props){
+  // const navigate = useNavigate();
+  // const routeChange = (path) => {
+  //   navigate(
+  //     path
+  //   )}; 
+  const [eventlist, setList] = React.useState([]);
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const drawer = (
-    <div>
-      <Toolbar />
-      <Divider />
-
-    </div>
-  );
-
-  const container = window !== undefined ? () => window().document.body : undefined;
-
-  return (
+  useEffect(() => {
+    const myobj = {
+      creator_id: localStorage.getItem('user_id'),
+    };
+    axios
+      .get("http://localhost:5000/events/get", {params: myobj})
+      .then((res) => {
+        setList(eventlist => [...res.data])
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }, []);
+    return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
-      <Box
+      <Box>
+        <Box
         component="nav"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -55,30 +59,15 @@ function ResponsiveDrawer(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box>
-        <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              <ResponsiveAppBar user_id={user_id}/>
-          {Array.from(Array(12)).map((_, index) => (
-            <Grid item xs={2} sm={0} md={0} key={index}>
-              <BasicCard/>
-            </Grid>
-          ))}
-        </Grid>
-        <Pagination count={10} variant="outlined" style={{
-        position: 'absolute', left: '50%', bottom: '10%',
-        transform: 'translate(-50%, -50%)'
-      }}/>
+        <Grid container spacing={{ xs: 0, md: 0}} columns={{ xs: 4, sm: 8, md: 12 }}>
+                <ResponsiveAppBar user_id={user_id}/>
+            {eventlist.map((item, index) => (
+              <Grid item xs={3} sm={0} md={0} key={index}>
+                <SelfCard it = {item} key={index} signal={false}/>
+              </Grid>
+            ))}
+          </Grid>
       </Box>
     </Box>
-  );
+    );
 }
-
-ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
-
-export default ResponsiveDrawer;

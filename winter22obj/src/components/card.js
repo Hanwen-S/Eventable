@@ -11,13 +11,15 @@ import Histogram from 'react-chart-histogram';
 import { GrFormView } from 'react-icons/gr';
 import "./card.css"
 
-export default function BasicCard() {
+export default function BasicCard(props) {
+  const item = props.it;
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
+
 
   const handleClick = () => {
     setIsOpen2(!isOpen2);
@@ -27,13 +29,13 @@ export default function BasicCard() {
     <button className='eventCardButton' onClick={togglePopup}><Card style={{display: 'inline-block'}}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Time
+              Time: {it.date}
             </Typography>
             <Typography variant="h5" component="div">
-            Event_name
+            Event_name: {it.event_name}
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              Address
+              Address: {it.address}
             </Typography>
             <Typography variant="body2">
               Comment

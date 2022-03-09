@@ -17,6 +17,7 @@ import "./selfCard.css"
 import axios from 'axios';
 
 export default function SelfCard(props) {
+  const signal = props.signal;
   const navigate = useNavigate();
   let history = useHistory();
   const item = props.it;
@@ -39,7 +40,8 @@ export default function SelfCard(props) {
   };
 
   return <div>
-    <button className='eventCardButton' onClick={togglePopup}><Card style={{display: 'inline-block'}}>
+    <button className='eventCardButton' onClick={togglePopup} style={{ width: '80%'}}>
+      <Card style={{display: 'inline-block', width: '100%'}}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               {item.date}
@@ -53,15 +55,19 @@ export default function SelfCard(props) {
             <Typography variant="body2">
                {item.description}
             </Typography>
-            <button
+            {signal === true ? <button
               className='eventCardEditButton'
               onClick={Edit}
             >
               Edit
               <GrFormEdit/>
-            </button>
+            </button> : <button
+              className='eventCardEditButton'
+            >
+            </button>}
           </CardContent>
-    </Card></button>
+    </Card>
+    </button>
     {isOpen && 
       <Popup
         content={<>

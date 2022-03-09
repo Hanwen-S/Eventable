@@ -78,7 +78,7 @@ export const MyEvent = (props) => {
                 <ResponsiveAppBar user_id={user_id}/>
             {eventlist.map((item, index) => (
               <Grid item xs={3} sm={0} md={0} key={index}>
-                <SelfCard it = {item} key={index} />
+                <SelfCard it = {item} key={index} signal={true}/>
               </Grid>
             ))}
           </Grid>
