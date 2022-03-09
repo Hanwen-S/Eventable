@@ -20,6 +20,7 @@ import CreateEventForm from './components/CreateEventForm';
 import EditEvent from './components/editEvent';
 import FullEvent from './components/FullEventForm';
 import EvenCard from './components/FullEventCard';
+import EditEventForm from './components/EditEventForm';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -33,6 +34,7 @@ ReactDOM.render(
     <Route exact path='/account' element={<Account/>}></Route>
     <Route exact path='/myEvent' element={<MyEvent/>}></Route>
     <Route exact path='/edit' element={<EditEvent/>}></Route>
+    <Route exact path='/EditEventForm' element={<EditEventForm/>}></Route>
     <Route exact path='/slots' element={<SlotCard/>}></Route>
     <Route exact path='/slothome' element={<SlotsHome/>}></Route>
     <Route exact path='/CreateEventForm' element={<CreateEventForm/>}></Route>
