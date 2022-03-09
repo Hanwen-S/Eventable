@@ -16,7 +16,7 @@ import { useNavigate } from "react-router";
 import CreateCard from './createCard';
 import DisplayCard from './displayCard';
 import EditCard from './editCard';
-
+import axios from 'axios';
  
 // the time slot card to be mapped
 function SlotCard({slot, deleteSlot}) {
@@ -63,13 +63,34 @@ export default function SlotsHome() {
 
  // This method fetches the time slots of a user from the database.
  useEffect(() => {
+  const myobj = {
+    user_id: user_id,
+    //user_id: "62256a5c8a4c742e6585aa02",
+  };
+  axios
+    .get("http://localhost:5000/time_slots/get", {params: myobj})
+    .then((res) => {
+      setSlots(slots => [...res.data]);
+      //console.log(slots);
+      localStorage.setItem("time_slots", JSON.stringify(slots));
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+ }, [slots.length]);
+
+ /*useEffect(() => {
    async function getSlots() {
-    const response = await fetch(`http://localhost:5000/time_slots`);
-    /* const response = await fetch("http://localhost:5000/time_slots", {
-      method: "GET",
+     const myobj = {
+      user_id: user_id,
+     };
+     //console.log(user_id);
+    //const response = await fetch(`http://localhost:5000/time_slots`);
+    const response = await fetch("http://localhost:5000/time_slots/get", {
+      params: myobj
     }).then(() => {
       console.log("get slots");
-    });*/
+    });
 
      //response = response.find(user_id);
      if (!response.ok) {
@@ -86,7 +107,7 @@ export default function SlotsHome() {
    getSlots();
  
    return;
- }, [slots.length]);
+ }, [slots.length]);*/
 
  // sidebar on the left: the card for creating a time slot
 const drawerWidth = 240;
@@ -119,7 +140,7 @@ const drawer = (
  function slotsPage() { 
       return slots.map((slot, index) => {
         return (
-          <Grid item xs={2} sm={0} md={0} key={index}>
+          <Grid item xs={0} sm={0} md={0} key={index}>
             <SlotCard
               slot={slot}
               deleteSlot={() => deleteSlot(slot._id)}
