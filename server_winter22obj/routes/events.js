@@ -23,13 +23,34 @@ EventsRoutes.route("/events").get(function (req, res) {
     });
 });
 
+EventsRoutes.route("/events/get").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  console.log('this is req-----------');
+  console.log(req);
+  console.log('this is query-----------');
+  console.log(req.query);
+  console.log('this is body-----------');
+  console.log(req.body);
+  console.log('this is params-----------');
+  console.log(req.params);
+  var query = {creator_id: req.query.creator_id};
+  db_connect
+    .collection("events")
+    .find(query)
+    .toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.json(result);
+  });
+});
+
 // This section will help you get a single record by id
 EventsRoutes.route("/events/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
   db_connect
       .collection("events")
-      .findOne(myquery, function (err, result) {
+      .find(myquery, function (err, result) {
         if (err) throw err;
         res.json(result);
       });
@@ -40,7 +61,7 @@ EventsRoutes.route("/events/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   console.log(req.body);
   let myobj = {
-        creator_db_id: req.body.creator_id,
+        creator_id: req.body.creator_id,
         creator_name: req.body.creator_name,
         //participator_db_ids: JSON.parse(req.query.participators),
         event_name: req.body.event_name,

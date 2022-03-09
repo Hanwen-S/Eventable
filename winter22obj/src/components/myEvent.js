@@ -11,6 +11,9 @@ import SelfCard from './selfCard';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { useLocation } from 'react-router';
+import {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 const user_id = localStorage.getItem('user_id');
 
@@ -21,10 +24,47 @@ const drawer = (
   </div>
 );
 
+const updateEvent = () => {
+  const myobj = {
+    creator_id: user_id,
+  };
+  axios
+  .get("http://localhost:5000/events/get", {
+    params: myobj
+  })
+};
 
 export const MyEvent = (props) => {
+  // const navigate = useNavigate();
+  // const routeChange = (path) => {
+  //   navigate(
+  //     path
+  //   )}; 
+  const eventlist = [];
+
+  useEffect(() => {
+    const myobj = {
+      creator_id: localStorage.getItem('user_id'),
+    };
+    console.log(myobj);
+    axios
+      .get("http://localhost:5000/events/get", {params: myobj})
+      .then((res) => {
+        console.log(res.data);
+        res.data.map(item => {
+          eventlist.push(item)
+        })
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    //   navigate(
+    //     '../myEvent',
+    //  );
+  });
     return (
     <Box sx={{ display: 'flex' }}>
+      {/* <button> Refresh </button> */}
       <CssBaseline />
       <Box>
         <Box

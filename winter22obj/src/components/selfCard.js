@@ -14,9 +14,9 @@ import { GrFormView } from 'react-icons/gr';
 import "./card.css"
 import "./selfCard.css"
 
-export default function SelfCard() {
+export default function SelfCard(props) {
   const navigate = useNavigate();
-
+  //const item = props.it;
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
 
@@ -38,10 +38,10 @@ export default function SelfCard() {
     <button className='eventCardButton' onClick={togglePopup}><Card style={{display: 'inline-block'}}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Time
+              Time: 
             </Typography>
             <Typography variant="h5" component="div">
-            Event_name
+            Event_name:
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               Address

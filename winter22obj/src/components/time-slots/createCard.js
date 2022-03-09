@@ -36,7 +36,7 @@ export default function CreateCard() {
  // This function will handle the submission.
  async function onSubmit(e) {
    e.preventDefault();
- 
+   console.log("jhgjhg")
    // When a post request is sent to the create url, we'll add a new time slot to the database.
    //const newTimeSlot = { ...form };
    const newTimeSlot = {
@@ -77,7 +77,7 @@ export default function CreateCard() {
           id="filled-basic" 
           label="Year"
           value={form.year}
-          onChange={(e) => updateForm({ year: e.target.year })}
+          onChange={(e) => updateForm({ year: e.target.value })}
           required
           variant="outlined"
       />
@@ -86,7 +86,7 @@ export default function CreateCard() {
           InputLabelProps={{ shrink: true }}
           label="Month"
           value={form.month}
-          onChange={(e) => updateForm({ month: e.target.month })}
+          onChange={(e) => updateForm({ month: e.target.value })}
           required
           variant="outlined"
       />
@@ -95,7 +95,7 @@ export default function CreateCard() {
           InputLabelProps={{ shrink: true }}
           label="Day"
           value={form.day}
-          onChange={(e) => updateForm({ day: e.target.day })}
+          onChange={(e) => updateForm({ day: e.target.value })}
           required
           variant="outlined"
       />
@@ -104,7 +104,7 @@ export default function CreateCard() {
           fullWidth
           InputLabelProps={{ shrink: true }}
           label="Start Hour"
-          onChange={(e) => updateForm({ start_hr: e.target.start_hr })}
+          onChange={(e) => updateForm({ start_hr: e.target.value })}
           value={form.start_hr}
           required
           variant="outlined"
@@ -118,7 +118,7 @@ export default function CreateCard() {
           id="demo-simple-select"
           value={form.start_min_index}
           label="Start Minutes"
-          onChange={(e) => updateForm({ start_min_index: e.target.start_min_index })}
+          onChange={(e) => updateForm({ start_min_index: e.target.value })}
         >
           <MenuItem value={0}>00</MenuItem>
           <MenuItem value={1}>30</MenuItem>
@@ -129,7 +129,7 @@ export default function CreateCard() {
           fullWidth
           InputLabelProps={{ shrink: true }}
           label="End Hour"
-          onChange={(e) => updateForm({ end_hr: e.target.end_hr })}
+          onChange={(e) => updateForm({ end_hr: e.target.value })}
           value={form.end_hr}
           required
           variant="outlined"
@@ -143,7 +143,7 @@ export default function CreateCard() {
           id="demo-simple-select"
           value={form.end_min_index}
           label="End Minutes"
-          onChange={(e) => updateForm({ end_min_index: e.target.end_min_index })}
+          onChange={(e) => updateForm({ end_min_index: e.target.value })}
         >
           <MenuItem value={0}>00</MenuItem>
           <MenuItem value={1}>30</MenuItem>
@@ -155,7 +155,7 @@ export default function CreateCard() {
           InputLabelProps={{ shrink: true }}
           label="Coefficient"
           value={form.coefficient}
-          onChange={(e) => updateForm({ coefficient: e.target.coefficient })}
+          onChange={(e) => updateForm({ coefficient: e.target.value })}
           required
           variant="outlined"
       />
