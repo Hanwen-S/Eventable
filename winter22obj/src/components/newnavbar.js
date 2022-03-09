@@ -136,7 +136,11 @@ const ResponsiveAppBar = (props) => {
 const handleOnKeyPress=async(e)=>{
   if (e.key === 'Enter') {
     let found = false;
-    const userResponse = await fetch(`http://localhost:5000/records/${search.toString()}`)
+    if (search.trim() == ""){
+      window.alert("Search string can't be empty");
+      return;
+    }
+    const userResponse = await fetch(`http://localhost:5000/records/${search.trim().toString()}`)
     .then(function(userResponse){                      // first then()
       if(userResponse.ok)
       {
@@ -156,7 +160,7 @@ const handleOnKeyPress=async(e)=>{
       console.error('Error:', error);
     });
     
-    const eventResponse = await fetch(`http://localhost:5000/events/${search.toString()}`)
+    const eventResponse = await fetch(`http://localhost:5000/events/${search.trim().toString()}`)
     .then(function(eventResponse){                      // first then()
       if(eventResponse.ok)
       {
@@ -178,7 +182,7 @@ const handleOnKeyPress=async(e)=>{
   
  
   if (!found) {
-    window.alert(`User or event with id "${search}" not found`);
+    window.alert(`User or event with id "${search.trim()}" not found`);
     return;
   }
   
@@ -196,7 +200,7 @@ const handleOnKeyPress=async(e)=>{
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            LOGO
+            Eventable
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -237,7 +241,7 @@ const handleOnKeyPress=async(e)=>{
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            LOGO
+            Eventable
           </Typography>
           <Box sx={{ flexGrow: 5, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

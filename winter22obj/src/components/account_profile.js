@@ -16,6 +16,7 @@ import {
     jobTitle: 'Senior Developer',
     name: localStorage.getItem('user_username'),
     email: localStorage.getItem('user_email'),
+    id: localStorage.getItem('user_id'),
   };
   
   export const AccountProfile = (props) => (
@@ -48,7 +49,7 @@ import {
             color="textSecondary"
             variant="body2"
           >
-            {user.email}
+            {user.id}
           </Typography>
         </Box>
       </CardContent>
