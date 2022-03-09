@@ -73,6 +73,7 @@ const ResponsiveAppBar = (props) => {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
   const user_id = props.user_id;
+  const wid = props.wid
   console.log(user_id)
   const routeChange = (path) => {
     navigate(
@@ -191,7 +192,7 @@ const handleOnKeyPress=async(e)=>{
 
 
   return (
-    <AppBar position="static" style={{width: 1450}}>
+    <AppBar position="static" style={{width: wid}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography

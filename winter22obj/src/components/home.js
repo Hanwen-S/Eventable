@@ -60,7 +60,7 @@ export default function ResponsiveDrawer(props){
         </Drawer>
       </Box>
         <Grid container spacing={{ xs: 0, md: 0}} columns={{ xs: 4, sm: 8, md: 12 }}>
-                <ResponsiveAppBar user_id={user_id}/>
+                <ResponsiveAppBar user_id={user_id} wid={1450}/>
             {eventlist.map((item, index) => (
               <Grid item xs={3} sm={0} md={0} key={index}>
                 <SelfCard it = {item} key={index} signal={false}/>

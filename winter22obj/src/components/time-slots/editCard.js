@@ -71,7 +71,7 @@ export default function EditCard(props) {
       }
 
       return (
-        <Card style={{display: 'inline-block', height: '30vw', width: '15.5vw'}}>
+        <Card style={{display: 'inline-block', height: '30vw', width: '80%'}}>
         <CardContent>
           <TextField
               size="small"
