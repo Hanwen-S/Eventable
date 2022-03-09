@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import CardActions from '@mui/material/CardActions';
@@ -14,73 +14,62 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import axios from 'axios';
 
-export default function EditCard() {
-    const [form, setForm] = useState({
-      year: "",
-      month: "",
-      day: "",
-      start_hr: 0, // 0-23
-      start_min_index: 0, // 0 or 1
-      end_hr: 0,
-      end_min_index: 0,
-      coefficient: 0.0,
+export default function EditCard(props) {
+  const form = props.form;
+   const [slot, setSlot] = useState({
+      id: form.id,
+      year: form.year,
+      month: form.month,
+      day: form.day,
+      start_hr: form.start_hr,
+      start_min_index: form.start_min_index,
+      end_hr: form.end_hr,
+      end_min_index: form.end_min_index,
+      coefficient: form.coefficient,
+
+      start_index: form.start_index,
+      end_index: form.end_index,
     })
-    const params = useParams();
+   // const params = useParams();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        async function fetchData() {
-          //const id = "62159522d10ff4f104ed78e1";
-          //const response = await fetch(`http://localhost:5000/time_slots/${id}`);
-          console.log(params.id);
-          const id = params.id.toString();
-          const response = await fetch(`http://localhost:5000/time_slots/${id}`);
-          if (!response.ok) {
-            const message = `An error has occurred: ${response.statusText}`;
-            window.alert(message);
-            return;
-          }
-          
-          const time_slot = await response.json();
-          if (!time_slot) {
-            window.alert(`Time slot with id ${id} not found`);
-            navigate("/");
-            return;
-          }
-          setForm(time_slot);
-        }
-        fetchData();
-        return;
-      }, [params.id, navigate]);
 
       // These methods will update the state properties.
-    function updateForm(value) {
-        return setForm((prev) => {
+    function updateSlot(value) {
+        return setSlot((prev) => {
             return { ...prev, ...value };
         });
     }
 
-    async function onSubmit(e) {
+    const onSubmit = async (e) => {
         e.preventDefault();
+
         const editedTimeSlot = {
-          year: form.year,
-          month: form.month,
-          day: form.day,
-          start_index: form.start_hr*2+form.start_min_index,
-          end_index: form.end_hr*2+form.end_min_index,
-          coefficient: form.coefficient,
+          year: slot.year,
+          month: slot.month,
+          day: slot.day,
+          start_index: slot.start_hr*2+slot.start_min_index,
+          end_index: slot.end_hr*2+slot.end_min_index,
+          coefficient: slot.coefficient,
         };
       
         // This will send a post request to update the data in the database.
-        await fetch(`http://localhost:5000/time_slots/update/${params.id}`, {
+        await fetch(`http://localhost:5000/time_slots/update/${form.id}`, {
           method: "POST",
           body: JSON.stringify(editedTimeSlot),
           headers: {
             'Content-Type': 'application/json'
           },
+        }).then(() => {
+          console.log(editedTimeSlot);
+          console.log(form.id + " updated!");
+          // update the new slot in localStorage
+          localStorage.setItem("time_slots", JSON.stringify(editedTimeSlot));
         });
         navigate("/slothome");
+        window.location.reload(false);
       }
+
       return (
         <Card style={{display: 'inline-block', height: '30vw', width: '15.5vw'}}>
         <CardContent>
@@ -89,8 +78,8 @@ export default function EditCard() {
               InputLabelProps={{ shrink: true }}
               id="filled-basic" 
               label="Year"
-              value={form.year}
-              onChange={(e) => updateForm({ year: e.target.year })}
+              value={slot.year}
+              onChange={(e) => updateSlot({ year: e.target.value })}
               required
               variant="outlined"
           />
@@ -98,8 +87,8 @@ export default function EditCard() {
               size="small"
               InputLabelProps={{ shrink: true }}
               label="Month"
-              value={form.month}
-              onChange={(e) => updateForm({ month: e.target.month })}
+              value={slot.month}
+              onChange={(e) => updateSlot({ month: e.target.value })}
               required
               variant="outlined"
           />
@@ -107,8 +96,8 @@ export default function EditCard() {
               size="small"
               InputLabelProps={{ shrink: true }}
               label="Day"
-              value={form.day}
-              onChange={(e) => updateForm({ day: e.target.day })}
+              value={slot.day}
+              onChange={(e) => updateSlot({ day: e.target.value })}
               required
               variant="outlined"
           />
@@ -117,8 +106,8 @@ export default function EditCard() {
               fullWidth
               InputLabelProps={{ shrink: true }}
               label="Start Hour"
-              onChange={(e) => updateForm({ start_hr: e.target.start_hr })}
-              value={form.start_hr}
+              onChange={(e) => updateSlot({ start_hr: e.target.value })}
+              value={slot.start_hr}
               required
               variant="outlined"
           />
@@ -129,9 +118,9 @@ export default function EditCard() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={form.start_min_index}
+              value={slot.start_min_index}
               label="Start Minutes"
-              onChange={(e) => updateForm({ start_min_index: e.target.start_min_index })}
+              onChange={(e) => updateSlot({ start_min_index: e.target.value })}
             >
               <MenuItem value={0}>00</MenuItem>
               <MenuItem value={1}>30</MenuItem>
@@ -142,8 +131,8 @@ export default function EditCard() {
               fullWidth
               InputLabelProps={{ shrink: true }}
               label="End Hour"
-              onChange={(e) => updateForm({ end_hr: e.target.end_hr })}
-              value={form.end_hr}
+              onChange={(e) => updateSlot({ end_hr: e.target.value })}
+              value={slot.end_hr}
               required
               variant="outlined"
           />
@@ -154,9 +143,9 @@ export default function EditCard() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={form.end_min_index}
+              value={slot.end_min_index}
               label="End Minutes"
-              onChange={(e) => updateForm({ end_min_index: e.target.end_min_index })}
+              onChange={(e) => updateSlot({ end_min_index: e.target.value })}
             >
               <MenuItem value={0}>00</MenuItem>
               <MenuItem value={1}>30</MenuItem>
@@ -167,8 +156,8 @@ export default function EditCard() {
               fullWidth
               InputLabelProps={{ shrink: true }}
               label="Coefficient"
-              value={form.coefficient}
-              onChange={(e) => updateForm({ coefficient: e.target.coefficient })}
+              value={slot.coefficient}
+              onChange={(e) => updateSlot({ coefficient: e.target.value })}
               required
               variant="outlined"
           />
@@ -176,7 +165,7 @@ export default function EditCard() {
         <CardActions>
             <Button size="small"
                 className='formbutton' variant="contained"
-                onSubmit={onSubmit}
+                onClick={onSubmit}
             >
               Submit
             </Button>
@@ -185,3 +174,5 @@ export default function EditCard() {
      );
  
 }
+
+
