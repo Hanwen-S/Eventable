@@ -39,7 +39,7 @@ EventsRoutes.route("/events/get").get(function (req, res) {
   });
 });
 
-// This section will help you get a single record by id
+// This section will help you get a single event by id
 EventsRoutes.route("/events/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
@@ -51,7 +51,24 @@ EventsRoutes.route("/events/:id").get(function (req, res) {
       });
 });
 
-// This section will help you create a new record.
+// This section will get a single event by creator id and event name
+EventsRoutes.route("/events/edit").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  console.log(req.body);
+  console.log(req.params);
+  console.log(req.query);
+  var myquery = { creator_id: req.query.creator_id, event_name: req.body.original_event_name};
+  db_connect
+      .collection("events")
+      .findOne(myquery)
+      .toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result)
+        res.json(result);
+      });
+});
+
+// This section will help you create a new event.
 EventsRoutes.route("/events/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   console.log(req.body);
@@ -75,16 +92,19 @@ EventsRoutes.route("/events/add").post(function (req, response) {
   });
 });
 
-// This section will help you update a time slot by id.
+// This section will help you update an event by id.
 EventsRoutes.route("/events/update/:id").post(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
+  let myquery = { _id: ObjectId( req.params.event_id )};
   let newvalues = {
     $set: {
-        day_time: req.body.day_time,
-        start_time: req.body.start_time,
-        end_time: req.body.end_time,
-        coefficient: req.body.coefficient,
+        event_name: req.body.new_event_name,
+        date: req.body.new_date,
+        address: req.body.new_address,
+        status: false,
+        planned_start_time: req.body.new_planned_start_time,
+        planned_end_time: req.body.new_planned_end_time,
+        description: req.body.new_description,
     },
   };
   db_connect
