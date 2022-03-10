@@ -71,7 +71,7 @@ export default function EditCard(props) {
       }
 
       return (
-        <Card style={{display: 'inline-block', height: '30vw', width: '80%'}}>
+        <Card style={{display: 'inline-block', height: '30vw', width: '15.5vw'}}>
         <CardContent>
           <TextField
               size="small"
@@ -163,7 +163,7 @@ export default function EditCard(props) {
           />
         </CardContent>
         <CardActions>
-            <Button size="small"
+            <Button style={{float: 'right'}}
                 className='formbutton' variant="contained"
                 onClick={onSubmit}
             >

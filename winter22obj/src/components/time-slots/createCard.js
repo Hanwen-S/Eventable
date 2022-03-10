@@ -165,7 +165,7 @@ export default function CreateCard(props) {
       />
     </CardContent>
     <CardActions>
-        <Button size="small"
+        <Button 
             className='formbutton' variant="contained"
             onClick={onSubmit}
         >
