@@ -14,6 +14,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useNavigate as useHistory, useLocation } from 'react-router-dom';
+import { useState,useEffect } from 'react';
 const drawerWidth = 240;
 
 
@@ -35,6 +36,45 @@ function EditEventForm(props) {
 
     </div>
   );
+  const [values, setValues] = useState();
+  /*
+  const getEvent = async() => {
+    const eventResponse= await fetch(`http://localhost:5000/events/${event_id}`);
+    const event = await eventResponse.json();
+    setValues(event);
+    localStorage.setItem('new_event_name', event.event_name);
+    localStorage.setItem('new_address', event.address);
+    localStorage.setItem('new_date', event.date);
+    localStorage.setItem('new_planned_start_time', event.new_planned_start_time);
+    localStorage.setItem('new_planned_end_time', event.new_planned_end_time);
+    localStorage.setItem('new_description', event.description);
+    return event;
+  };
+  getEvent();
+  console.log(values);
+*/
+async function fetchUserData () {
+  try {
+    const result = await fetch(`http://localhost:5000/events/${event_id}`, {
+      method: "GET"
+    })
+    return await result.json()
+  } catch (err) {
+    console.log(err)
+    return null
+  }
+}
+const [userData, setUserData] = useState()
+const FunctionalComponent = () => {
+
+  useEffect(() => {
+    fetchUserData().then(data => {
+      data && setUserData(data)
+    })
+  }, []) // componentDidMount
+}
+FunctionalComponent();
+  console.log(userData);
 
   const container = window !== undefined ? () => window().document.body : undefined;
   const signal = 1;
@@ -74,6 +114,13 @@ function EditEventForm(props) {
          ));
   };
 
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    });
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -89,7 +136,15 @@ function EditEventForm(props) {
         autoComplete="off"
         >
           <div>
-            <TextField id='name' name="new_event_name" label="New_Event_Name*" variant="filled" />
+            <TextField 
+            id='name' 
+            name="new_event_name" 
+            label="New_Event_Name*" 
+            variant="filled" 
+            //value={values.new_event_name}
+           //onChange={handleChange}
+
+            />
           </div>
           <div>
             <TextField id="address" name="new_address" label="New_Address*" variant="filled" />
