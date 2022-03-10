@@ -129,7 +129,7 @@ export default function ResponsiveDrawer(props){
               null
             ))}
           </Grid>
-          <Pagination count={10} variant="outlined" style={{
+          <Pagination count={Math.floor(eventlist.length / 12) + 1} variant="outlined" style={{
         position: 'absolute', left: '50%', bottom: '0%',
         transform: 'translate(-50%, -50%)'
         }}
