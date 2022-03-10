@@ -36,10 +36,11 @@ const theme = createTheme();
 export default function SignUp() {
   let history = useHistory();
 
-  const redirect = () => {
-    history.push('/');
-  }
+
   const handleSubmit = (event) => {
+    const redirect = () => {
+      history.push('/');
+    }
     console.log(event);
     event.preventDefault();
     //console.log(event.currentTarget)
@@ -58,13 +59,27 @@ export default function SignUp() {
     //     message_content: "3"
     // };
     //console.log(newperson);
+    let usernameExist=false;
+      axios
+      .get("http://localhost:5000/records/get", {person_username: myobj.person_username})
+      .then((res) => {
+        console.log(res);
+        if (res.data){
+          window.alert("Username alreadt exists, please use another name.");
+          usernameExist=true;
+        }
+      });
+ 
+      if (!usernameExist){
     axios
       .post("http://localhost:5000/records/add", myobj)
       // .post("http://localhost:5000/messages/add", mymessage)
       .then((res) => console.log(res.data));
       history(
         '../',
-     );
+     )
+
+     ;}
     // eslint-disable-next-line no-console
   };
 
