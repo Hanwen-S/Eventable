@@ -45,7 +45,9 @@ function CreateEventForm(props) {
     event.preventDefault();
     //console.log(event.currentTarget)
     const newevent = new FormData(event.currentTarget);
+    console.log(localStorage)
     const creator_id = localStorage.getItem('user_id');
+    console.log(creator_id)
     const creator_name = localStorage.getItem('user_first_name') + " " + localStorage.getItem('user_last_name');
     const creator_event_array = localStorage.getItem('user_created_event_array').split(',');
     const creator_event_id_array = localStorage.getItem('user_created_event_id_array').split(',');

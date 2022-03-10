@@ -13,6 +13,7 @@ import "./card.css"
 
 export default function BasicCard(props) {
   const item = props.it;
+  console.log(item);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
 

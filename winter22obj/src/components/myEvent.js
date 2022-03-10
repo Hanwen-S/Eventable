@@ -44,7 +44,8 @@ export const MyEvent = (props) => {
   //   navigate(
   //     path
   //   )};
-  const [eventlist, setList] = React.useState([]);
+  const [eventlist1, setList1] = React.useState([]);
+  const [eventlist2, setList2] = React.useState([]);
   const[pageNum, setPageNum] = useState(1)
   const handleChange = (event, value) => {
     setPageNum(value);
@@ -53,14 +54,18 @@ export const MyEvent = (props) => {
     const myobj = {
       creator_id: localStorage.getItem('user_id'),
     };
-    axios
-      .get("http://localhost:5000/events/get", {params: myobj})
-      .then((res) => {
-        setList(eventlist => [...res.data])
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
+    const myobj2 = {
+      creator_id: localStorage.getItem('user_id'),
+      participants_id: localStorage.getItem('user_id'),
+    };
+    let URL1 = "http://localhost:5000/events/get"
+    let URL2 = "http://localhost:5000/events/get1"
+    const promise1 = axios.get(URL1, {params: myobj});
+    const promise2 = axios.get(URL2, {params: myobj2});
+    Promise.all([promise1, promise2]).then(res => {
+      setList1(eventlist1 => [...res[0].data, ...res[1].data])
+      console.log(res);
+    });
   }, []);
     return (
     <Box sx={{ display: 'flex' }}>
@@ -79,7 +84,7 @@ export const MyEvent = (props) => {
       </Box>
         <Grid container spacing={{ xs: 0, md: 0}} columns={{ xs: 4, sm: 8, md: 12 }}>
                 <ResponsiveAppBar user_id={user_id} wid={1450}/>
-                {eventlist.map((item, index) => (
+                {eventlist1.map((item, index) => (
               (index < 12*(pageNum) && index >= 12*(pageNum-1)) ?
               <Grid item xs={3} sm={0} md={0} key={index}>
                 <SelfCard it = {item} key={index} signal={true} signal2={false}/>
