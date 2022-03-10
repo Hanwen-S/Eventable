@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import axios from 'axios';
  
-export default function CreateCard() {
+export default function CreateCard(props) {
  const [form, setForm] = useState({
     year: "",
     month: "",
@@ -23,6 +23,7 @@ export default function CreateCard() {
     end_min_index: 0,
     coefficient: 0
  });
+ const curPage = props.curPage
 
  const navigate = useNavigate();
 
@@ -67,7 +68,10 @@ export default function CreateCard() {
    setForm({ year: "", month: "", day: "", 
             start_hr: 0, start_min_index: 0, 
             end_hr: 0, end_min_index: 0, coefficient: 0.0 });
-   navigate("/slothome"); // redirect to the next page
+   navigate(
+     "/slothome",
+    {state: curPage}
+   ); // redirect to the next page
    window.location.reload(false);
  }
  

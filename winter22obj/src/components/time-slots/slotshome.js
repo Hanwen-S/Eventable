@@ -12,7 +12,7 @@ import ResponsiveAppBar from '../newnavbar';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 //import Button from '@mui/material/Button';
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import CreateCard from './createCard';
 import DisplayCard from './displayCard';
 import EditCard from './editCard';
@@ -22,6 +22,7 @@ import axios from 'axios';
 function SlotCard({slot, deleteSlot}) {
     //const slot = props.slot;
     const [isDisplay, setIsDisplay] = useState(true);
+    
     const form = {
       id: slot._id,
       year: slot.year,
@@ -55,15 +56,15 @@ function SlotCard({slot, deleteSlot}) {
 }
 
 export default function SlotsHome() {
+ const { state } = useLocation();
  const [slots, setSlots] = useState([]);
  const navigate = useNavigate();
- const[pageNum, setPageNum] =useState(0)
+ const[pageNum, setPageNum] = useState(state ? state : 1)
  //const params = useParams();
  const user_id = localStorage.getItem('user_id');
 
- const handleChange = (e) => {
-   console.log(e)
-  setPageNum(e.target.page);
+ const handleChange = (event, value) => {
+  setPageNum(value);
 };
  // This method fetches the time slots of a user from the database.
  useEffect(() => {
@@ -120,7 +121,7 @@ const drawer = (
     <Toolbar />
     <Divider />
     <div>
-      <CreateCard />
+      <CreateCard curPage={pageNum}/>
     </div>
   </div>
 );
@@ -144,7 +145,7 @@ const drawer = (
  function slotsPage(pageNum) { 
       return slots.map((slot, index) => {
         return (
-          
+          (index < 21*(pageNum) && index >= 21*(pageNum-1)) ?
           <Grid item xs={0} sm={0} md={0} key={index}>
             <SlotCard
               slot={slot}
@@ -152,6 +153,7 @@ const drawer = (
               key={slot._id}
             />
           </Grid>
+          : null
       )});
  }
   
@@ -193,12 +195,14 @@ const drawer = (
     <Box>
       <Grid container spacing={{ xs: 1.5, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             <ResponsiveAppBar user_id={user_id} wid={1220}/>
-        {slotsPage()}
+        {slotsPage(pageNum)}
       </Grid>
       <Pagination count={10} variant="outlined" style={{
         position: 'absolute', left: '50%', bottom: '10%',
         transform: 'translate(-50%, -50%)'
         }}
+        page={pageNum}
+        onChange={handleChange}
       />
     </Box>
     
