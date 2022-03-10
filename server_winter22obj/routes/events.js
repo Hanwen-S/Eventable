@@ -25,6 +25,8 @@ EventsRoutes.route("/events").get(function (req, res) {
 
 EventsRoutes.route("/events/get").get(function (req, res) {
   let db_connect = dbo.getDb();
+
+
   var query = {creator_id: req.query.creator_id};
   console.log(query);
   db_connect
@@ -32,31 +34,20 @@ EventsRoutes.route("/events/get").get(function (req, res) {
     .find(query)
     .toArray(function(err, result) {
     if (err) throw err;
+
+
     res.json(result);
   });
 });
 
-EventsRoutes.route("/events/get1").get(function (req, res) {
-  let db_connect = dbo.getDb();
-  var query = {
-    participants_id: req.query.participants_id};
-  console.log(query);
-  db_connect
-    .collection("events")
-    .find(query)
-    .toArray(function(err, result) {
-    if (err) throw err;
-    res.json(result);
-  });
-});
 
-// This section will help you get a single event by id
+// This section will help you get a single record by id
 EventsRoutes.route("/events/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
   db_connect
       .collection("events")
-      .findOne(myquery, function (err, result) {
+      .find(myquery, function (err, result) {
         if (err) throw err;
         res.json(result);
       });
