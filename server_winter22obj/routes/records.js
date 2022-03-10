@@ -62,10 +62,10 @@ recordsRoutes.route("/records/add").post(function (req, response) {
     person_email: req.body.person_email,
     person_phone: "",
     person_password: req.body.person_password,
-    person_created_event_array: ["header"],
-    person_created_event_id_array: ["header"],
-    person_joined_event_array: ["header"],
-    person_joined_event_id_array:["header"],
+    person_created_event_array: ["1"],
+    person_created_event_id_array: ["1"],
+    person_joined_event_array: ["1"],
+    person_joined_event_id_array:["1"],
   };
   db_connect.collection("records").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -102,6 +102,23 @@ recordsRoutes.route("/update2/:id").post(function (req, response) {
     $set: {
       person_created_event_array: req.body.person_created_event_array,
       person_created_event_id_array: req.body.person_created_event_id_array,
+    },
+  };
+  db_connect
+    .collection("records")
+    .updateOne(myquery, newvalues, function (err, res) {
+      if (err) throw err;
+      console.log("1 document updated");
+      response.json(res);
+    });
+});
+
+// This section will help you update a record by id.
+recordsRoutes.route("/update3/:id").post(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { _id: ObjectId( req.params.id )};
+  let newvalues = {
+    $set: {
       person_joined_event_array: req.body.person_joined_event_array,
       person_joined_event_id_array: req.body.person_joined_event_id_array,
     },
@@ -114,7 +131,6 @@ recordsRoutes.route("/update2/:id").post(function (req, response) {
       response.json(res);
     });
 });
-
 
 // This section will help you delete a record
 recordsRoutes.route("/:id").delete((req, response) => {

@@ -91,7 +91,7 @@ function CreateEventForm(props) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <ResponsiveAppBar />
+        <ResponsiveAppBar wid={1450}/>
         <Box
         component="form"
         sx={{

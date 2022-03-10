@@ -40,7 +40,7 @@ export const Account = (props) => {
         </Box>
         <Box>
         <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 8, sm: 8, md: 12 }}>
-              <ResponsiveAppBar user_id={user_id}/>
+              <ResponsiveAppBar user_id={user_id} wid={1450} />
         </Grid>
         </Box>
         <AccountProfile/>

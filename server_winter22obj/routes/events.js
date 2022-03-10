@@ -55,6 +55,7 @@ EventsRoutes.route("/events/add").post(function (req, response) {
   let myobj = {
         creator_id: req.body.creator_id,
         creator_name: req.body.creator_name,
+        participants_id:[req.body.creator_id],
         participants_name: [req.body.creator_name],
         event_name: req.body.event_name,
         date: req.body.date,
@@ -78,13 +79,14 @@ EventsRoutes.route("/addperson/:id").post(function (req, response) {
   let myquery = { _id: ObjectId( req.params.id )};
   console.log(req.body);
   let name = (req.body.names);
-  console.log(name);
+  let id = (req.body.ids);
   name.push(", ")
   name.push(req.body.person_name);
-  console.log(name);
+  id.push(req.body.person_id);
   let newvalues = {
     $set: {
         participants_name: name,
+        participants_id: id,
     },
   };
   db_connect
