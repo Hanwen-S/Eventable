@@ -30,7 +30,7 @@ npm start
 ## Technologies Used
 ![Technologies Used](https://i.imgur.com/81OVjKs.jpg?1)
 
-## Contributers
+## Contributors
 Hanwen Shen (<hanwenshen@g.ucla.edu>)  
 Haobo Yuan (<haobobruin20@g.ucla.edu>)  
 Jiaxin Yang (<yangjiaxin20020821@outlook.com>)  
