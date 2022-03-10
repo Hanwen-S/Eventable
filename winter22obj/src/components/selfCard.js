@@ -79,8 +79,7 @@ export default function SelfCard(props) {
           {/* <p>Participants: {item.event_name}</p>
           <p>Has Passed: {item.status}</p> */}
           <p>Description: {item.description}</p>
-          <button className="timeSlotButton" onClick={handleClick}>Potential Time Slots</button>
-          <GrFormView />
+          <button className="timeSlotButton" onClick={handleClick}>Potential Time Slots <GrFormView /> </button>
         </>}
         handleClose={togglePopup}
       />

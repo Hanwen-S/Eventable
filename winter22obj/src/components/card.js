@@ -54,8 +54,7 @@ export default function BasicCard(props) {
           <p>Participants:</p>
           <p>Has Passed:</p>
           <p>Comments:</p>
-          <button className="timeSlotButton" onClick={handleClick}>Potential Time Slots</button>
-          <GrFormView />
+          <button className="timeSlotButton" onClick={handleClick}>Potential Time Slots <GrFormView /> </button>
         </>}
         handleClose={togglePopup}
       />

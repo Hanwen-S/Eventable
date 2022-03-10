@@ -21,6 +21,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { Router } from 'react-router-dom';
 import axios from 'axios';
+import Popup from './eventCard';
 const pages = [['Home', '/home'], ['Timeslots', '/slothome'], ['Create', '/CreateEventForm']];
 const settings = [['Profile', ''], 'Account', 'Dashboard', 'Logout'];
 
@@ -74,7 +75,6 @@ const ResponsiveAppBar = (props) => {
   const navigate = useNavigate();
   const user_id = props.user_id;
   const wid = props.wid
-  console.log(user_id)
   const routeChange = (path) => {
     navigate(
       path
@@ -124,7 +124,6 @@ const ResponsiveAppBar = (props) => {
       window.alert(message);
       return;
     }
-
     const record = await response.json();
     if (!record) {
       window.alert(`Record with id ${search} not found`);
@@ -134,64 +133,63 @@ const ResponsiveAppBar = (props) => {
   };
 */
 
-const handleOnKeyPress=async(e)=>{
-  if (e.key === 'Enter') {
-    let found = false;
-    if (search.trim() == ""){
-      window.alert("Search string can't be empty");
+  const handleOnKeyPress=async(e)=>{
+    if (e.key === 'Enter') {
+      let found = false;
+      if (search.trim() == ""){
+        window.alert("Search string can't be empty");
+        return;
+      }
+      const userResponse = await fetch(`http://localhost:5000/records/${search.trim().toString()}`)
+      .then(function(userResponse){                      // first then()
+        if(userResponse.ok)
+        {
+          return userResponse.json();         
+        }
+
+        throw new Error('Something went wrong.');
+      })
+      .then(user => {
+        console.log('Success:', user);
+        if (user){
+          found = true;
+          window.alert("User found:\n  User name: "+user.person_username+"\n  User email: "+user.person_email);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+      
+      const eventResponse = await fetch(`http://localhost:5000/events/${search.trim().toString()}`)
+      .then(function(eventResponse){                      // first then()
+        if(eventResponse.ok)
+        {
+          return eventResponse.json();         
+        }
+
+        throw new Error('Something went wrong.');
+      })
+      .then(event => {
+        if (event && !found){  
+          found = true;
+          navigate(
+            '/Search',
+              {state: event._id}
+          );
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    
+  
+    if (!found) {
+      window.alert(`User or event with id "${search.trim()}" not found`);
       return;
     }
-    const userResponse = await fetch(`http://localhost:5000/records/${search.trim().toString()}`)
-    .then(function(userResponse){                      // first then()
-      if(userResponse.ok)
-      {
-        return userResponse.json();         
-      }
-
-      throw new Error('Something went wrong.');
-    })
-    .then(user => {
-      console.log('Success:', user);
-      if (user){
-        found = true;
-        window.alert("User found:\n  User name: "+user.person_username+"\n  User email: "+user.person_email);
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-    
-    const eventResponse = await fetch(`http://localhost:5000/events/${search.trim().toString()}`)
-    .then(function(eventResponse){                      // first then()
-      if(eventResponse.ok)
-      {
-        return eventResponse.json();         
-      }
-
-      throw new Error('Something went wrong.');
-    })
-    .then(event => {
-      console.log('Success:', event);
-      if (event && !found){      
-        window.alert("Event found:\n  Event name: "+event.event_name);
-        found = true;
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  
- 
-  if (!found) {
-    window.alert(`User or event with id "${search.trim()}" not found`);
-    return;
-  }
-  
   }};
 
-
-
-  return (
+  return <div>
     <AppBar position="static" style={{width: wid}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -300,6 +298,6 @@ const handleOnKeyPress=async(e)=>{
         </Toolbar>
       </Container>
     </AppBar>
-  );
+  </div>
 };
 export default ResponsiveAppBar;
