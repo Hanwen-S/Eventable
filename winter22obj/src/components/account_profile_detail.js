@@ -15,6 +15,13 @@ import {
 
 
 const handleSubmit = () => {
+  let validInput = true;
+  if (!localStorage.getItem('user_first_name') || !localStorage.getItem('user_last_name') ||
+    !localStorage.getItem('user_email') || !localStorage.getItem('user_phone')){
+      window.alert("Input can't be empty.")
+      validInput=false;
+    }
+    if (validInput){
   const myobj = {
       person_first_name: localStorage.getItem('user_first_name'),
       person_last_name: localStorage.getItem('user_last_name'),
@@ -24,6 +31,9 @@ const handleSubmit = () => {
       person_password:localStorage.getItem('user_password'),
   };
   console.log(myobj);
+
+
+  
   axios
     .post(
       "http://localhost:5000/update/" + localStorage.getItem('user_id'), 
@@ -31,6 +41,7 @@ const handleSubmit = () => {
     )
     .then((res) => {console.log(res.data)});
   window.alert("Profile updated successfully!")
+    }
 }; 
 
 
