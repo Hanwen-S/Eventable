@@ -1,3 +1,4 @@
+const async = require("async");
 const { request } = require("express");
 const express = require("express");
 
@@ -92,6 +93,38 @@ timeSlotsRoutes.route("/time_slots/update/:id").post(function (req, response) {
       console.log("1 document updated");
       response.json(res);
     });
+});
+
+timeSlotsRoutes.route("/time_slots/goget_times").get((req, response) => {
+  let db_connect = dbo.getDb();
+  console.log("begin---------");
+  //console.log(req.query);
+  console.log("end---------");
+  let new_pairs = req.query.pairs.map(a => (JSON.parse(a)));
+  console.log(new_pairs)
+  let final_list = []
+  function onsSearch (pair, callback) {
+    const li = pair[0]
+    const date = pair[1]
+    const [year, month, day] = date.split('-');
+    console.log(year)
+    console.log(month)
+    console.log(day)
+   db_connect
+   .collection("time_slots")
+   .find({ user_id : { $in : li }, year: year, month: month, day : day})
+   .toArray(function (err, result) {
+     if (err) throw err;
+     callback(null, result)
+   });
+  }
+  async.map(new_pairs, onsSearch)
+  .then( results => {
+    console.log(results);
+    response.json(results);
+}).catch( err => {
+    console.log(err);
+});
 });
 
 // This section will help you delete a time slot

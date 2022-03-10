@@ -26,7 +26,7 @@ EventsRoutes.route("/events").get(function (req, res) {
 EventsRoutes.route("/events/get").get(function (req, res) {
   let db_connect = dbo.getDb();
   var query = {creator_id: req.query.creator_id};
-  console.log(query);
+  //console.log(query);
   db_connect
     .collection("events")
     .find(query)
@@ -40,7 +40,7 @@ EventsRoutes.route("/events/get1").get(function (req, res) {
   let db_connect = dbo.getDb();
   var query = {
     participants_id: req.query.participants_id};
-  console.log(query);
+  //console.log(query);
   db_connect
     .collection("events")
     .find(query)

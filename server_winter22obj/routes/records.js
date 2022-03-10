@@ -33,7 +33,7 @@ recordsRoutes.route("/records/get").get(function (req, res) {
     .find(query)
     .toArray(function(err, result) {
     if (err) throw err;
-    console.log(result);
+    //console.log(result);
     res.json(result);
   });
 });
@@ -112,6 +112,7 @@ recordsRoutes.route("/update/:id").post(function (req, response) {
 recordsRoutes.route("/update2/:id").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
+  console.log(req)
   let newvalues = {
     $set: {
       person_created_event_array: req.body.person_created_event_array,
