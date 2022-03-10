@@ -30,7 +30,8 @@ export default function ResponsiveDrawer(props){
   //     path
   //   )};
 
-  const [eventlist, setList] = React.useState([]);
+  const [eventlist1, setList1] = React.useState([]);
+  const [eventlist2, setList2] = React.useState([]);
   const[pageNum, setPageNum] = useState(1)
   const handleChange = (event, value) => {
     setPageNum(value);
@@ -39,15 +40,31 @@ export default function ResponsiveDrawer(props){
     const myobj = {
       creator_id: localStorage.getItem('user_id'),
     };
+    const myobj2 = {
+      creator_id: localStorage.getItem('user_id'),
+      participants_id: localStorage.getItem('user_id'),
+    };
     axios
       .get("http://localhost:5000/events/get", {params: myobj})
       .then((res) => {
-        setList(eventlist => [...res.data])
+        setList1(eventlist1 => [...res.data])
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      axios
+      .get("http://localhost:5000/events/get1", {params: myobj2})
+      .then((res) => {
+        setList2(eventlist2 => [...res.data])
       })
       .catch(function (error) {
         console.log(error);
       })
   }, []);
+    console.log(eventlist1);
+    console.log(eventlist2);
+    const eventlist = eventlist1.concat(eventlist2);
+
     return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />

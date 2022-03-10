@@ -36,6 +36,20 @@ EventsRoutes.route("/events/get").get(function (req, res) {
   });
 });
 
+EventsRoutes.route("/events/get1").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  var query = {
+    participants_id: req.query.participants_id};
+  console.log(query);
+  db_connect
+    .collection("events")
+    .find(query)
+    .toArray(function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
 // This section will help you get a single event by id
 EventsRoutes.route("/events/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
@@ -70,7 +84,7 @@ EventsRoutes.route("/events/add").post(function (req, response) {
   let myobj = {
         creator_id: req.body.creator_id,
         creator_name: req.body.creator_name,
-        participants_id:[req.body.creator_id],
+        participants_id:[],
         participants_name: [req.body.creator_name],
         event_name: req.body.event_name,
         date: req.body.date,
