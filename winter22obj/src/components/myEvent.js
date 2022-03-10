@@ -82,7 +82,7 @@ export const MyEvent = (props) => {
                 {eventlist.map((item, index) => (
               (index < 12*(pageNum) && index >= 12*(pageNum-1)) ?
               <Grid item xs={3} sm={0} md={0} key={index}>
-                <SelfCard it = {item} key={index} signal={true} signal1={false}/>
+                <SelfCard it = {item} key={index} signal={true} signal2={false}/>
               </Grid> :
               null
             ))}

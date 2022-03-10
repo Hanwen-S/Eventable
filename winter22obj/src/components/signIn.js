@@ -86,8 +86,8 @@ export default function SignIn() {
           localStorage.setItem('user_event_array', info.person_event_array);
           localStorage.setItem('user_created_event_array', info.person_created_event_array);
           localStorage.setItem('user_created_event_id_array', info.person_created_event_id_array);
-          localStorage.setItem('user_joined_event_array', info.person_created_event_array);
-          localStorage.setItem('user_joined_event_id_array', info.person_created_event_id_array);
+          localStorage.setItem('user_joined_event_array', info.person_joined_event_array);
+          localStorage.setItem('user_joined_event_id_array', info.person_joined_event_id_array);
           console.log(localStorage.getItem('user'));
           redirect(res.data[0]);
         }

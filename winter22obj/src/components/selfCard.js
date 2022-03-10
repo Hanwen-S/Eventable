@@ -41,9 +41,13 @@ export default function SelfCard(props) {
   };
 
   const Add = () => {
+    const person_id = localStorage.getItem('user_id');
+    const person_name = localStorage.getItem('user_first_name') + " " + localStorage.getItem('user_last_name');
+    const person_event_array = localStorage.getItem('user_joined_event_array').split(',');
+    const person_event_id_array = localStorage.getItem('user_joined_event_id_array').split(',');
     const myobj = {
-      person_name: item.creator_name,
-      person_id: item.creator_id,
+      person_name: person_name,
+      person_id: person_id,
       names: item.participants_name,
       ids: item.participants_id,
     };
@@ -51,9 +55,18 @@ export default function SelfCard(props) {
       .post(
         "http://localhost:5000/addperson/" + item._id,
         myobj)
-
-    window.location.reload();
-
+      .then((res)=>{
+        person_event_array.push(item.event_name);
+        person_event_id_array.push(item._id);
+        const myobj2 = {
+          person_joined_event_array: person_event_array,
+          person_joined_event_id_array: person_event_id_array,
+        }
+        localStorage.setItem('user_joined_event_array', [...person_event_array]);
+        localStorage.setItem('user_joined_event_id_array', [...person_event_id_array]);
+        axios
+        .post("http://localhost:5000/update3/" + person_id, myobj2)
+      })
   };
 
 
