@@ -19,7 +19,7 @@ const drawerWidth = 240;
 
 
 
-function EditEventForm(props) {
+const EditEventForm=(props) =>{
   const { state } = useLocation();
   const event_id = state
   const { window } = props;
@@ -27,6 +27,7 @@ function EditEventForm(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  var changed=false;
 
   const drawer = (
     <div>
@@ -64,18 +65,45 @@ async function fetchUserData () {
     return null
   }
 }
-const [userData, setUserData] = useState()
-const FunctionalComponent = () => {
+const [event,setEvent]=useState({});
+
+useEffect(() => {
+  fetchUserData().then(data => {
+    setEvent(data);
+    console.log(data);
+  });
+},[]);
+console.log(event);
+  localStorage.setItem('new_event_name', event.event_name);
+  localStorage.setItem('new_address', event.address);
+  localStorage.setItem('new_date', event.date);
+  localStorage.setItem('new_planned_start_time', event.new_planned_start_time);
+  localStorage.setItem('new_planned_end_time', event.new_planned_end_time);
+  localStorage.setItem('new_description', event.description);
+/*
+
+    localStorage.setItem('new_address', userData.address);
+    localStorage.setItem('new_date', userData.date);
+    localStorage.setItem('new_planned_start_time', userData.new_planned_start_time);
+    localStorage.setItem('new_planned_end_time', userData.new_planned_end_time);
+    localStorage.setItem('new_description', userData.description);
+*/
+    
+/*
+
 
   useEffect(() => {
     fetchUserData().then(data => {
       data && setUserData(data)
     })
-  }, []) // componentDidMount
-}
-FunctionalComponent();
-  console.log(userData);
+  }); // componentDidMount
+  */
 
+//FunctionalComponent();
+/*
+  console.log(userData);
+    
+*/
   const container = window !== undefined ? () => window().document.body : undefined;
   const signal = 1;
   let history = useHistory();
@@ -84,13 +112,13 @@ FunctionalComponent();
     event.preventDefault();
     const newevent = new FormData(event.currentTarget);
         const myobj2 = {
-          new_event_name: newevent.get('new_event_name'),
-          new_date: newevent.get('new_date'),
-          new_address: newevent.get('new_address'),
+          new_event_name: newevent.get('event_name'),
+          new_date: newevent.get('date'),
+          new_address: newevent.get('address'),
           new_status: false,
-          new_planned_start_time: newevent.get('new_planned_start_time'),
-          new_planned_end_time: newevent.get('new_planned_end_time'),
-          new_description: newevent.get('new_description'),
+          new_planned_start_time: newevent.get('planned_start_time'),
+          new_planned_end_time: newevent.get('planned_end_time'),
+          new_description: newevent.get('description'),
         }; 
         
         axios
@@ -114,10 +142,10 @@ FunctionalComponent();
          ));
   };
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
+  const handleChange = (e) => {
+    setEvent({
+      ...event,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -138,28 +166,29 @@ FunctionalComponent();
           <div>
             <TextField 
             id='name' 
-            name="new_event_name" 
+            name="event_name" 
             label="New_Event_Name*" 
             variant="filled" 
-            //value={values.new_event_name}
-           //onChange={handleChange}
+            value={event.event_name}
+            onChange={handleChange}
+            InputLabelProps={{ shrink: true }}  
 
             />
           </div>
           <div>
-            <TextField id="address" name="new_address" label="New_Address*" variant="filled" />
+            <TextField id="address" name="address" label="New_Address*" variant="filled" />
           </div>
           <div>
-            <TextField id="date" name="new_date" label="New_Planned_Date*" placeholder="Enter in the form of yyyy-mm-dd" variant="filled" />
+            <TextField id="date" name="date" label="New_Planned_Date*" placeholder="Enter in the form of yyyy-mm-dd" variant="filled" />
           </div>
           <div>
-            <TextField id="starttime" name="new_planned_start_time" label="New_Planned_Start_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
-            <TextField id="endtime" name="new_planned_end_time" label="New_Planned_End_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
+            <TextField id="starttime" name="planned_start_time" label="New_Planned_Start_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
+            <TextField id="endtime" name="planned_end_time" label="New_Planned_End_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
           </div>
           <div>
             <TextField
             id="description"
-            name="new_description"
+            name="description"
             label="New_Description"
             rows={5}
             multiline
