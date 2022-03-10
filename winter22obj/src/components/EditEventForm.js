@@ -171,11 +171,22 @@ console.log(event);
             />
           </div>
           <div>
-            <TextField id="date" name="date" label="New_Planned_Date*" placeholder="Enter in the form of yyyy-mm-dd" variant="filled" />
+            <TextField id="date" name="date" label="New_Planned_Date*" placeholder="Enter in the form of yyyy-mm-dd" variant="filled"
+            value={event.date}
+            onChange={handleChange}
+            InputLabelProps={{ shrink: true }}   />
           </div>
           <div>
-            <TextField id="starttime" name="planned_start_time" label="New_Planned_Start_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
-            <TextField id="endtime" name="planned_end_time" label="New_Planned_End_Time*" placeholder="Enter in the form of hh:mm" variant="filled" />
+            <TextField id="starttime" name="planned_start_time" label="New_Planned_Start_Time*" placeholder="Enter in the form of hh:mm" variant="filled"
+              value={event.planned_start_time}
+            onChange={handleChange}
+            InputLabelProps={{ shrink: true }} 
+             />
+            <TextField id="endtime" name="planned_end_time" label="New_Planned_End_Time*" placeholder="Enter in the form of hh:mm" variant="filled"
+            value={event.planned_end_time}
+            onChange={handleChange}
+            InputLabelProps={{ shrink: true }} 
+             />
           </div>
           <div>
             <TextField
@@ -185,6 +196,9 @@ console.log(event);
             rows={5}
             multiline
             variant="filled"
+            value={event.description}
+            onChange={handleChange}
+            InputLabelProps={{ shrink: true }} 
             />
           </div>
           <div>
