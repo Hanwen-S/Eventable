@@ -74,20 +74,8 @@ useEffect(() => {
   });
 },[]);
 console.log(event);
-  localStorage.setItem('new_event_name', event.event_name);
-  localStorage.setItem('new_address', event.address);
-  localStorage.setItem('new_date', event.date);
-  localStorage.setItem('new_planned_start_time', event.new_planned_start_time);
-  localStorage.setItem('new_planned_end_time', event.new_planned_end_time);
-  localStorage.setItem('new_description', event.description);
-/*
 
-    localStorage.setItem('new_address', userData.address);
-    localStorage.setItem('new_date', userData.date);
-    localStorage.setItem('new_planned_start_time', userData.new_planned_start_time);
-    localStorage.setItem('new_planned_end_time', userData.new_planned_end_time);
-    localStorage.setItem('new_description', userData.description);
-*/
+
     
 /*
 
@@ -176,7 +164,11 @@ console.log(event);
             />
           </div>
           <div>
-            <TextField id="address" name="address" label="New_Address*" variant="filled" />
+            <TextField id="address" name="address" label="New_Address*" variant="filled" 
+              value={event.address}
+            onChange={handleChange}
+            InputLabelProps={{ shrink: true }}  
+            />
           </div>
           <div>
             <TextField id="date" name="date" label="New_Planned_Date*" placeholder="Enter in the form of yyyy-mm-dd" variant="filled" />
