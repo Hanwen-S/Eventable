@@ -74,7 +74,8 @@ export default function SignIn() {
           alert('Incorrect Email or Password');
         }
         else{
-          var info = res.data;
+          console.log(res.data);
+          var info = res.data[0];
           console.log(info);
           localStorage.setItem('user_id',info._id);
           localStorage.setItem('user_first_name', info.person_first_name);
