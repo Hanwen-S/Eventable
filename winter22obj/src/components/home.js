@@ -7,28 +7,64 @@ import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import ResponsiveAppBar from './newnavbar';
 import BasicCard from './card';
+import SelfCard from './selfCard';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { useLocation } from 'react-router';
-const drawerWidth = 240;
+import {useEffect, useState} from 'react';
+import axios from 'axios';
 
+const user_id = localStorage.getItem('user_id');
 
+const drawer = (
+  <div>
+    <Toolbar />
+    <Divider />
+  </div>
+);
 
-function ResponsiveDrawer(props) {
-  const { window } = props;
-  //const user_id = 2
-  //props.location.state.user_id;
-  //console.log(user_id);
-  //const {state} = useLocation();
-  //console.log(state);
-  const user_id = localStorage.getItem('user_id');
-  //console.log(user_id)
+export default function ResponsiveDrawer(props){
+  // const navigate = useNavigate();
+  // const routeChange = (path) => {
+  //   navigate(
+  //     path
+  //   )};
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+  const [eventlist1, setList1] = React.useState([]);
+  const [eventlist2, setList2] = React.useState([]);
+  const[pageNum, setPageNum] = useState(1)
+  const handleChange = (event, value) => {
+    setPageNum(value);
   };
+  useEffect(() => {
+    const myobj = {
+      creator_id: localStorage.getItem('user_id'),
+    };
+    const myobj2 = {
+      creator_id: localStorage.getItem('user_id'),
+      participants_id: localStorage.getItem('user_id'),
+    };
+    axios
+      .get("http://localhost:5000/events/get", {params: myobj})
+      .then((res) => {
+        setList1(eventlist1 => [...res.data])
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      axios
+      .get("http://localhost:5000/events/get1", {params: myobj2})
+      .then((res) => {
+        setList2(eventlist2 => [...res.data])
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }, []);
+    console.log(eventlist1);
+    console.log(eventlist2);
+    const eventlist = eventlist1.concat(eventlist2);
+
 
   const drawer = (
     <div>
@@ -45,6 +81,7 @@ function ResponsiveDrawer(props) {
       <CssBaseline />
 
       <Box
+
         component="nav"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -55,6 +92,7 @@ function ResponsiveDrawer(props) {
           {drawer}
         </Drawer>
       </Box>
+
       <Box>
         <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
               <ResponsiveAppBar user_id={user_id}/>
@@ -70,16 +108,7 @@ function ResponsiveDrawer(props) {
       }}/>
       </Box>
 
+
     </Box>
-  );
+    );
 }
-
-ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
-
-export default ResponsiveDrawer;

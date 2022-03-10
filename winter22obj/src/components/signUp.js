@@ -36,10 +36,11 @@ const theme = createTheme();
 export default function SignUp() {
   let history = useHistory();
 
-  const redirect = () => {
-    history.push('/');
-  }
+
   const handleSubmit = (event) => {
+    const redirect = () => {
+      history.push('/');
+    }
     console.log(event);
     event.preventDefault();
     //console.log(event.currentTarget)
@@ -52,12 +53,14 @@ export default function SignUp() {
       person_phone: "",
       person_password: newperson.get('person_password'),
     };
+
     axios
       .post("http://localhost:5000/records/add", myobj)
       .then((res) => console.log(res.data));
       history(
         '../',
      );
+
     // eslint-disable-next-line no-console
   };
 

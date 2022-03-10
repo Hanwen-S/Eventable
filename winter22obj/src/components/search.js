@@ -11,12 +11,9 @@ import SelfCard from './selfCard';
 import { Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { useLocation } from 'react-router';
-
-import {useEffect, useState} from 'react';
-
+import {useEffect} from 'react';
 import axios from 'axios';
 
-const user_id = localStorage.getItem('user_id');
 
 const drawer = (
   <div>
@@ -25,48 +22,26 @@ const drawer = (
   </div>
 );
 
-const updateEvent = () => {
-  const myobj = {
-    creator_id: user_id,
-  };
-  axios
-  .get("http://localhost:5000/events/get", {
-    params: myobj
-  })
-  .then((res) => {
-    console.log(res.data);
-    var events = res.data;
-    localStorage.setItem('user_events', events);
-  })
-};
+export default function Search(props){
 
-export const MyEvent = (props) => {
-  // const navigate = useNavigate();
-  // const routeChange = (path) => {
-  //   navigate(
-  //     path
-  //   )};
+  const { state } = useLocation();
+  const event_id = state;
   const [eventlist, setList] = React.useState([]);
-  const[pageNum, setPageNum] = useState(1)
-  const handleChange = (event, value) => {
-    setPageNum(value);
-  };
   useEffect(() => {
-    const myobj = {
-      creator_id: localStorage.getItem('user_id'),
-    };
     axios
-      .get("http://localhost:5000/events/get", {params: myobj})
-      .then((res) => {
-        setList(eventlist => [...res.data])
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
+    .get("http://localhost:5000/events/" + event_id)
+    .then((res) => {
+      setList(eventlist => [res.data])
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    //window.location.reload();
   }, []);
+
+
     return (
     <Box sx={{ display: 'flex' }}>
-      <button onClick = {updateEvent}> Refresh </button>
       <CssBaseline />
       <Box>
         <Box
@@ -81,15 +56,13 @@ export const MyEvent = (props) => {
         </Drawer>
       </Box>
         <Grid container spacing={{ xs: 0, md: 0}} columns={{ xs: 4, sm: 8, md: 12 }}>
-
-                <ResponsiveAppBar user_id={user_id}/>
-            {Array.from(Array(12)).map((_, index) => (
-              <Grid item xs={2} sm={0} md={0} key={index}>
-                <SelfCard/>
+                <ResponsiveAppBar wid={1450}/>
+            {eventlist.map((item, index) => (
+              <Grid item xs={3} sm={0} md={0} key={index}>
+                <SelfCard it = {item} key={index} signal={false} signal2={true}/>
               </Grid>
             ))}
           </Grid>
-
       </Box>
     </Box>
     );

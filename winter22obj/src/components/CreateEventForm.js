@@ -47,6 +47,8 @@ function CreateEventForm(props) {
     const newevent = new FormData(event.currentTarget);
     const creator_id = localStorage.getItem('user_id');
     const creator_name = localStorage.getItem('user_first_name') + " " + localStorage.getItem('user_last_name');
+    const creator_event_array = localStorage.getItem('user_created_event_array').split(',');
+    const creator_event_id_array = localStorage.getItem('user_created_event_id_array').split(',');
     const myobj = {
       creator_id: creator_id,
       creator_name: creator_name,
@@ -58,60 +60,32 @@ function CreateEventForm(props) {
       planned_end_time: newevent.get('planned_end_time'),
       description: newevent.get('description'),
     };
-    // const mymessage = {
-    //     message_sender_id:"1",
-     //    message_receiver_id: "2",
-     //    message_content: "3"
-    // };
-    //console.log(newperson);
     axios
       .post("http://localhost:5000/events/add", myobj)
-      .then((res) => console.log(res.data));
-      history(
-        '../home',
-     );
-    // eslint-disable-next-line no-console
+      .then((res) => {
+        creator_event_id_array.push(res.data.insertedId);
+        creator_event_array.push(myobj.event_name);
+        const myobj2 = {
+          person_created_event_array: creator_event_array,
+          person_created_event_id_array: creator_event_id_array,
+         };
+         localStorage.setItem('user_created_event_array', [...creator_event_array]);
+         localStorage.setItem('user_created_event_id_array', [...creator_event_id_array]);
+         axios
+         .post("http://localhost:5000/update2/" + creator_id, myobj2)
+         .then((res) => console.log(res.data))
+         .then(() => history(
+           '../myEvent',
+        ));
+      })
+
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
-
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-          open
-        >
-        </Drawer>
-      </Box>
-      <Grid container spacing={{ xs: 1.5, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <ResponsiveAppBar />
+      <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <ResponsiveAppBar wid={1450}/>
         <Box
         component="form"
         sx={{

@@ -19,9 +19,13 @@ import TextField from '@mui/material/TextField';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { Router } from 'react-router-dom';
 import axios from 'axios';
+import Popup from './eventCard';
 const pages = [['Home', '/home'], ['Timeslots', '/slothome'], ['Create', '/CreateEventForm']];
 const settings = [['Profile', ''], 'Account', 'Dashboard', 'Logout'];
+
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -70,14 +74,12 @@ const ResponsiveAppBar = (props) => {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
   const user_id = props.user_id;
-  console.log(user_id)
+  const wid = props.wid
   const routeChange = (path) => {
     navigate(
-      path,
-      {
-           user_id: user_id
-      });
-  };
+      path
+      
+    )};
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const open = Boolean(anchorElUser);
@@ -122,7 +124,6 @@ const ResponsiveAppBar = (props) => {
       window.alert(message);
       return;
     }
-
     const record = await response.json();
     if (!record) {
       window.alert(`Record with id ${search} not found`);
@@ -131,36 +132,68 @@ const ResponsiveAppBar = (props) => {
     }
   };
 */
+
   const handleOnKeyPress=async(e)=>{
     if (e.key === 'Enter') {
-      const response = await fetch(`http://localhost:5000/records/${search.toString()}`);
+      let found = false;
+      if (search.trim() == ""){
+        window.alert("Search string can't be empty");
+        return;
+      }
+      // const userResponse = await fetch(`http://localhost:5000/records/${search.trim().toString()}`)
+      // .then(function(userResponse){                      // first then()
+      //   if(userResponse.ok)
+      //   {
+      //     return userResponse.json();         
+      //   }
 
-    if (!response.ok) {
-      const message = `An error has occured: ${response.statusText}`;
-      window.alert(message);
+      //   throw new Error('Something went wrong.');
+      // })
+      // .then(user => {
+      //   console.log('Success:', user);
+      //   if (user){
+      //     found = true;
+      //     window.alert("User found:\n  User name: "+user.person_username+"\n  User email: "+user.person_email);
+      //   }
+      // })
+      // .catch((error) => {
+      //   console.error('Error:', error);
+      // });
+
+      console.log('trimmed: ' + search.trim().toString());
+      const eventResponse = await fetch(`http://localhost:5000/event/${search.trim().toString()}`)
+      .then(function(eventResponse){                      // first then()
+        if(eventResponse.ok)
+        {
+          return eventResponse.json();         
+        }
+
+        throw new Error('Something went wrong.');
+      })
+      .then(event => {
+        console.log(event);
+        if (event && !found){  
+          found = true;
+          navigate(
+            '/Search',
+              {state: event._id}
+          );
+          window.location.reload(false);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    
+  
+    if (!found) {
+      window.alert(`User or event with id "${search.trim()}" not found`);
       return;
     }
-    const record = await response.json();
-    console.log(record);
-    if (!record) {
-      window.alert(`Record with id ${search} not found`);
-      return;
-    }
-    else{
-      window.alert("User found:\n  User name: "+record.person_username+"\n  User email: "+record.person_email);
-    }
-
   }};
 
-
-
-
-
-
-
-
-  return (
-    <AppBar position="static">
+  return <div>
+    <AppBar position="static" style={{width: wid}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -169,7 +202,7 @@ const ResponsiveAppBar = (props) => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            LOGO
+            Eventable
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -210,7 +243,7 @@ const ResponsiveAppBar = (props) => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            LOGO
+            Eventable
           </Typography>
           <Box sx={{ flexGrow: 5, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -268,6 +301,6 @@ const ResponsiveAppBar = (props) => {
         </Toolbar>
       </Container>
     </AppBar>
-  );
+  </div>
 };
 export default ResponsiveAppBar;

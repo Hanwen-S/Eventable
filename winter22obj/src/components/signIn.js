@@ -45,6 +45,7 @@ export default function SignIn() {
           user_email: info.person_email,
           user_phone: info.person_phone,
           user_password: info.person_password,
+          user_event_array: info.person_event_array,
          }
        }
    );
@@ -70,9 +71,10 @@ export default function SignIn() {
       })
       .then((res) => {
         if (res.data.length === 0){
-          alert('Not right !');
+          alert('Incorrect Email or Password');
         }
         else{
+          console.log(res.data);
           var info = res.data[0];
           console.log(info);
           localStorage.setItem('user_id',info._id);
@@ -82,7 +84,11 @@ export default function SignIn() {
           localStorage.setItem('user_email', info.person_email);
           localStorage.setItem('user_phone', info.person_phone);
           localStorage.setItem('user_password', info.person_password);
-          console.log(localStorage.getItem('user'));
+          localStorage.setItem('user_event_array', info.person_event_array);
+          localStorage.setItem('user_created_event_array', info.person_created_event_array);
+          localStorage.setItem('user_created_event_id_array', info.person_created_event_id_array);
+          localStorage.setItem('user_joined_event_array', info.person_joined_event_array);
+          localStorage.setItem('user_joined_event_id_array', info.person_joined_event_id_array);
           redirect(res.data[0]);
         }
 

@@ -8,8 +8,21 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import SelectVariants from './selector';
 import { TextField } from '@mui/material';
+import { useLocation } from 'react-router';
+import axios from 'axios';
+
+/*
+const [values, setValues] = useState({
+    first_name: localStorage.getItem('user_first_name'),
+    last_name: localStorage.getItem('user_last_name'),
+    email: localStorage.getItem('user_email'),
+    phone: localStorage.getItem('user_phone'),
+  }); 
+*/
 export default function EditEvent(){
+    const {state} = useLocation();
     const [id, setId] = React.useState(0);
+    console.log(state);
 
     return (
         <React.Fragment>

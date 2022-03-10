@@ -25,6 +25,7 @@ recordsRoutes.route("/records").get(function (req, res) {
 
 recordsRoutes.route("/records/get").get(function (req, res) {
   let db_connect = dbo.getDb();
+
   console.log('this is line-----------');
   console.log(req.query);
   console.log(req.query.person_email);
@@ -43,7 +44,7 @@ recordsRoutes.route("/records/get").get(function (req, res) {
 // This section will help you get a single records by id
 recordsRoutes.route("/records/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.query.id )};
+  let myquery = { _id: ObjectId( req.params.id )};
   db_connect
       .collection("records")
       .findOne(myquery, function (err, result) {
@@ -63,6 +64,10 @@ recordsRoutes.route("/records/add").post(function (req, response) {
     person_email: req.body.person_email,
     person_phone: "",
     person_password: req.body.person_password,
+    person_created_event_array: ["1"],
+    person_created_event_id_array: ["1"],
+    person_joined_event_array: ["1"],
+    person_joined_event_id_array:["1"],
   };
   db_connect.collection("records").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -91,6 +96,44 @@ recordsRoutes.route("/update/:id").post(function (req, response) {
     });
 });
 
+// This section will help you update a record by id.
+recordsRoutes.route("/update2/:id").post(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { _id: ObjectId( req.params.id )};
+  let newvalues = {
+    $set: {
+      person_created_event_array: req.body.person_created_event_array,
+      person_created_event_id_array: req.body.person_created_event_id_array,
+    },
+  };
+  db_connect
+    .collection("records")
+    .updateOne(myquery, newvalues, function (err, res) {
+      if (err) throw err;
+      console.log("1 document updated");
+      response.json(res);
+    });
+});
+
+// This section will help you update a record by id.
+recordsRoutes.route("/update3/:id").post(function (req, response) {
+  let db_connect = dbo.getDb();
+  let myquery = { _id: ObjectId( req.params.id )};
+  let newvalues = {
+    $set: {
+      person_joined_event_array: req.body.person_joined_event_array,
+      person_joined_event_id_array: req.body.person_joined_event_id_array,
+    },
+  };
+  db_connect
+    .collection("records")
+    .updateOne(myquery, newvalues, function (err, res) {
+      if (err) throw err;
+      console.log("1 document updated");
+      response.json(res);
+    });
+});
+
 // This section will help you delete a record
 recordsRoutes.route("/:id").delete((req, response) => {
   let db_connect = dbo.getDb();
@@ -101,5 +144,16 @@ recordsRoutes.route("/:id").delete((req, response) => {
     response.status(obj);
   });
 });
+
+// // This section will help you delete all record
+// recordsRoutes.route("/deleteallrecord/:id").delete(function (req, response) {
+//   let db_connect = dbo.getDb();
+//   let myquery = {};
+//   db_connect.collection("records").deleteMany(myquery, function (err, res) {
+//     if (err) throw err;
+//     console.log("1 document deleted");
+//     response.json(res);
+//   });
+// });
 
 module.exports = recordsRoutes;

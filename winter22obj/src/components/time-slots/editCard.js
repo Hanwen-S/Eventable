@@ -16,21 +16,24 @@ import axios from 'axios';
 
 export default function EditCard(props) {
   const form = props.form;
-  const [slot, setSlot] = useState({}) // to make it uncontrolled component
-   /* const [slot, setSlot] = useState({
+   const [slot, setSlot] = useState({
       id: form.id,
       year: form.year,
       month: form.month,
       day: form.day,
-      start_hr: parseInt(form.start_index/2), // 0-23
-      start_min_index: (form.start_index%2)*30 === 0 ? "00" : "30", // 0 or 1
-      end_hr: parseInt(form.end_index/2),
-      end_min_index: (form.end_index%2)*30 === 0 ? "00" : "30",
+      start_hr: form.start_hr,
+      start_min_index: form.start_min_index,
+      end_hr: form.end_hr,
+      end_min_index: form.end_min_index,
       coefficient: form.coefficient,
+
+      start_index: form.start_index,
+      end_index: form.end_index,
     })
-    const params = useParams(); */
+   // const params = useParams();
     const navigate = useNavigate();
-   
+
+
       // These methods will update the state properties.
     function updateSlot(value) {
         return setSlot((prev) => {
@@ -40,6 +43,7 @@ export default function EditCard(props) {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+
         const editedTimeSlot = {
           year: slot.year,
           month: slot.month,
@@ -58,8 +62,12 @@ export default function EditCard(props) {
           },
         }).then(() => {
           console.log(editedTimeSlot);
+          console.log(form.id + " updated!");
+          // update the new slot in localStorage
+          localStorage.setItem("time_slots", JSON.stringify(editedTimeSlot));
         });
         navigate("/slothome");
+        window.location.reload(false);
       }
 
       return (
@@ -71,7 +79,7 @@ export default function EditCard(props) {
               id="filled-basic" 
               label="Year"
               value={slot.year}
-              onChange={(e) => updateSlot({ year: e.target.year })}
+              onChange={(e) => updateSlot({ year: e.target.value })}
               required
               variant="outlined"
           />
@@ -80,7 +88,7 @@ export default function EditCard(props) {
               InputLabelProps={{ shrink: true }}
               label="Month"
               value={slot.month}
-              onChange={(e) => updateSlot({ month: e.target.month })}
+              onChange={(e) => updateSlot({ month: e.target.value })}
               required
               variant="outlined"
           />
@@ -89,7 +97,7 @@ export default function EditCard(props) {
               InputLabelProps={{ shrink: true }}
               label="Day"
               value={slot.day}
-              onChange={(e) => updateSlot({ day: e.target.day })}
+              onChange={(e) => updateSlot({ day: e.target.value })}
               required
               variant="outlined"
           />
@@ -98,7 +106,7 @@ export default function EditCard(props) {
               fullWidth
               InputLabelProps={{ shrink: true }}
               label="Start Hour"
-              onChange={(e) => updateSlot({ start_hr: e.target.start_hr })}
+              onChange={(e) => updateSlot({ start_hr: e.target.value })}
               value={slot.start_hr}
               required
               variant="outlined"
@@ -112,7 +120,7 @@ export default function EditCard(props) {
               id="demo-simple-select"
               value={slot.start_min_index}
               label="Start Minutes"
-              onChange={(e) => updateSlot({ start_min_index: e.target.start_min_index })}
+              onChange={(e) => updateSlot({ start_min_index: e.target.value })}
             >
               <MenuItem value={0}>00</MenuItem>
               <MenuItem value={1}>30</MenuItem>
@@ -123,7 +131,7 @@ export default function EditCard(props) {
               fullWidth
               InputLabelProps={{ shrink: true }}
               label="End Hour"
-              onChange={(e) => updateSlot({ end_hr: e.target.end_hr })}
+              onChange={(e) => updateSlot({ end_hr: e.target.value })}
               value={slot.end_hr}
               required
               variant="outlined"
@@ -137,7 +145,7 @@ export default function EditCard(props) {
               id="demo-simple-select"
               value={slot.end_min_index}
               label="End Minutes"
-              onChange={(e) => updateSlot({ end_min_index: e.target.end_min_index })}
+              onChange={(e) => updateSlot({ end_min_index: e.target.value })}
             >
               <MenuItem value={0}>00</MenuItem>
               <MenuItem value={1}>30</MenuItem>
@@ -149,13 +157,13 @@ export default function EditCard(props) {
               InputLabelProps={{ shrink: true }}
               label="Coefficient"
               value={slot.coefficient}
-              onChange={(e) => updateSlot({ coefficient: e.target.coefficient })}
+              onChange={(e) => updateSlot({ coefficient: e.target.value })}
               required
               variant="outlined"
           />
         </CardContent>
         <CardActions>
-            <Button size="small"
+            <Button style={{float: 'right'}}
                 className='formbutton' variant="contained"
                 onClick={onSubmit}
             >
@@ -166,4 +174,5 @@ export default function EditCard(props) {
      );
  
 }
+
 

@@ -3,3 +3,9 @@
   bottom: 10px;
   left: 40px;
 }
+
+.deletebutton {
+  position: absolute;
+  bottom: 10px;
+  left: 100px;
+}
