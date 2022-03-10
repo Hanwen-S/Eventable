@@ -57,6 +57,7 @@ export default function Search(props){
       </Box>
         <Grid container spacing={{ xs: 0, md: 0}} columns={{ xs: 4, sm: 8, md: 12 }}>
                 <ResponsiveAppBar wid={1450}/>
+            {console.log(eventlist)}
             {eventlist.map((item, index) => (
               <Grid item xs={3} sm={0} md={0} key={index}>
                 <SelfCard it = {item} key={index} signal={false} signal2={true}/>

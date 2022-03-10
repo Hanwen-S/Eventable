@@ -79,6 +79,7 @@ function CreateEventForm(props) {
          .then(() => history(
            '../myEvent',
         ));
+        window.location.reload(false);
       })
 
   };

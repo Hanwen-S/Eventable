@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -36,13 +35,14 @@ const handleSubmit = () => {
   
   axios
     .post(
-      "http://localhost:5000/update/" + localStorage.getItem('user_id'), 
+      "http://localhost:5000/update/" + localStorage.getItem('user_id'),
       myobj
     )
     .then((res) => {console.log(res.data)});
   window.alert("Profile updated successfully!")
     }
-}; 
+};
+
 
 
 
@@ -74,7 +74,7 @@ export const AccountProfileDetails = (props) => {
   };
 
   return (
-    <form 
+    <form
       autoComplete="off"
       noValidate
       {...props}
@@ -156,7 +156,7 @@ export const AccountProfileDetails = (props) => {
           </Grid>
         </CardContent>
         <Divider />
-        
+
         <Box
           sx={{
             display: 'flex',
@@ -171,7 +171,9 @@ export const AccountProfileDetails = (props) => {
             onClick = {handleClick}
           >
             Go back
-          </Button> 
+
+          </Button>
+
 
           <Button
             color="primary"
@@ -179,10 +181,10 @@ export const AccountProfileDetails = (props) => {
             onClick = {handleSubmit}
           >
             Save details
-          </Button> 
+          </Button>
           </Box>
-          
-        
+
+
       </Card>
 
     </form>

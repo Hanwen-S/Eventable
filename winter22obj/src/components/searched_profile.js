@@ -8,14 +8,27 @@ import {
     Divider,
     Typography
   } from '@mui/material';
+import axios from 'axios';
+
+  const searched_id = localStorage.getItem('searched_id');
 
   const user = {
-    name: localStorage.getItem('user_username'),
-    email: localStorage.getItem('user_email'),
-    id: localStorage.getItem('user_id'),
+    name: " ",
+    email: " ",
+    id: " ",
   };
 
-  export const AccountProfile = (props) => (
+  axios
+    .get("http://localhost:5000/records/" + searched_id)
+    .then((res) =>{
+        user.name = res.data.person_username;
+        user.email = res.data.person_email;
+        user.id = searched_id;
+    });
+
+  console.log(user);
+
+  export const SearchedProfile = (props) => (
     <Card {...props}>
       <CardContent>
         <Box
