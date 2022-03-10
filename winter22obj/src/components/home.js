@@ -65,23 +65,11 @@ export default function ResponsiveDrawer(props){
     console.log(eventlist2);
     const eventlist = eventlist1.concat(eventlist2);
 
-
-  const drawer = (
-    <div>
-      <Toolbar />
-      <Divider />
-
-    </div>
-  );
-
-  const container = window !== undefined ? () => window().document.body : undefined;
-
-  return (
+    return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
-      <Box
-
+      <Box>
+        <Box
         component="nav"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -92,23 +80,24 @@ export default function ResponsiveDrawer(props){
           {drawer}
         </Drawer>
       </Box>
-
-      <Box>
-        <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              <ResponsiveAppBar user_id={user_id}/>
-          {Array.from(Array(12)).map((_, index) => (
-            <Grid item xs={2} sm={0} md={0} key={index}>
-              <BasicCard/>
-            </Grid>
-          ))}
-        </Grid>
-        <Pagination count={10} variant="outlined" style={{
-        position: 'absolute', left: '50%', bottom: '10%',
+        <Grid container spacing={{ xs: 0, md: 0}} columns={{ xs: 4, sm: 8, md: 12 }}>
+                <ResponsiveAppBar user_id={user_id} wid={1450}/>
+            {eventlist.map((item, index) => (
+              (index < 12*(pageNum) && index >= 12*(pageNum-1)) ?
+              <Grid item xs={3} sm={0} md={0} key={index}>
+                <SelfCard it = {item} key={index} signal={false} signal2={false}/>
+              </Grid> :
+              null
+            ))}
+          </Grid>
+          <Pagination count={10} variant="outlined" style={{
+        position: 'absolute', left: '50%', bottom: '0%',
         transform: 'translate(-50%, -50%)'
-      }}/>
+        }}
+        page={pageNum}
+        onChange={handleChange}
+      />
       </Box>
-
-
     </Box>
     );
 }

@@ -53,14 +53,28 @@ export default function SignUp() {
       person_phone: "",
       person_password: newperson.get('person_password'),
     };
-
+    const myobj2 = {
+      person_username: newperson.get('person_username'),
+    };
+    console.log(myobj2.person_username);
     axios
-      .post("http://localhost:5000/records/add", myobj)
-      .then((res) => console.log(res.data));
-      history(
-        '../',
-     );
-
+    .get("http://localhost:5000/records/old", {
+      params: myobj2
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.data.length === 0){
+        axios
+          .post("http://localhost:5000/records/add", myobj)
+          .then((res) => console.log(res.data));
+          history(
+            '../',
+          );
+      }
+      else {
+        window.alert("Username alreadt exists, please use another username.");
+      }
+    });
     // eslint-disable-next-line no-console
   };
 

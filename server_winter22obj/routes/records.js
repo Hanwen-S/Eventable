@@ -22,15 +22,27 @@ recordsRoutes.route("/records").get(function (req, res) {
       res.json(result);
     });
 });
-
 recordsRoutes.route("/records/get").get(function (req, res) {
   let db_connect = dbo.getDb();
+  var query = {
+    person_email: req.query.person_email,
+    person_password: req.query.person_password
+  };
+  db_connect
+    .collection("records")
+    .find(query)
+    .toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.json(result);
+  });
+});
 
-  console.log('this is line-----------');
-  console.log(req.query);
-  console.log(req.query.person_email);
-  console.log(req.query.person_password);
-  var query = { person_email: req.query.person_email , person_password: req.query.person_password};
+recordsRoutes.route("/records/old").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  var query = {
+    person_username: req.query.person_username
+  };
   db_connect
     .collection("records")
     .find(query)

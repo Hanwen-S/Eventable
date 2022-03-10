@@ -40,7 +40,7 @@ const handleSubmit = () => {
     )
     .then((res) => {console.log(res.data)});
   window.alert("Profile updated successfully!")
-
+    }
 };
 
 
@@ -190,3 +190,4 @@ export const AccountProfileDetails = (props) => {
     </form>
   );
 };
+
