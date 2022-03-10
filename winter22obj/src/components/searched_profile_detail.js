@@ -23,6 +23,7 @@ export const SearchedProfileDetails = (props) => {
     last_name: "2 ",
     email: "3 ",
     phone: "310 713 4217",
+    events: [""],
   });
 
   axios
@@ -33,14 +34,10 @@ export const SearchedProfileDetails = (props) => {
         first_name: res.data.person_first_name,
         last_name: res.data.person_last_name,
         email: res.data.person_email,
+        events: [res.data.person_joined_event_array],
       });
+      //console.log(res.data.person_joined_events_array);
   });
-
-  const first_name = user.first_name;
-
-  console.log(user);
-
-  console.log(first_name);
 
   return (
     <form
@@ -55,7 +52,7 @@ export const SearchedProfileDetails = (props) => {
         <CardContent>
           <Grid
             container
-            spacing={3}
+            spacing={2}
           >
             <Grid
               item
@@ -66,8 +63,7 @@ export const SearchedProfileDetails = (props) => {
                 fullWidth
                 label="First name"
                 name="first_name"
-                required
-                value={first_name}
+                value={user.first_name}
                 variant="outlined"
               />
             </Grid>
@@ -80,7 +76,6 @@ export const SearchedProfileDetails = (props) => {
                 fullWidth
                 label="Last name"
                 name="last_name"
-                required
                 value={user.last_name}
                 variant="outlined"
               />
@@ -94,7 +89,6 @@ export const SearchedProfileDetails = (props) => {
                 fullWidth
                 label="Email Address"
                 name="email"
-                required
                 value={user.email}
                 variant="outlined"
               />
@@ -110,6 +104,20 @@ export const SearchedProfileDetails = (props) => {
                 name="phone"
                 type="text" pattern="[0-9]*"
                 value={user.phone}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={12}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Events"
+                name="Events"
+                type="text"
+                value= {user.events}
                 variant="outlined"
               />
             </Grid>
