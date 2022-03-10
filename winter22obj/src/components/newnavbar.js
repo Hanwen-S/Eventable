@@ -176,6 +176,7 @@ const ResponsiveAppBar = (props) => {
             '/Search',
               {state: event._id}
           );
+          window.location.reload(false);
         }
       })
       .catch((error) => {
