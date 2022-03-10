@@ -12,6 +12,7 @@ import { GrFormEdit } from 'react-icons/gr';
 import Histogram from 'react-chart-histogram';
 import { GrFormView } from 'react-icons/gr';
 import { useNavigate as useHistory } from 'react-router-dom';
+import { TiUserAddOutline } from 'react-icons/ti';
 import "./card.css"
 import "./selfCard.css"
 import axios from 'axios';
@@ -39,6 +40,7 @@ export default function SelfCard(props) {
           {state: item._id}
      );
   };
+  
 
   const Add = () => {
     const person_id = localStorage.getItem('user_id');
@@ -66,6 +68,9 @@ export default function SelfCard(props) {
         localStorage.setItem('user_joined_event_id_array', [...person_event_id_array]);
         axios
         .post("http://localhost:5000/update3/" + person_id, myobj2)
+        .then(() => history(
+          '../home',
+       ));
       })
   };
 
@@ -102,7 +107,7 @@ export default function SelfCard(props) {
               onClick={Add}
             >
               Add
-              <GrFormEdit/>
+              <TiUserAddOutline />
             </button> : <button
               className='eventCardEditButton'
             >

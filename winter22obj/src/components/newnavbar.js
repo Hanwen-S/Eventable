@@ -140,27 +140,28 @@ const ResponsiveAppBar = (props) => {
         window.alert("Search string can't be empty");
         return;
       }
-      const userResponse = await fetch(`http://localhost:5000/records/${search.trim().toString()}`)
-      .then(function(userResponse){                      // first then()
-        if(userResponse.ok)
-        {
-          return userResponse.json();         
-        }
+      // const userResponse = await fetch(`http://localhost:5000/records/${search.trim().toString()}`)
+      // .then(function(userResponse){                      // first then()
+      //   if(userResponse.ok)
+      //   {
+      //     return userResponse.json();         
+      //   }
 
-        throw new Error('Something went wrong.');
-      })
-      .then(user => {
-        console.log('Success:', user);
-        if (user){
-          found = true;
-          window.alert("User found:\n  User name: "+user.person_username+"\n  User email: "+user.person_email);
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-      
-      const eventResponse = await fetch(`http://localhost:5000/events/${search.trim().toString()}`)
+      //   throw new Error('Something went wrong.');
+      // })
+      // .then(user => {
+      //   console.log('Success:', user);
+      //   if (user){
+      //     found = true;
+      //     window.alert("User found:\n  User name: "+user.person_username+"\n  User email: "+user.person_email);
+      //   }
+      // })
+      // .catch((error) => {
+      //   console.error('Error:', error);
+      // });
+
+      console.log('trimmed: ' + search.trim().toString());
+      const eventResponse = await fetch(`http://localhost:5000/event/${search.trim().toString()}`)
       .then(function(eventResponse){                      // first then()
         if(eventResponse.ok)
         {
@@ -170,6 +171,7 @@ const ResponsiveAppBar = (props) => {
         throw new Error('Something went wrong.');
       })
       .then(event => {
+        console.log(event);
         if (event && !found){  
           found = true;
           navigate(
