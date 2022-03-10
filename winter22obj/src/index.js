@@ -24,6 +24,7 @@ import EditEventForm from './components/EditEventForm';
 import SplitForm from './components/PaymentForm';
 import FancyCard from './components/FancyCard'
 import Search from './components/search';
+import SearchUser from './components/searchUser';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -42,6 +43,7 @@ ReactDOM.render(
     <Route exact path='/slothome' element={<SlotsHome/>}></Route>
     <Route exact path='/CreateEventForm' element={<CreateEventForm/>}></Route>
     <Route exact path='/Search' element={<Search/>}></Route>
+    <Route exact path='/SearchUser' element={<SearchUser/>}></Route>
     <Route exact path='/test1' element={<EvenCard/>}></Route>
     <Route exact path='/test2' element={<SplitForm/>}></Route>
     <Route exact path='/test3' element={<SplitForm/>}></Route>

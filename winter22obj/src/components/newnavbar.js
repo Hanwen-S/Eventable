@@ -153,7 +153,11 @@ const ResponsiveAppBar = (props) => {
         console.log('Success:', user);
         if (user){
           found = true;
-          window.alert("User found:\n  User name: "+user.person_username+"\n  User email: "+user.person_email);
+          navigate(
+            '/SearchUser',
+              {state: user._id}
+          );
+          window.location.reload(false);
         }
       })
       .catch((error) => {

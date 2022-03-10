@@ -8,17 +8,13 @@ import {
     Divider,
     Typography
   } from '@mui/material';
-  
+
   const user = {
-    avatar: '/static/images/avatars/avatar_6.png',
-    city: 'Los Angeles',
-    country: 'USA',
-    jobTitle: 'Senior Developer',
     name: localStorage.getItem('user_username'),
     email: localStorage.getItem('user_email'),
     id: localStorage.getItem('user_id'),
   };
-  
+
   export const AccountProfile = (props) => (
     <Card {...props}>
       <CardContent>
@@ -44,7 +40,7 @@ import {
           >
             {user.name}
           </Typography>
-          
+
           <Typography
             color="textSecondary"
             variant="body2"

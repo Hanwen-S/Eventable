@@ -22,21 +22,21 @@ const drawer = (
   </div>
 );
 
-export default function Search(props){
+export default function SearchUser(props){
 
   const { state } = useLocation();
-  const event_id = state;
-  const [eventlist, setList] = React.useState([]);
+  const user_id = state;
+  const [userlist, setList] = React.useState([]);
   useEffect(() => {
     axios
-    .get("http://localhost:5000/events/" + event_id)
+    .get("http://localhost:5000/records/" + user_id)
     .then((res) => {
-      setList(eventlist => [res.data])
+      setList(userlist => [res.data])
     })
     .catch(function (error) {
       console.log(error);
     })
-    //window.location.reload();
+    // window.location.reload();
   }, []);
 
 
@@ -57,12 +57,7 @@ export default function Search(props){
       </Box>
         <Grid container spacing={{ xs: 0, md: 0}} columns={{ xs: 4, sm: 8, md: 12 }}>
                 <ResponsiveAppBar wid={1450}/>
-            {console.log(eventlist)}
-            {eventlist.map((item, index) => (
-              <Grid item xs={3} sm={0} md={0} key={index}>
-                <SelfCard it = {item} key={index} signal={false} signal2={true}/>
-              </Grid>
-            ))}
+                {console.log(userlist)}
           </Grid>
       </Box>
     </Box>
