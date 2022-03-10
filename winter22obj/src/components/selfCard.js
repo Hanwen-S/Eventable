@@ -18,6 +18,7 @@ import axios from 'axios';
 
 export default function SelfCard(props) {
   const signal = props.signal;
+  const signal2 = props.signal2;
   const navigate = useNavigate();
   let history = useHistory();
   const item = props.it;
@@ -38,6 +39,23 @@ export default function SelfCard(props) {
           {state: item._id}
      );
   };
+
+  const Add = () => {
+    const myobj = {
+      person_name: item.creator_name,
+      person_id: item.creator_id,
+      names: item.participants_name,
+      ids: item.participants_id,
+    };
+    axios
+      .post(
+        "http://localhost:5000/addperson/" + item._id,
+        myobj)
+
+    window.location.reload();
+
+  };
+
 
   return <div>
     <button className='eventCardButton' onClick={togglePopup} style={{ width: '80%'}}>
@@ -65,10 +83,21 @@ export default function SelfCard(props) {
               className='eventCardEditButton'
             >
             </button>}
+
+            {signal2 === true ? <button
+              className='eventCardEditButton'
+              onClick={Add}
+            >
+              Add
+              <GrFormEdit/>
+            </button> : <button
+              className='eventCardEditButton'
+            >
+            </button>}
           </CardContent>
     </Card>
     </button>
-    {isOpen && 
+    {isOpen &&
       <Popup
         content={<>
           <p>Event_Name: {item.event_name}</p>
@@ -76,6 +105,7 @@ export default function SelfCard(props) {
           <p>Planned End Time: {item.planned_end_time}</p>
           <p>Address: {item.address}</p>
           <p>Creator: {item.creator_name}</p>
+          <p>Participants: {item.participants_name}</p>
           {/* <p>Participants: {item.event_name}</p>
           <p>Has Passed: {item.status}</p> */}
           <p>Description: {item.description}</p>
@@ -84,7 +114,7 @@ export default function SelfCard(props) {
         handleClose={togglePopup}
       />
     }
-    {isOpen2 && 
+    {isOpen2 &&
       <Popup
         content={<>
           <div>

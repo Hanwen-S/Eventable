@@ -43,7 +43,7 @@ export const MyEvent = (props) => {
   // const routeChange = (path) => {
   //   navigate(
   //     path
-  //   )}; 
+  //   )};
   const [eventlist, setList] = React.useState([]);
   const[pageNum, setPageNum] = useState(1)
   const handleChange = (event, value) => {
@@ -82,7 +82,7 @@ export const MyEvent = (props) => {
                 {eventlist.map((item, index) => (
               (index < 12*(pageNum) && index >= 12*(pageNum-1)) ?
               <Grid item xs={3} sm={0} md={0} key={index}>
-                <SelfCard it = {item} key={index} signal={true}/>
+                <SelfCard it = {item} key={index} signal={true} signal1={false}/>
               </Grid> :
               null
             ))}

@@ -28,7 +28,7 @@ export default function ResponsiveDrawer(props){
   // const routeChange = (path) => {
   //   navigate(
   //     path
-  //   )}; 
+  //   )};
 
   const [eventlist, setList] = React.useState([]);
   const[pageNum, setPageNum] = useState(1)
@@ -68,7 +68,7 @@ export default function ResponsiveDrawer(props){
             {eventlist.map((item, index) => (
               (index < 12*(pageNum) && index >= 12*(pageNum-1)) ?
               <Grid item xs={3} sm={0} md={0} key={index}>
-                <SelfCard it = {item} key={index} signal={false}/>
+                <SelfCard it = {item} key={index} signal={false} signal2={false}/>
               </Grid> :
               null
             ))}

@@ -59,7 +59,7 @@ export default function Search(props){
                 <ResponsiveAppBar wid={1450}/>
             {eventlist.map((item, index) => (
               <Grid item xs={3} sm={0} md={0} key={index}>
-                <SelfCard it = {item} key={index} signal={false}/>
+                <SelfCard it = {item} key={index} signal={false} signal2={true}/>
               </Grid>
             ))}
           </Grid>
