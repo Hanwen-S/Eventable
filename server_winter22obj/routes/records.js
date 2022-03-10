@@ -24,11 +24,33 @@ recordsRoutes.route("/records").get(function (req, res) {
 });
 recordsRoutes.route("/records/get").get(function (req, res) {
   let db_connect = dbo.getDb();
-  console.log('this is line-----------');
+  console.log("000");
   console.log(req.query);
-  console.log(req.query.person_email);
-  console.log(req.query.person_password);
-  var query = { person_email: req.query.person_email , person_password: req.query.person_password};
+  console.log("000");
+  var query = {
+    person_email: req.query.person_email,
+    person_password: req.query.person_password
+  };
+  db_connect
+    .collection("records")
+    .find(query)
+    .toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.json(result);
+  });
+});
+
+recordsRoutes.route("/records/old").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  console.log(req.query);
+  console.log("123");
+  console.log(req.body);
+  console.log("456");
+  console.log(req.params);
+  var query = {
+    person_username: req.query.person_username
+  };
   db_connect
     .collection("records")
     .find(query)
@@ -142,5 +164,16 @@ recordsRoutes.route("/:id").delete((req, response) => {
     response.status(obj);
   });
 });
+
+// // This section will help you delete all record
+// recordsRoutes.route("/deleteallrecord/:id").delete(function (req, response) {
+//   let db_connect = dbo.getDb();
+//   let myquery = {};
+//   db_connect.collection("records").deleteMany(myquery, function (err, res) {
+//     if (err) throw err;
+//     console.log("1 document deleted");
+//     response.json(res);
+//   });
+// });
 
 module.exports = recordsRoutes;

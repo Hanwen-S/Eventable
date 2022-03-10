@@ -162,4 +162,15 @@ EventsRoutes.route("/delete1/:id").delete(function (req, response) {
   });
 });
 
+// // This section will help you delete all record
+// EventsRoutes.route("/deleteallevent/:id").delete(function (req, response) {
+//   let db_connect = dbo.getDb();
+//   let myquery = {};
+//   db_connect.collection("events").deleteMany(myquery, function (err, res) {
+//     if (err) throw err;
+//     console.log("1 document deleted");
+//     response.json(res);
+//   });
+// });
+
 module.exports = EventsRoutes;

@@ -74,7 +74,7 @@ export default function SignIn() {
           alert('Incorrect Email or Password');
         }
         else{
-          var info = res.data[0];
+          var info = res.data;
           console.log(info);
           localStorage.setItem('user_id',info._id);
           localStorage.setItem('user_first_name', info.person_first_name);
@@ -88,7 +88,6 @@ export default function SignIn() {
           localStorage.setItem('user_created_event_id_array', info.person_created_event_id_array);
           localStorage.setItem('user_joined_event_array', info.person_joined_event_array);
           localStorage.setItem('user_joined_event_id_array', info.person_joined_event_id_array);
-          console.log(localStorage.getItem('user'));
           redirect(res.data[0]);
         }
 
