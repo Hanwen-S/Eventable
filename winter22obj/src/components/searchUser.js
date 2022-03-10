@@ -1,3 +1,5 @@
+import { SearchedProfile } from './searched_profile';
+import { SearchedProfileDetails } from './searched_profile_detail';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
@@ -23,7 +25,7 @@ const drawer = (
 );
 
 export default function SearchUser(props){
-
+  const this_user_id = localStorage.getItem('user_id');
   const { state } = useLocation();
   const user_id = state;
   const [userlist, setList] = React.useState([]);
@@ -39,27 +41,34 @@ export default function SearchUser(props){
     // window.location.reload();
   }, []);
 
+  const resetSearched = () => {
 
-    return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <Box>
-        <Box
+  }
+
+
+  return(
+    <div>
+    <CssBaseline />
+    <Box
         component="nav"
-      >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+    >
+    {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer>
-          {drawer}
+        {drawer}
         </Drawer>
         <Drawer>
-          {drawer}
-        </Drawer>
-      </Box>
-        <Grid container spacing={{ xs: 0, md: 0}} columns={{ xs: 4, sm: 8, md: 12 }}>
-                <ResponsiveAppBar wid={1450}/>
-                {console.log(userlist)}
-          </Grid>
-      </Box>
+        {drawer}
+      </Drawer>
     </Box>
+    <Box>
+    <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 8, sm: 8, md: 12 }}>
+          {console.log(user_id)}
+          {localStorage.setItem('searched_id', user_id)}
+          <ResponsiveAppBar user_id={this_user_id} wid={1450} />
+    </Grid>
+    </Box>
+    <SearchedProfile/>
+    <SearchedProfileDetails/>
+    </div>
     );
 }
