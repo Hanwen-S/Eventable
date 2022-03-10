@@ -24,9 +24,6 @@ recordsRoutes.route("/records").get(function (req, res) {
 });
 recordsRoutes.route("/records/get").get(function (req, res) {
   let db_connect = dbo.getDb();
-  console.log("000");
-  console.log(req.query);
-  console.log("000");
   var query = {
     person_email: req.query.person_email,
     person_password: req.query.person_password
@@ -43,11 +40,6 @@ recordsRoutes.route("/records/get").get(function (req, res) {
 
 recordsRoutes.route("/records/old").get(function (req, res) {
   let db_connect = dbo.getDb();
-  console.log(req.query);
-  console.log("123");
-  console.log(req.body);
-  console.log("456");
-  console.log(req.params);
   var query = {
     person_username: req.query.person_username
   };
