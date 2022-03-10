@@ -48,6 +48,21 @@ EventsRoutes.route("/events/:id").get(function (req, res) {
       });
 });
 
+// This section will help you get a single event by event name
+EventsRoutes.route("/event/:name").get(function (req, res) {
+  console.log('hiiiiiiii');
+  let db_connect = dbo.getDb();
+  console.log(req);
+  let myquery = { event_name: req.params.name};
+  db_connect
+      .collection("events")
+      .findOne(myquery, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+      });
+});
+
 // This section will help you create a new event.
 EventsRoutes.route("/events/add").post(function (req, response) {
   let db_connect = dbo.getDb();
