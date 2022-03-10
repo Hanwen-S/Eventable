@@ -65,6 +65,21 @@ recordsRoutes.route("/records/:id").get(function (req, res) {
       });
 });
 
+// This section will help you get a single event by event name
+recordsRoutes.route("/record/:name").get(function (req, res) {
+  console.log('hiiiiiiii');
+  let db_connect = dbo.getDb();
+  console.log(req);
+  let myquery = { person_username: req.params.name};
+  db_connect
+      .collection("records")
+      .findOne(myquery, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+      });
+});
+
 // This section will help you create a new record.
 recordsRoutes.route("/records/add").post(function (req, response) {
   let db_connect = dbo.getDb();
