@@ -55,14 +55,6 @@ import {
       </CardContent>
       <Divider />
 
-      {/*<CardActions>
-        <Button
-          color="primary"
-          fullWidth
-          variant="text"
-        >
-          Upload picture
-        </Button>
-      </CardActions>*/}
+
     </Card>
   );
