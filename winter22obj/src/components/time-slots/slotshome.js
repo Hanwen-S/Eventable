@@ -197,7 +197,7 @@ const drawer = (
             <ResponsiveAppBar user_id={user_id} wid={1220}/>
         {slotsPage(pageNum)}
       </Grid>
-      <Pagination count={10} variant="outlined" style={{
+      <Pagination count={(Math.floor(slots.length / 21) + 1)} variant="outlined" style={{
         position: 'absolute', left: '50%', bottom: '10%',
         transform: 'translate(-50%, -50%)'
         }}
