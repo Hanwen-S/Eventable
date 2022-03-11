@@ -31,7 +31,7 @@ export default function EditCard(props) {
       end_index: form.end_index,
     })
    // const params = useParams();
-    const navigate = useNavigate();
+   // const navigate = useNavigate();
 
 
       // These methods will update the state properties.
@@ -61,12 +61,13 @@ export default function EditCard(props) {
             'Content-Type': 'application/json'
           },
         }).then(() => {
-          console.log(editedTimeSlot);
-          console.log(form.id + " updated!");
+          //console.log(editedTimeSlot);
+          //console.log(form.id + " updated!");
           // update the new slot in localStorage
           localStorage.setItem("time_slots", JSON.stringify(editedTimeSlot));
         });
-        navigate("/slothome");
+        //navigate("/slothome");
+        console.log("success");
         window.location.reload(false);
       }
 

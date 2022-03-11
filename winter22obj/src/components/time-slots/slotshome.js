@@ -127,18 +127,17 @@ const drawer = (
 );
  // This method will delete a slot (to be called in displayCard.js)
  async function deleteSlot(id) {
-   await fetch(`http://localhost:5000/time_slots/delete/${id}`, {
-     method: "DELETE"
-   });
-   
-   const newSlots = slots.filter((el) => el._id !== id);
-    setSlots(newSlots);
-    
-    // remove the slot in localStorage
-    const deletedSlot = await fetch(`http://localhost:5000/time_slots/${id}`);
-    localStorage.removeItem("time_slots", JSON.stringify(deletedSlot));
-    console.log("one slot deleted");
-    //window.location.reload(false);
+  //console.log("one slot deleted");
+   // remove in backend
+   axios.delete(`http://localhost:5000/time_slots/delete/${id}`)
+          .then(() => {
+            console.log("one slot deleted");
+            const newSlots = slots.filter((el) => el._id !== id);
+            setSlots(newSlots);
+            // remove the slot in localStorage
+            localStorage.setItem("time_slots", JSON.stringify(newSlots));
+          });
+          window.location.reload(false);
  }
  
  // This method will map out the slots on the page
