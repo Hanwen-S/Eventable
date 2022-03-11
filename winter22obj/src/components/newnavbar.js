@@ -112,25 +112,6 @@ const ResponsiveAppBar = (props) => {
     let path = `/`;
     navigate(path);
   }
-/*
-  const handleSearch=async()=>{
-    const id=search.toString();
-    console.log(id);
-    const response = await fetch(`http://localhost:5000/record/${search.toString()}`);
-    console.log(response);
-    if (!response.ok) {
-      const message = `An error has occured: ${response.statusText}`;
-      window.alert(message);
-      return;
-    }
-    const record = await response.json();
-    if (!record) {
-      window.alert(`Record with id ${search} not found`);
-      navigate("/");
-      return;
-    }
-  };
-*/
 
   const handleOnKeyPress=async(e)=>{
     if (e.key === 'Enter') {

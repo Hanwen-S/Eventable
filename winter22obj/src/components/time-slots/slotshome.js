@@ -70,7 +70,6 @@ export default function SlotsHome() {
  useEffect(() => {
   const myobj = {
     user_id: user_id,
-    //user_id: "62256a5c8a4c742e6585aa02",
   };
   axios
     .get("http://localhost:5000/time_slots/get", {params: myobj})
@@ -83,36 +82,6 @@ export default function SlotsHome() {
       console.log(error);
     })
  }, [slots.length]);
-
- /*useEffect(() => {
-   async function getSlots() {
-     const myobj = {
-      user_id: user_id,
-     };
-     //console.log(user_id);
-    //const response = await fetch(`http://localhost:5000/time_slots`);
-    const response = await fetch("http://localhost:5000/time_slots/get", {
-      params: myobj
-    }).then(() => {
-      console.log("get slots");
-    });
-
-     //response = response.find(user_id);
-     if (!response.ok) {
-       const message = `An error occurred: ${response.statusText}`;
-       window.alert(message);
-       return;
-     }
-
-     const slots = await response.json();
-     localStorage.setItem("time_slots", JSON.stringify(slots));
-     setSlots(slots);
-   }
- 
-   getSlots();
- 
-   return;
- }, [slots.length]);*/
 
  // sidebar on the left: the card for creating a time slot
 const drawerWidth = 240;
@@ -136,8 +105,11 @@ const drawer = (
             setSlots(newSlots);
             // remove the slot in localStorage
             localStorage.setItem("time_slots", JSON.stringify(newSlots));
-          });
-          window.location.reload(false);
+          })
+          .then(() => navigate(
+            '/slothome',
+         ));
+        window.location.reload(false);
  }
  
  // This method will map out the slots on the page

@@ -17,7 +17,7 @@ export default function CreateCard(props) {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = today.getFullYear();
+  var yyyy = String(today.getFullYear());
  const [form, setForm] = useState({
     year: yyyy,
     month: mm,
@@ -50,19 +50,23 @@ export default function CreateCard(props) {
      window.alert("not right year format !")
      return;
    }
-   if (form.month.length != 2 || isNaN(form.month) || (parseInt(form.month) < 0 || parseInt(form.month) > 12)){
+   if (form.month.length > 2 || isNaN(form.month) || (parseInt(form.month) < 0 || parseInt(form.month) > 12)){
     window.alert("not right month format !")
     return;
    }
-   if (form.day.length != 2 || isNaN(form.day) || (parseInt(form.day) < 0 || parseInt(form.day) > month_day[parseInt(form.month) - 1][1])){
+   if (form.day.length > 2 || isNaN(form.day) || (parseInt(form.day) < 0 || parseInt(form.day) > month_day[parseInt(form.month) - 1][1])){
     
-    window.alert(parseInt(form.month))
+    window.alert("not compatible day !")
+    return;
+   }
+   if ((form.start_hr === form.end_hr) && (form.start_min_index >= form.end_min_index)){
+    window.alert("please use correct period !")
     return;
    }
    const newTimeSlot = {
      year: form.year,
-     month: form.month,
-     day: form.day,
+     month: form.month.padStart(2, '0'),
+     day: form.day.padStart(2, '0'),
      start_index: form.start_hr*2+form.start_min_index,
      end_index: form.end_hr*2+form.end_min_index,
      coefficient: form.coefficient,
