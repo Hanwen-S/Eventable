@@ -43,37 +43,7 @@ export default function EditCard(props) {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        const month_day = [[1, 31], [2, 28], [3, 31], [4, 30], [5, 31], [6, 30], [7, 31], [8, 31], [9, 30], [10, 31], [11, 30], [12, 31]];
-        if (slot.year.length != 4 || isNaN(slot.year)){
-          window.alert("not right year format !")
-          return;
-        }
-        if (slot.month.length > 2 || isNaN(slot.month) || (parseInt(slot.month) < 0 || parseInt(slot.month) > 12)){
-         window.alert("not right month format !")
-         return;
-        }
-        if (slot.day.length > 2 || isNaN(slot.day) || (parseInt(slot.day) < 0 || parseInt(slot.day) > month_day[parseInt(slot.month) - 1][1])){
-         
-         window.alert("not compatible day !")
-         return;
-        }
-        if (slot.start_hr > 24 || slot.start_hr < 0 || slot.end_hr > 24 || slot.end_hr < 0 || isNaN(slot.end_hr) || isNaN(slot.start_hr)){
-         window.alert("please use correct hours !")
-         return;
-        }
-        if ((slot.start_hr === slot.end_hr) && (slot.start_min_index >= slot.end_min_index)){
-         window.alert("please use correct period !")
-         return;
-        }
-        if (slot.coefficient != 0.5 && slot.coefficient != 1){
-         console.log(slot.coefficient)
-         window.alert("not supported coefficient !")
-         return;
-        }
-        if (((slot.end_hr*60 + slot.end_min_index*30 - slot.start_hr*60 + slot.start_min_index*30) % 60 != 0) && (slot.coefficient == 0.5)){
-         window.alert("not supported coefficient for half-hour-unit!")
-         return;
-        }
+
         const editedTimeSlot = {
           year: slot.year,
           month: slot.month,
