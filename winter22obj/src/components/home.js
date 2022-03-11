@@ -84,25 +84,8 @@ export default function ResponsiveDrawer(props){
             console.log(error);
         })
     })
-
-    // axios
-    //   .get("http://localhost:5000/events/get", {params: myobj})
-    //   .then((res) => {
-    //     setList1(eventlist1 => [...res.data])
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   })
-    //   axios
-    //   .get("http://localhost:5000/events/get1", {params: myobj2})
-    //   .then((res) => {
-    //     setList2(eventlist2 => [...res.data])
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   })
   }, []);
-    const eventlist = eventlist1.concat(eventlist2);
+    const eventlist = eventlist1;
 
     return (
     <Box sx={{ display: 'flex' }}>
