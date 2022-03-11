@@ -242,7 +242,7 @@ const ResponsiveAppBar = (props) => {
             ))}
           </Box>
 
-          <Tooltip title= "Enter user or event ID" placement="bottom-start">
+          <Tooltip title= "Enter user or event" placement="bottom-start">
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
