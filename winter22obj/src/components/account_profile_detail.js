@@ -32,7 +32,7 @@ const handleSubmit = () => {
   console.log(myobj);
 
 
-  
+
   axios
     .post(
       "http://localhost:5000/update/" + localStorage.getItem('user_id'),
@@ -97,7 +97,6 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
                 label="First name"
                 name="first_name"
                 onChange={handleChange}
