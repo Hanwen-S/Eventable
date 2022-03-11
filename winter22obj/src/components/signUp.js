@@ -72,7 +72,7 @@ export default function SignUp() {
           );
       }
       else {
-        window.alert("Username alreadt exists, please use another username.");
+        window.alert("Username already exists, please use another username.");
       }
     });
     // eslint-disable-next-line no-console

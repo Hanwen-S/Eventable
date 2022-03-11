@@ -19,8 +19,8 @@ import axios from 'axios';
 
 export default function SelfCard(props) {
   const time_slots = props.time_slots;
-  const real_time = time_slots.map((item) => 
-    [item.start_index - item.coefficient*(item.end_index - item.start_index)/2, item.end_index + item.coefficient*(item.end_index - item.start_index)/2], 
+  const real_time = time_slots.map((item) =>
+    [item.start_index - item.coefficient*(item.end_index - item.start_index)/2, item.end_index + item.coefficient*(item.end_index - item.start_index)/2],
   )
   console.log(real_time)
   const signal = props.signal;
@@ -57,7 +57,7 @@ export default function SelfCard(props) {
           {state: item._id}
      );
   };
-  
+
 
   const Add = () => {
     const person_id = localStorage.getItem('user_id');
@@ -136,7 +136,7 @@ export default function SelfCard(props) {
     {isOpen &&
       <Popup
         content={<>
-          <p>Event_Name: {item.event_name}</p>
+          <p>Event Name: {item.event_name}</p>
           <p>Planned Start Time: {item.planned_start_time}</p>
           <p>Planned End Time: {item.planned_end_time}</p>
           <p>Address: {item.address}</p>
