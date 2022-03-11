@@ -158,7 +158,7 @@ export default function SelfCard(props) {
               yValues={isOpen2[1]}
               width='2000'
               height='450'
-              options={{ fillColor: '#FFFFFF', strokeColor: '#000000' }}
+              options={{ fillColor: '#000000', strokeColor: '#000000' }}
             />
           </div>
         </>}
