@@ -67,6 +67,14 @@ export default function CreateCard(props) {
     window.alert("please use correct period !")
     return;
    }
+   if (form.coefficient != 0.5 || form.coefficient != 1){
+    window.alert("not supported coefficient !")
+    return;
+   }
+   if ((form.end_hr*60 + form.end_min_index*30 - form.start_hr*60 + form.start_min_index*30) % 60 != 0 && form.coefficient == 0.5){
+    window.alert("not supported coefficient for half-hour-unit!")
+    return;
+   }
    const newTimeSlot = {
      year: form.year,
      month: form.month.padStart(2, '0'),
