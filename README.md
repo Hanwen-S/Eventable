@@ -1,13 +1,16 @@
 ## Eventable
 
-An online scheduling platform for users to create and manage their group events, and invite other users to certain events.  
+An online web application that helps with time management and multi-party scheduling. Users can create and manage their group events, invite other users to join certain events, and show their available time slots.
 
-## Screenshots (temp)
+## Screenshots
 
-![Screenshot1](https://i.imgur.com/Rh6wEQa.jpg)
+![Screenshot1](https://i.imgur.com/ZvXxJR1.png)
+![Screenshot2](https://i.imgur.com/qiUFUUq.png)
+![Screenshot3](https://i.imgur.com/1M3ju0k.png)
+![Screenshot4](https://i.imgur.com/9fmeuo6.jpg)
 
 
-## Installation and Setup Instructions
+## Installation and Setup
 
 Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
 
@@ -28,6 +31,7 @@ npm start
 ```
 
 ## Technologies Used
+- MERN stack:
 ![Technologies Used](https://i.imgur.com/81OVjKs.jpg?1)
 
 ## Contributors
