@@ -36,11 +36,13 @@ export default function SelfCard(props) {
     setIsOpen(!isOpen);
   };
 
-  let temp = Array(real_time.length).fill(0);
+  let temp = Array(48).fill(0);
+  console.log(temp)
   for (const inter of real_time){
       for (var k = inter[0]; k <= inter[1]; k++) {
           temp[k]++;
       }
+      console.log(temp)
   }
   const handleClick = () => {
     setIsOpen2(isOpen2 => [!isOpen2[0], temp]);

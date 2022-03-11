@@ -30,11 +30,40 @@ export default function Search(props){
   useEffect(() => {
     axios
     .get("http://localhost:5000/events/" + event_id)
-    .then((res) => {
-      setList(eventlist => [res.data])
+    .then(res => {
+      const templist = [res.data]
+      console.log(templist);
+      return templist;
     })
-    .catch(function (error) {
-      console.log(error);
+    .then((templist) => {
+      let participant_list = [];
+      let event_date = [];
+      const pairs = templist.map(item => ([item.participants_id, item.date]))
+      console.log(participant_list)
+      console.log(templist);
+      return [templist, pairs];
+    })
+    .then((compots) => {
+      const templist = compots[0];
+      const pairs = compots[1];
+      console.log('here is temp')
+         const myobj3 = {
+           pairs : pairs
+         }
+          axios
+          .get("http://localhost:5000/time_slots/goget_times", {params: myobj3})
+          .then((res) => {
+            console.log(templist)
+            let new_list = []
+            for (let i = 0; i < templist.length; i++){
+              new_list.push([templist[i], res.data[i]])
+            }
+            console.log(new_list);
+            setList(eventlist => new_list)
+          })
+          .catch(function (error) {
+            console.log(error);
+        })
     })
     //window.location.reload();
   }, []);
@@ -60,7 +89,7 @@ export default function Search(props){
             {console.log(eventlist)}
             {eventlist.map((item, index) => (
               <Grid item xs={3} sm={0} md={0} key={index}>
-                <SelfCard it = {item} key={index} signal={false} signal2={true}/>
+                <SelfCard it = {item[0]} time_slots = {item[1]} key={index} signal={false} signal2={true}/>
               </Grid>
             ))}
           </Grid>
