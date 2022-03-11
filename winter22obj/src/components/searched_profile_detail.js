@@ -34,7 +34,7 @@ export const SearchedProfileDetails = (props) => {
         first_name: res.data.person_first_name,
         last_name: res.data.person_last_name,
         email: res.data.person_email,
-        events: [res.data.person_joined_event_array],
+        events: res.data.person_created_event_array.concat(res.data.person_joined_event_array),
       });
       //console.log(res.data.person_joined_events_array);
   });
