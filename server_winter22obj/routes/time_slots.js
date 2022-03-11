@@ -27,33 +27,6 @@ timeSlotsRoutes.route("/time_slots/get").get(function (req, res) {
     });
 });
 
-/*// get a list of all the time slots
-timeSlotsRoutes.route("/time_slots").get(function (req, res) {
-  let db_connect = dbo.getDb();
-  db_connect
-    .collection("time_slots")
-    .find({})
-    .toArray(function (err, result) {
-      if (err) throw err;
-      res.json(result);
-    });
-});*/
-
-/*
-// get a list of all the time slots of a user by user id
-timeSlotsRoutes.route("/time_slots/:id").get(function (req, res) {
-  let db_connect = dbo.getDb();
-  let myquery = { user_id: req.params.id };
-  //let myquery = { _id: ObjectId( req.params.id )};
-  db_connect
-      .collection("time_slots")
-      .find(myquery).toArray(function (err, result) {
-        if (err) throw err;
-        res.json(result);
-        console.log(res)
-      });
-});*/
-
 // create a new time slot
 timeSlotsRoutes.route("/time_slots/add").post(function (req, response) {
   let db_connect = dbo.getDb();
