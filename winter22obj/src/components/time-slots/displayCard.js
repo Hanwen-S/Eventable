@@ -17,7 +17,7 @@ export default function DisplayCard({form, handleEdit, deleteSlot}) {
   //const form = props.form;
   
     return (
-              <Card style={{display: 'inline-block', width: '10.5vw'}}>
+              <Card style={{display: 'inline-block', width: '12vw'}}>
               <CardContent>
                   <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                   {form.year}-{form.month}-{form.day}
