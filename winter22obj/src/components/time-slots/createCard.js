@@ -11,12 +11,17 @@ import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import axios from 'axios';
+import { GrWindowsLegacy } from "react-icons/gr";
  
 export default function CreateCard(props) {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
  const [form, setForm] = useState({
-    year: "",
-    month: "",
-    day: "",
+    year: yyyy,
+    month: mm,
+    day: dd,
     start_hr: 0, // 0-23
     start_min_index: 0, // 0 (00) or 1 (30)
     end_hr: 0,
@@ -37,10 +42,23 @@ export default function CreateCard(props) {
  // This function will handle the submission.
  const onSubmit = async (e) => {
    e.preventDefault();
-  
+   const month_day = [[1, 31], [2, 28], [3, 31], [4, 30], [5, 31], [6, 30], [7, 31], [8, 31], [9, 30], [10, 31], [11, 30], [12, 31]];
    // When a post request is sent to the create url, we'll add a new time slot to the database.
    //const newTimeSlot = { ...form };
    const user_id = localStorage.getItem("user_id");
+   if (form.year.length != 4 || isNaN(form.year)){
+     window.alert("not right year format !")
+     return;
+   }
+   if (form.month.length != 2 || isNaN(form.month) || (parseInt(form.month) < 0 || parseInt(form.month) > 12)){
+    window.alert("not right month format !")
+    return;
+   }
+   if (form.day.length != 2 || isNaN(form.day) || (parseInt(form.day) < 0 || parseInt(form.day) > month_day[parseInt(form.month) - 1][1])){
+    
+    window.alert(parseInt(form.month))
+    return;
+   }
    const newTimeSlot = {
      year: form.year,
      month: form.month,
@@ -64,8 +82,9 @@ export default function CreateCard(props) {
      window.alert(error);
      return;
    });
- 
-   setForm({ year: "", month: "", day: "", 
+  
+
+   setForm({ year: yyyy, month: mm, day: dd, 
             start_hr: 0, start_min_index: 0, 
             end_hr: 0, end_min_index: 0, coefficient: 0.0 });
    navigate(
@@ -83,7 +102,7 @@ export default function CreateCard(props) {
           size="small"
           InputLabelProps={{ shrink: true }}
           id="filled-basic" 
-          label="Year"
+          label="Year yyyy"
           value={form.year}
           onChange={(e) => updateForm({ year: e.target.value })}
           required
@@ -92,7 +111,7 @@ export default function CreateCard(props) {
       <TextField
           size="small"
           InputLabelProps={{ shrink: true }}
-          label="Month"
+          label="Month mm"
           value={form.month}
           onChange={(e) => updateForm({ month: e.target.value })}
           required
@@ -101,7 +120,7 @@ export default function CreateCard(props) {
       <TextField
           size="small"
           InputLabelProps={{ shrink: true }}
-          label="Day"
+          label="Day dd"
           value={form.day}
           onChange={(e) => updateForm({ day: e.target.value })}
           required
