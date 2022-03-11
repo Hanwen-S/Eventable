@@ -59,6 +59,10 @@ export default function CreateCard(props) {
     window.alert("not compatible day !")
     return;
    }
+   if (form.start_hr > 24 || form.start_hr < 0 || form.end_hr > 24 || form.end_hr < 0 || isNaN(form.end_hr) || isNaN(form.start_hr)){
+    window.alert("please use correct hours !")
+    return;
+   }
    if ((form.start_hr === form.end_hr) && (form.start_min_index >= form.end_min_index)){
     window.alert("please use correct period !")
     return;
